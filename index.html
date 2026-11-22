@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#006aa7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#06456e" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Svenska">
+  <meta name="description" content="En yaygın İsveççe kalıpları ve kelimeleri hızlıca öğren.">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/app.css">
+  <title>Svenska</title>
+</head>
+<body>
+  <header class="top">
+    <div class="title-row">
+      <span id="progress" class="progress"></span>
+      <button id="clear-sel" class="icon-btn clear-btn" hidden>Temizle (0)</button>
+      <button id="abc-btn" class="icon-btn svg-btn" aria-label="Alfabe"><!-- "Aa", drawn by app.js --></button>
+      <button id="tr-btn" class="icon-btn svg-btn" aria-label="Çevir"><!-- chat bubble, drawn by app.js --></button>
+      <button id="gear" class="icon-btn svg-btn gear-btn" aria-label="Ayarlar" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+    <div id="controls" class="controls">
+      <div class="search-row">
+        <input id="search" type="search" placeholder="Türkçe veya İsveççe ara" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button id="scan-btn" class="icon-btn scan-btn" aria-label="Fotoğraf tara">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8.5h4l2-3h6l2 3h4V19H3z"/><circle cx="12" cy="13.2" r="3.6"/></svg>
+        </button>
+      </div>
+      <div class="row">
+        <div class="seg" id="status" role="group" aria-label="Göster">
+          <button data-status="all">Tümü</button>
+          <button data-status="todo">Öğrenilecek</button>
+          <button data-status="learned">Öğrenilen</button>
+        </div>
+        <select id="sort" aria-label="Sırala"></select>
+      </div>
+      <div id="types" class="chips" role="group" aria-label="Filtre"></div>
+    </div>
+  </header>
+
+  <main id="list"></main>
+  <main id="settings" hidden></main>
+
+  <nav class="tabs" aria-label="Bölümler">
+    <button data-tab="words">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>Kelimeler
+    </button>
+    <button data-tab="patterns">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h13"/></svg>Kalıplar
+    </button>
+  </nav>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="sheet" aria-label="Ayrıntılar" tabindex="-1">
+    <div id="sheet-body" class="sheet-body"></div>
+  </dialog>
+
+  <!-- The translator and the alphabet open on top of anything, including #sheet;
+       closing one returns to what was below. -->
+  <dialog id="translator" class="sheet" aria-label="Çevir" tabindex="-1">
+    <div id="translator-body" class="sheet-body"></div>
+  </dialog>
+
+  <dialog id="alphabet" class="sheet" aria-label="Alfabe" tabindex="-1">
+    <div id="alphabet-body" class="sheet-body"></div>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
