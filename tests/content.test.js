@@ -54,13 +54,13 @@ test('every form of every word is a real string', () => {
       const s = svForm(w, f);
       if (!s || /undefined/.test(s)) bad.push(`${w.id} ${f}: ${s}`);
     }
-    if (FORMS[w.type] && !w.prop && !formsLine(w)) bad.push(`${w.id}: empty forms line`);
+    if (FORMS[w.type] && !w.prop && !w.fixed && !formsLine(w)) bad.push(`${w.id}: empty forms line`);
   }
   assert.deepEqual(bad, []);
 });
 
 // Same spelling, different words: each pair is shown as two blocks with their own meanings.
-const ALLOWED_DUPES = new Set([]);
+const ALLOWED_DUPES = new Set(['vår', 'fråga']);
 
 test('Swedish spellings are unique, except known pairs', () => {
   const by = new Map();

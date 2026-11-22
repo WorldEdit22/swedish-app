@@ -33,6 +33,11 @@ test('proper nouns keep their spelling and take Turkish suffixes after an apostr
   assert.deepEqual(both(fill(tpl('Jag är {w:at}.', '{w:DA(y)Im}.'), istanbul)), ['Jag är i Istanbul.', "İstanbul'dayım."]);
 });
 
+test('fixed words (months) take Turkish suffixes without an apostrophe', () => {
+  const januari = { sv: 'januari', tr: 'ocak', type: 'noun', g: 'en', m: 1, fixed: 1, at: 'i januari' };
+  assert.deepEqual(both(fill(tpl('Vi ses {w:at}.', '{w:DA} görüşürüz.'), januari)), ['Vi ses i januari.', 'Ocakta görüşürüz.']);
+});
+
 test('verbs: the Swedish imperative and the bare Turkish stem, the infinitive and -mak', () => {
   const dricka = v('dricka', 'içmek', { vf: ['dricker', 'drack', 'druckit'] });
   assert.deepEqual(both(fill(tpl('{w:imp}!', '{w:}!'), dricka)), ['Drick!', 'İç!']);

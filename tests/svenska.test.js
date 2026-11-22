@@ -30,6 +30,14 @@ test('ett-words: article, definite, plural and definite plural', () => {
   check(noun('hus', 'ett'), { en: 'ett hus', def: 'huset', pl: 'hus', pld: 'husen' });
   check(noun('äpple', 'ett'), { def: 'äpplet', pl: 'äpplen', pld: 'äpplena' });
   check(noun('barn', 'ett'), { def: 'barnet', pl: 'barn', pld: 'barnen' });
+  check(noun('bageri', 'ett'), { def: 'bageriet', pl: 'bagerier', pld: 'bagerierna' });
+  check(noun('paraply', 'ett', { pl: 'paraplyer' }), { def: 'paraplyet' });
+});
+
+test('fixed words (months) keep their spelling but are not names', () => {
+  const januari = { sv: 'januari', type: 'noun', g: 'en', m: 1, fixed: 1, at: 'i januari' };
+  check(januari, { en: 'januari', def: 'januari', pl: 'januari', at: 'i januari' });
+  assert.equal(formsLine(januari), '');
 });
 
 test('mass nouns take no article, and overrides win', () => {

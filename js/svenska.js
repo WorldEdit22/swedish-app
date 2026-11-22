@@ -14,7 +14,8 @@
 // Word fields:
 //   all     sv, type
 //   nouns   g ('en' | 'ett'), m (mass noun: no article, no plural), prop (proper noun:
-//           every form is sv), prep ('i' | 'på', default 'i'); overrides def, pl, pld, at, to, from
+//           every form is sv), fixed (the same for a common word, such as a month),
+//           prep ('i' | 'på', default 'i'); overrides def, pl, pld, at, to, from
 //   verbs   vg (1 tala/talar, 2 stänga/stänger, 3 bo/bor) or vf [present, past, supine]
 //           for irregular verbs; imp overrides the imperative. Particle verbs
 //           ("tycka om") inflect their first word only.
@@ -22,7 +23,7 @@
 //
 // Rules:
 //   definite   en-words: +n after a vowel or an unstressed -el/-er/-en/-or, else +en
-//              ett-words: +t after a vowel, else +et
+//              ett-words: +t after a vowel, else +et (a stressed final -i/-y also +et)
 //   plural     en: -a → -or, -are unchanged, -else → +r, -e → -ar, unstressed -el/-er/-en drop the e
 //              and take -ar, -ion/-het/-tet/-ist/-ör/-ent/-ant/-ang and longer -or/-ur/-ik take +er,
 //              another vowel +r, else +ar
@@ -54,11 +55,15 @@ const dropE = (s) => s.slice(0, -2) + s.slice(-1);
 
 // ---------- nouns ----------
 
+// Names (prop) and fixed words such as months keep their spelling in every form.
+const unchanging = (w) => w.prop || w.fixed;
+
 function def(w) {
   if (w.def) return w.def;
-  if (w.prop) return w.sv;
+  if (unchanging(w)) return w.sv;
   const s = w.sv;
-  if (w.g === 'ett') return isVowel(last(s)) ? s + 't' : s + 'et';
+  // A stressed final -i / -y takes -et (bageriet, paraplyet); other vowels -t (äpplet).
+  if (w.g === 'ett') return isVowel(last(s)) && !(vowelGroups(s) >= 2 && /[iy]$/.test(s)) ? s + 't' : s + 'et';
   return isVowel(last(s)) || unstressedE(s) || unstressedOr(s) ? s + 'n' : s + 'en';
 }
 
@@ -68,7 +73,7 @@ const ER_LONG = ['or', 'ur', 'ik']; // only in words of two or more syllables
 function pl(w) {
   if (w.pl) return w.pl;
   const s = w.sv;
-  if (w.prop || w.m) return s;
+  if (unchanging(w) || w.m) return s;
   if (w.g === 'ett') {
     if (s.endsWith('eri')) return s + 'er';
     return isVowel(last(s)) ? s + 'n' : s;
@@ -86,7 +91,7 @@ function pl(w) {
 function pld(w) {
   if (w.pld) return w.pld;
   const p = pl(w);
-  if (w.prop) return p;
+  if (unchanging(w)) return p;
   if (w.g === 'ett' && p === w.sv) return p + 'en';
   if (p.endsWith('are')) return p.slice(0, -1) + 'na';
   if (p.endsWith('r')) return p + 'na';
@@ -94,7 +99,7 @@ function pld(w) {
   return p + 'na';
 }
 
-const withArticle = (w) => (w.m || w.prop ? w.sv : `${w.g === 'ett' ? 'ett' : 'en'} ${w.sv}`);
+const withArticle = (w) => (w.m || unchanging(w) ? w.sv : `${w.g === 'ett' ? 'ett' : 'en'} ${w.sv}`);
 
 // ---------- verbs ----------
 
@@ -207,7 +212,7 @@ export function svAgree(word, helper) {
 // The forms shown on a word's window.
 export function formsLine(w) {
   if (w.type === 'noun') {
-    if (w.prop) return '';
+    if (unchanging(w)) return '';
     if (w.m) return `${w.sv} · ${def(w)}`;
     return [withArticle(w), def(w), pl(w), pld(w)].join(' · ');
   }
