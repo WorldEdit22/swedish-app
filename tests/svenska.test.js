@@ -112,6 +112,12 @@ test('adjectives: t-form, a-form, comparison', () => {
   check(adj('liten', { t: 'litet', a: 'små' }), { t: 'litet', a: 'små' });
 });
 
+test('participles in -ad take -at and -ade; one-syllable -ad words do not', () => {
+  check(adj('stressad'), { t: 'stressat', a: 'stressade' });
+  check(adj('intresserad'), { t: 'intresserat', a: 'intresserade' });
+  check(adj('glad'), { t: 'glatt', a: 'glada' });
+});
+
 test('agreement helpers follow the noun gender', () => {
   const bil = noun('bil', 'en');
   const hus = noun('hus', 'ett');

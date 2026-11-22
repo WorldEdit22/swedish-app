@@ -37,6 +37,7 @@
 //              vf: imperative = infinitive minus a final a when longer than 2 letters
 //   adjectives t: vowel+d → tt, consonant+d → t, -t and -a unchanged, final vowel +tt, else +t
 //              a: -a unchanged, unstressed -el/-er/-en drop the e, else +a
+//              participles in -ad (two or more syllables): -at, -ade
 //              comparison: +are / +ast on the a-form's stem
 
 const VOWELS = new Set('aeiouyåäö');
@@ -140,9 +141,13 @@ function verbForm(w, form) {
 
 // ---------- adjectives ----------
 
+// A participle in -ad (stressad, intresserad): two or more syllables.
+const participle = (s) => vowelGroups(s) >= 2 && s.endsWith('ad');
+
 function tForm(w) {
   if (w.t) return w.t;
   const s = w.sv;
+  if (participle(s)) return s.slice(0, -1) + 't';
   if (s.endsWith('a') || s.endsWith('t')) return s;
   if (isVowel(last(s))) return s + 'tt';
   if (s.endsWith('d')) return isVowel(s[s.length - 2]) ? s.slice(0, -1) + 'tt' : s.slice(0, -1) + 't';
@@ -155,6 +160,7 @@ const adjStem = (s) => (unstressedE(s) ? dropE(s) : s);
 function aForm(w) {
   if (w.a) return w.a;
   const s = w.sv;
+  if (participle(s)) return s + 'e';
   if (s.endsWith('a') || s.endsWith('e')) return s;
   return adjStem(s) + 'a';
 }

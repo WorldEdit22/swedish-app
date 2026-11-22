@@ -60,7 +60,7 @@ test('every form of every word is a real string', () => {
 });
 
 // Same spelling, different words: each pair is shown as two blocks with their own meanings.
-const ALLOWED_DUPES = new Set(['vår', 'fråga']);
+const ALLOWED_DUPES = new Set(['vår', 'fråga', 'kort', 'salt']);
 
 test('Swedish spellings are unique, except known pairs', () => {
   const by = new Map();
