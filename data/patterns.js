@@ -986,15 +986,338 @@ const VERBS = [
   },
 ];
 
-export const PATTERNS = [...EVERYDAY.map((p) => ({ ...p, group: 'everyday' })), ...VERBS.map((p) => ({ ...p, group: 'verbs' }))];
+// Connectors. In a subordinate clause (after när, om, eftersom, att…) "inte" comes before
+// the verb, and a sentence that starts with one puts the main verb before its subject.
+const CONNECTORS = [
+  {
+    id: 'when', sv: 'När jag ___…', tr: '-dığımda…', slot: 'verb',
+    variants: [
+      {
+        sv: 'När jag ___, …', tr: '-dığımda …',
+        note: 'Cümle "när" ile başlarsa ana cümlede fiil özneden önce gelir: När jag kommer hem, äter jag.',
+        ex: [['När jag kommer hem, ringer jag dig.', 'Eve gelince seni ararım.']],
+        t: [['När jag {w:pres}, lyssnar jag på musik.', '{w:DIğImdA} müzik dinlerim.']],
+      },
+      {
+        sv: 'När jag var …', tr: '-ken (geçmişte)',
+        ex: [['När jag var liten bodde jag i Izmir.', "Küçükken İzmir'de yaşıyordum."]],
+        t: [],
+      },
+    ],
+  },
+  {
+    id: 'if', sv: 'Om du ___…', tr: '-ersen…', slot: 'verb',
+    variants: [
+      {
+        sv: 'Om du ___, …', tr: '-ersen …',
+        note: 'om = eğer. Ana cümlede fiil başa geçer: Om du kommer, blir jag glad.',
+        ex: [['Om du vill, kan vi gå.', 'İstersen gidebiliriz.']],
+        t: [['Om du {w:pres}, blir jag glad.', '{w:RsAn} sevinirim.']],
+      },
+      {
+        sv: 'Om jag ___, …', tr: '-ersem …',
+        ex: [['Om jag har tid, kommer jag.', 'Vaktim olursa gelirim.']],
+        t: [['Om jag {w:pres}, ringer jag dig.', '{w:RsAm} seni ararım.']],
+      },
+    ],
+  },
+  {
+    id: 'because', sv: 'eftersom…', tr: 'çünkü / -diği için', slot: 'verb',
+    variants: [
+      {
+        sv: 'eftersom jag ___', tr: '-diğim için',
+        note: 'Yan cümlede "inte" fiilden önce gelir: eftersom jag inte har tid.',
+        ex: [['Jag stannar hemma eftersom jag är sjuk.', 'Hasta olduğum için evde kalıyorum.']],
+        t: [['Jag är glad eftersom jag {w:past}.', '{w:DIğIm} için mutluyum.']],
+      },
+      {
+        sv: 'för att …', tr: 'çünkü …',
+        ex: [['Jag kan inte komma, för att jag jobbar.', 'Gelemem, çünkü çalışıyorum.']],
+        t: [],
+      },
+    ],
+  },
+  {
+    id: 'but', sv: 'men', tr: 'ama',
+    variants: [
+      {
+        sv: 'men', tr: 'ama',
+        ex: [['Jag vill, men jag kan inte.', 'İstiyorum ama yapamam.'], ['Det är dyrt men gott.', 'Pahalı ama lezzetli.']],
+        t: [],
+      },
+    ],
+  },
+  {
+    id: 'also', sv: 'också / inte heller', tr: 'de / da',
+    variants: [
+      {
+        sv: 'också / inte heller', tr: 'de / da, -de değil',
+        note: 'Olumluda "också", olumsuzda "inte heller".',
+        ex: [['Jag också!', 'Ben de!'], ['Jag har inte heller tid.', 'Benim de vaktim yok.']],
+        t: [],
+      },
+    ],
+  },
+  {
+    id: 'that', sv: 'att …', tr: 'ki / -diğini', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag vet att …', tr: '-diğini biliyorum',
+        ex: [['Jag vet att du är trött.', 'Yorgun olduğunu biliyorum.']],
+        t: [['Jag vet att du {w:pres}.', '{w:DIğInI} biliyorum.']],
+      },
+      {
+        sv: 'Jag tror att …', tr: 'Sanırım …',
+        ex: [['Jag tror att det blir regn.', 'Sanırım yağmur yağacak.']],
+        t: [['Jag tror att han {w:pres}.', 'Sanırım o {w:Iyor}.']],
+      },
+    ],
+  },
+  {
+    id: 'before', sv: 'innan / före', tr: '-meden önce', slot: 'verb',
+    variants: [
+      {
+        sv: 'innan jag ___', tr: '-meden önce',
+        note: '"innan" + cümle, "före" + isim.',
+        ex: [['Ring mig innan du åker.', 'Gitmeden önce beni ara.']],
+        t: [['Ring mig innan du {w:pres}.', '{w:mAdAn} önce beni ara.']],
+      },
+      {
+        sv: 'före ___', tr: '___-den önce', slot: 'noun:meal|event',
+        ex: [['Tvätta händerna före maten.', 'Yemekten önce ellerini yıka.']],
+        t: [['Vi ses före {w:def}.', '{w:DAn} önce görüşelim.']],
+      },
+    ],
+  },
+  {
+    id: 'after', sv: 'efter att / efter', tr: '-dikten sonra', slot: 'verb',
+    variants: [
+      {
+        sv: 'efter att jag har ___', tr: '-dikten sonra',
+        ex: [['Jag ringer dig efter att jag har ätit.', 'Yedikten sonra seni ararım.']],
+        t: [['Jag ringer dig efter att jag har {w:sup}.', '{w:DIktAn} sonra seni ararım.']],
+      },
+      {
+        sv: 'efter ___', tr: '___-den sonra', slot: 'noun:meal|event',
+        ex: [['Vad gör du efter jobbet?', 'İşten sonra ne yapıyorsun?']],
+        t: [['Vi ses efter {w:def}.', '{w:DAn} sonra görüşelim.']],
+      },
+    ],
+  },
+  {
+    id: 'inorder', sv: 'för att ___', tr: '-mek için', slot: 'verb',
+    variants: [
+      {
+        sv: 'för att ___', tr: '-mek için',
+        ex: [['Jag läser för att lära mig svenska.', 'İsveççe öğrenmek için okuyorum.']],
+        t: [['Jag är här för att {w}.', '{w:mAk} için buradayım.']],
+      },
+    ],
+  },
+  {
+    id: 'while', sv: 'medan jag ___', tr: '-irken', slot: 'verb',
+    variants: [
+      {
+        sv: 'medan jag ___', tr: '-irken',
+        ex: [['Jag lyssnar på radio medan jag lagar mat.', 'Yemek yaparken radyo dinlerim.']],
+        t: [['Jag lyssnar på musik medan jag {w:pres}.', '{w:Rken} müzik dinlerim.']],
+      },
+    ],
+  },
+  {
+    id: 'until', sv: 'tills / till', tr: '-ene kadar', slot: 'verb',
+    variants: [
+      {
+        sv: 'tills jag ___', tr: '-ene kadar',
+        ex: [['Vänta tills jag kommer.', 'Ben gelene kadar bekle.']],
+        t: [['Vänta tills jag {w:pres}.', 'Ben {w:(y)AnA} kadar bekle.']],
+      },
+      {
+        sv: 'till klockan ___', tr: 'saat ___-e kadar', slot: '*:hour',
+        ex: [['Jag jobbar till klockan fem.', 'Saat beşe kadar çalışıyorum.']],
+        t: [['Jag jobbar till klockan {w}.', 'Saat {w:(y)A} kadar çalışıyorum.']],
+      },
+    ],
+  },
+  {
+    id: 'assoon', sv: 'så fort', tr: '-ir -mez', slot: 'verb',
+    variants: [
+      {
+        sv: 'så fort jag ___', tr: '-ir -mez',
+        ex: [['Jag ringer så fort jag kommer hem.', 'Eve gelir gelmez ararım.']],
+        t: [['Jag ringer så fort jag {w:pres}.', '{w:R} {w:mAz} ararım.']],
+      },
+    ],
+  },
+  {
+    id: 'or', sv: 'eller', tr: 'veya / mı … mı',
+    variants: [
+      {
+        sv: 'eller', tr: 'veya / mı … mı',
+        ex: [['Kaffe eller te?', 'Kahve mi çay mı?'], ['Både och!', 'İkisi de!']],
+        t: [],
+      },
+    ],
+  },
+  {
+    id: 'sothat', sv: 'så att', tr: '-sin diye',
+    variants: [
+      {
+        sv: 'så att …', tr: '-sin diye',
+        ex: [['Jag pratar långsamt så att du förstår.', 'Anlayasın diye yavaş konuşuyorum.']],
+        t: [],
+      },
+    ],
+  },
+  {
+    id: 'although', sv: 'fast / även om', tr: '-e rağmen / -se bile',
+    variants: [
+      {
+        sv: 'fast / även om …', tr: '-e rağmen / -se bile',
+        ex: [['Jag går ut fast det regnar.', 'Yağmur yağmasına rağmen dışarı çıkıyorum.'], ['Även om det är dyrt, köper jag det.', 'Pahalı olsa bile alırım.']],
+        t: [],
+      },
+    ],
+  },
+];
+
+// Sentence order: what Swedish does differently from Turkish.
+const COUNTABLE = 'noun:food|thing|place|vehicle|animal|family!count';
+const ORDER_PATTERNS = [
+  {
+    id: 'v2', sv: 'Idag ___ jag', tr: 'fiil ikinci sırada', slot: 'verb',
+    variants: [
+      {
+        sv: 'Idag ___ jag', tr: 'Bugün ___-iyorum',
+        note: 'Ana cümlede fiil her zaman ikinci sıradadır. Cümle zaman veya yerle başlarsa özne fiilden sonra gelir: Idag äter jag.',
+        ex: [['Idag jobbar jag hemma.', 'Bugün evde çalışıyorum.'], ['På lördag åker vi till stan.', 'Cumartesi şehre gidiyoruz.']],
+        t: [['Idag {w:pres+jag}.', 'Bugün {w:Iyorum}.'], ['Imorgon ska jag {w}.', 'Yarın {w:(y)AcAğIm}.']],
+      },
+    ],
+  },
+  {
+    id: 'question', sv: '___ du?', tr: 'soru: fiil başa', slot: 'verb',
+    variants: [
+      {
+        sv: '___ du?', tr: '-iyor musun?',
+        note: 'Evet/hayır sorusunda fiil en başa gelir; ayrı bir soru eki yoktur.',
+        ex: [['Kommer du?', 'Geliyor musun?'], ['Har du tid?', 'Vaktin var mı?']],
+        t: [['{w:pres+du}?', '{w:Iyor_mIsIn}?'], ['Ska vi {w}?', '{w:(y)AlIm_mI}?']],
+      },
+    ],
+  },
+  {
+    id: 'inte', sv: 'inte nereye gelir?', tr: 'olumsuzluk', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag ___ inte', tr: '-miyorum',
+        note: 'Ana cümlede "inte" fiilden sonra gelir.',
+        ex: [['Jag förstår inte.', 'Anlamıyorum.']],
+        t: [['Jag {w:pres+inte}.', '{w:mIyorum}.']],
+      },
+      {
+        sv: 'Jag kan inte ___', tr: '-emem',
+        note: 'İki fiil varsa "inte" ilk fiilden sonra gelir.',
+        ex: [['Jag kan inte komma.', 'Gelemem.']],
+        t: [['Jag kan inte {w}.', '{w:(y)AmAm}.']],
+      },
+      {
+        sv: '… att jag inte ___', tr: '-mediğimi …',
+        note: 'Yan cümlede "inte" fiilden önce gelir: …att hon inte kommer.',
+        ex: [['Han säger att han inte har tid.', 'Vakti olmadığını söylüyor.']],
+        t: [['Hon säger att hon inte {w:pres}.', '{w:mAdIğInI} söylüyor.']],
+      },
+    ],
+  },
+  {
+    id: 'enett', sv: 'en / ett ___', tr: 'bir ___', slot: COUNTABLE,
+    variants: [
+      {
+        sv: 'en / ett ___', tr: 'bir ___',
+        note: 'Her isim ya "en" ya "ett" alır. Kuralı yok; isimle birlikte ezberle. İsimlerin çoğu en-kelimedir.',
+        ex: [['Det är en bil.', 'Bu bir araba.'], ['Det är ett hus.', 'Bu bir ev.']],
+        t: [['Det är {art} {w}.', 'Bu bir {w}.']],
+      },
+    ],
+  },
+  {
+    id: 'adjagree', sv: 'en stor ___ / ett stort ___', tr: 'büyük bir ___', slot: COUNTABLE,
+    variants: [
+      {
+        sv: 'en stor ___ / ett stort ___', tr: 'büyük bir ___',
+        note: 'Sıfat ett-kelimeyle -t alır: en stor bil, ett stort hus. Çoğulda -a: stora bilar.',
+        ex: [['Det är ett stort hus.', 'Bu büyük bir ev.']],
+        t: [['Det är {art} {adj:stor} {w}.', 'Bu büyük {bir}{w}.'], ['{w:def} är {adj:ny}.', '{w} yeni.']],
+      },
+      {
+        sv: 'stora ___', tr: 'büyük ___-ler',
+        ex: [['Det är stora bilar.', 'Bunlar büyük arabalar.']],
+        t: [['Det är stora {w:pl}.', 'Bunlar büyük {w:lAr}.']],
+      },
+    ],
+  },
+  {
+    id: 'definite', sv: 'en ___ → ___-en', tr: 'belirli hâl', slot: COUNTABLE,
+    variants: [
+      {
+        sv: 'en ___ → ___-en', tr: 'bir ___ → o ___',
+        note: 'İlk kez söylenen şey "en/ett" alır; bilinen şey belirli hâle girer: en bil → bilen, ett hus → huset.',
+        ex: [['Jag har en bil. Bilen är röd.', 'Bir arabam var. Araba kırmızı.']],
+        t: [['Jag har {art} {w}, och {den} är {adj:ny}.', 'Bir {w:(I)m} var ve o yeni.'], ['{w:def} är här.', '{w} burada.']],
+      },
+    ],
+  },
+  {
+    id: 'doubledef', sv: 'den stora ___-en', tr: 'büyük olan ___', slot: COUNTABLE,
+    variants: [
+      {
+        sv: 'den stora ___-en', tr: 'büyük olan ___',
+        note: 'Sıfatla birlikte belirlilik iki kez gösterilir: den stora bilen, det stora huset.',
+        ex: [['Den stora bilen är min.', 'Büyük araba benim.']],
+        t: [['Jag vill ha {den} stora {w:def}.', 'Büyük olan {w:(y)I} istiyorum.']],
+      },
+    ],
+  },
+  {
+    id: 'plural', sv: 'två ___ / ___-na', tr: 'çoğul', slot: 'noun:thing|vehicle|animal|family!count',
+    variants: [
+      {
+        sv: 'två ___ / ___-na', tr: 'iki ___ / ___-ler',
+        note: 'Çoğul ekleri: -or, -ar, -er, -n veya hiç ek yok (ett hus, två hus). Sayıdan sonra isim çoğul olur.',
+        ex: [['Jag har två barn.', 'İki çocuğum var.'], ['Var är nycklarna?', 'Anahtarlar nerede?']],
+        t: [['Jag har två {w:pl}.', 'İki {w:(I)m} var.'], ['Var är {w:pld}?', '{w:lAr} nerede?']],
+      },
+    ],
+  },
+  {
+    id: 'questionword', sv: 'Var / När ___ du?', tr: 'Nerede / Ne zaman …?', slot: 'verb',
+    variants: [
+      {
+        sv: 'Var / När ___ du?', tr: 'Nerede / Ne zaman …?',
+        note: 'Soru kelimesi başa, sonra fiil, sonra özne: Var bor du?',
+        ex: [['Var bor du?', 'Nerede oturuyorsun?'], ['Vad heter du?', 'Adın ne?']],
+        t: [['När {w:pres+du}?', 'Ne zaman {w:IyorsIn}?'], ['Hur ofta {w:pres+du}?', 'Ne sıklıkla {w:IyorsIn}?']],
+      },
+    ],
+  },
+];
+
+export const PATTERNS = [
+  ...EVERYDAY.map((p) => ({ ...p, group: 'everyday' })),
+  ...VERBS.map((p) => ({ ...p, group: 'verbs' })),
+  ...CONNECTORS.map((p) => ({ ...p, group: 'connectors' })),
+  ...ORDER_PATTERNS.map((p) => ({ ...p, group: 'order' })),
+];
 
 // "Most useful" order: how often each pattern comes up when talking with Swedes.
 export const ORDER = [
-  'want', 'finns', 'where', 'price', 'iam', 'itis', 'understand', 'name', 'have', 'need',
-  'this', 'my', 'goingto', 'at', 'isit', 'thanks', 'seeyou', 'clock', 'howto', 'looking',
-  'from', 'hurts', 'by', 'withwithout', 'like', 'think', 'more', 'nextlast', 'howmany', 'whatcalled',
-  'wantto', 'can', 'now', 'past', 'must', 'perfect', 'future', 'may', 'wouldlike', 'lets',
-  'please', 'dont', 'habit', 'should', 'knowhow', 'likedoing', 'try', 'start', 'progressive', 'ever',
-  'forgot', 'timeto', 'plan', 'just',
+  'want', 'finns', 'where', 'price', 'iam', 'itis', 'understand', 'name', 'wantto', 'can',
+  'now', 'past', 'have', 'need', 'must', 'v2', 'question', 'inte', 'perfect', 'future',
+  'may', 'wouldlike', 'lets', 'please', 'this', 'my', 'goingto', 'at', 'enett', 'adjagree',
+  'isit', 'dont', 'habit', 'thanks', 'seeyou', 'clock', 'howto', 'looking', 'from', 'hurts',
+  'by', 'withwithout', 'like', 'when', 'if', 'because', 'but', 'also', 'that', 'definite',
+  'doubledef', 'plural', 'questionword', 'before', 'after', 'should', 'think', 'more', 'nextlast', 'inorder',
+  'howmany', 'whatcalled', 'knowhow', 'likedoing', 'try', 'start', 'while', 'until', 'assoon', 'progressive',
+  'ever', 'forgot', 'timeto', 'plan', 'just', 'or', 'sothat', 'although',
 ];
 PATTERNS.sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));

@@ -87,6 +87,13 @@ export function attach(word, suffix) {
     else if (suffix.startsWith('(y)A') || suffix.startsWith('(y)I')) tokens = ['n', ...tokens.slice(1)];
     else if (suffix.startsWith('DA')) tokens = ['n', ...tokens];
     else if (suffix.startsWith('(I)')) out = /[aeıioöuü]s[ıiuü]$/.test(base) ? base.slice(0, -2) : base.slice(0, -1);
+    // The plural goes before the possessive, which comes back as -I, and a softened stem
+    // hardens again before the consonant: otobüs durağı → otobüs durakları, buzdolabı → buzdolapları.
+    else if (suffix === 'lAr') {
+      const bare = /[aeıioöuü]s[ıiuü]$/.test(base) ? base.slice(0, -2) : base.slice(0, -1);
+      out = bare.replace(/[ğbdc]$/, (c) => ({ ğ: 'k', b: 'p', d: 't', c: 'ç' })[c]);
+      tokens = tokenize('lArI');
+    }
   }
 
   // Present continuous: a final stem vowel drops before -Iyor.

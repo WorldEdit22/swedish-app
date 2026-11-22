@@ -185,6 +185,22 @@ test('everyday spot checks', () => {
   assert.deepEqual(render('iam', 1, 0, 'people:läkare'), ['Jag är läkare.', 'Doktorum.']);
 });
 
+test('all four groups are in, 78 patterns in the final order', () => {
+  assert.equal(ORDER.length, 78);
+  for (const g of Object.keys(GROUPS)) assert.ok(PATTERNS.some((p) => p.group === g), `group ${g} has patterns`);
+});
+
+test('sentence-order and connector spot checks', () => {
+  assert.deepEqual(render('adjagree', 0, 0, 'home:hus'), ['Det är ett stort hus.', 'Bu büyük bir ev.']);
+  assert.deepEqual(render('adjagree', 0, 0, 'travel:bil'), ['Det är en stor bil.', 'Bu büyük bir araba.']);
+  assert.deepEqual(render('doubledef', 0, 0, 'home:hus'), ['Jag vill ha det stora huset.', 'Büyük olan evi istiyorum.']);
+  assert.deepEqual(render('v2', 0, 0, 'actions:äta'), ['Idag äter jag.', 'Bugün yiyorum.']);
+  assert.deepEqual(render('v2', 0, 0, 'actions:tycka om'), ['Idag tycker jag om.', 'Bugün hoşlanıyorum.']);
+  assert.deepEqual(render('inte', 2, 0, 'actions:simma'), ['Hon säger att hon inte simmar.', 'Yüzmediğini söylüyor.']);
+  assert.deepEqual(render('if', 0, 0, 'actions:komma'), ['Om du kommer, blir jag glad.', 'Gelirsen sevinirim.']);
+  assert.deepEqual(render('assoon', 0, 0, 'actions:komma'), ['Jag ringer så fort jag kommer.', 'Gelir gelmez ararım.']);
+});
+
 test('verb spot checks', () => {
   assert.deepEqual(render('now', 0, 0, 'actions:tala'), ['Jag talar.', 'Konuşuyorum.']);
   assert.deepEqual(render('now', 2, 0, 'actions:tycka om'), ['Jag tycker inte om.', 'Hoşlanmıyorum.']);

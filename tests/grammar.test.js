@@ -220,6 +220,15 @@ table('other verb forms', [
   [verb('beklemek'), '(y)AnA', 'bekleyene'],
 ]);
 
+test('compound nouns in the plural drop their possessive and take -leri / -ları', () => {
+  const cmp = (tr) => ({ tr, type: 'noun', cmp: 1 });
+  assert.equal(attach(cmp('yüzme havuzu'), 'lAr'), 'yüzme havuzları');
+  assert.equal(attach(cmp('sıra numarası'), 'lAr'), 'sıra numaraları');
+  assert.equal(attach(cmp('çamaşır makinesi'), 'lAr'), 'çamaşır makineleri');
+  assert.equal(attach(cmp('otobüs durağı'), 'lAr'), 'otobüs durakları');
+  assert.equal(attach(cmp('buzdolabı'), 'lAr'), 'buzdolapları');
+});
+
 test('capTr capitalises the Turkish way', () => {
   assert.equal(capTr('istanbul'), 'İstanbul');
   assert.equal(capTr('ılık'), 'Ilık');
