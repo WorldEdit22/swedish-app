@@ -5,6 +5,7 @@ import { PATTERNS, GROUPS, ORDER } from '../data/patterns.js';
 import { svForm, formsLine } from '../js/svenska.js';
 import { fill, fits } from '../js/combine.js';
 import { hintOf } from '../js/uttal.js';
+import { RANKS } from '../data/ranks.js';
 import { englishWords, allStrings } from './english.js';
 
 const catIds = new Set(CATEGORIES.map((c) => c.id));
@@ -79,6 +80,21 @@ test('Turkish text has no English', () => {
   ];
   const found = allStrings(text).flatMap((s) => englishWords(s).map((e) => `${e} ← ${s}`));
   assert.deepEqual(found, []);
+});
+
+// Spoken-Swedish ranks come from tools/rank-words.mjs. A rank of 0 means the subtitle list
+// doesn't have the word; that is accepted only for these (Swedish life words subtitles rarely use).
+const UNRANKED_OK = new Set([
+  'food:kanelbulle', 'food:halal', 'town:simhall', 'shopping:swish', 'shopping:nummerlapp', 'shopping:Systembolaget',
+  'shopping:öppettider', 'travel:Ankara', 'travel:Izmir', 'work:SFI', 'work:kurdiska', 'time:ramadan', 'time:eid',
+  'clothes:regnjacka',
+]);
+
+test('every word is ranked', () => {
+  const missing = WORDS.filter((w) => typeof RANKS[w.id] !== 'number').map((w) => w.id);
+  assert.deepEqual(missing, [], 'run tools/rank-words.mjs');
+  const zero = WORDS.filter((w) => RANKS[w.id] === 0 && !UNRANKED_OK.has(w.id)).map((w) => w.id);
+  assert.deepEqual(zero, []);
 });
 
 test('every hint is plain text', () => {
