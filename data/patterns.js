@@ -624,12 +624,377 @@ const EVERYDAY = [
   },
 ];
 
-export const PATTERNS = [...EVERYDAY.map((p) => ({ ...p, group: 'everyday' }))];
+// Verbs: the Swedish present and past have one form for every person, and after
+// vill / kan / ska / måste the verb stays in the infinitive, without "att".
+const VERBS = [
+  {
+    id: 'wantto', sv: 'Jag vill ___', tr: '-mek istiyorum', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag vill ___', tr: '-mek istiyorum',
+        note: 'vill, kan, ska, måste gibi fiillerden sonra mastar gelir, "att" gelmez: Jag vill äta.',
+        ex: [['Jag vill lära mig svenska.', 'İsveççe öğrenmek istiyorum.'], ['Vill du fika?', 'Kahve molası vermek ister misin?']],
+        t: [['Jag vill {w}.', '{w:mAk} istiyorum.'], ['Jag vill inte {w}.', '{w:mAk} istemiyorum.'], ['Vill du {w}?', '{w:mAk} ister misin?']],
+      },
+    ],
+  },
+  {
+    id: 'can', sv: 'Kan du ___?', tr: '-ebilir misin?', slot: 'verb',
+    variants: [
+      {
+        sv: 'Kan du ___?', tr: '-ebilir misin?',
+        ex: [['Kan du hjälpa mig?', 'Bana yardım edebilir misin?'], ['Kan du upprepa?', 'Tekrar edebilir misin?']],
+        t: [['Kan du {w}?', '{w:(y)Abilir_mIsIn}?']],
+      },
+      {
+        sv: 'Kan jag ___?', tr: '-ebilir miyim?',
+        ex: [['Kan jag sitta här?', 'Burada oturabilir miyim?'], ['Kan jag betala med kort?', 'Kartla ödeyebilir miyim?']],
+        t: [['Kan jag {w} här?', 'Burada {w:(y)Abilir_mIyIm}?']],
+      },
+      {
+        sv: 'Jag kan ___', tr: '-ebilirim',
+        ex: [['Jag kan komma imorgon.', 'Yarın gelebilirim.']],
+        t: [['Jag kan {w}.', '{w:(y)AbilirIm}.'], ['Jag kan {w} imorgon.', 'Yarın {w:(y)AbilirIm}.']],
+      },
+      {
+        sv: 'Jag kan inte ___', tr: '-emem',
+        ex: [['Jag kan inte komma idag.', 'Bugün gelemem.']],
+        t: [['Jag kan inte {w}.', '{w:(y)AmAm}.'], ['Jag kan inte {w} idag.', 'Bugün {w:(y)AmAm}.']],
+      },
+    ],
+  },
+  {
+    id: 'now', sv: 'Jag ___-ar', tr: '-iyorum', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag ___-ar (şimdiki zaman)', tr: '-iyorum / -irim',
+        note: 'İsveççede şimdiki zaman tek biçimdir ve her kişide aynıdır: jag talar, du talar, vi talar. Hem "şimdi" hem "genelde" anlamına gelir.',
+        ex: [['Jag förstår.', 'Anlıyorum.'], ['Jag bor i Göteborg.', "Göteborg'da yaşıyorum."]],
+        t: [['Jag {w:pres}.', '{w:Iyorum}.'], ['Jag {w:pres} nu.', 'Şu an {w:Iyorum}.']],
+      },
+      {
+        sv: '___ du?', tr: '-iyor musun?',
+        note: 'Soru için fiil başa gelir: Du talar → Talar du?',
+        ex: [['Förstår du?', 'Anlıyor musun?'], ['Pratar du svenska?', 'İsveççe konuşuyor musun?']],
+        t: [['{w:pres+du}?', '{w:Iyor_mIsIn}?']],
+      },
+      {
+        sv: 'Jag ___ inte', tr: '-miyorum',
+        note: '"inte" fiilden hemen sonra gelir: Jag förstår inte.',
+        ex: [['Jag förstår inte.', 'Anlamıyorum.'], ['Jag vet inte.', 'Bilmiyorum.']],
+        t: [['Jag {w:pres+inte}.', '{w:mIyorum}.']],
+      },
+      {
+        sv: 'Han / hon ___', tr: 'O ___-iyor',
+        ex: [['Hon jobbar på ett sjukhus.', 'O bir hastanede çalışıyor.'], ['Det regnar.', 'Yağmur yağıyor.']],
+        t: [['Han {w:pres}.', 'O {w:Iyor}.']],
+      },
+    ],
+  },
+  {
+    id: 'past', sv: 'Jag ___-ade', tr: '-dim', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag ___-ade (geçmiş zaman)', tr: '-dim / -dım / -tim',
+        note: 'Geçmiş zaman da her kişide aynıdır. Düzenli fiiller -ade, -de veya -te alır; düzensizler ezberlenir (åt, gick, var).',
+        ex: [['Jag åt frukost.', 'Kahvaltı yaptım.'], ['Vi träffades igår.', 'Dün buluştuk.']],
+        t: [['Jag {w:past}.', '{w:DIm}.'], ['Jag {w:past} igår.', 'Dün {w:DIm}.']],
+      },
+      {
+        sv: '___ du?', tr: '-din mi?',
+        ex: [['Sov du gott?', 'İyi uyudun mu?']],
+        t: [['{w:past+du}?', '{w:DIn_mI}?']],
+      },
+      {
+        sv: 'Jag ___ inte', tr: '-medim',
+        ex: [['Jag hörde inte.', 'Duymadım.']],
+        t: [['Jag {w:past+inte}.', '{w:mAdIm}.']],
+      },
+    ],
+  },
+  {
+    id: 'must', sv: 'Jag måste ___', tr: '-mem lazım', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag måste ___', tr: '-mem lazım',
+        ex: [['Jag måste gå nu.', 'Şimdi gitmem lazım.'], ['Måste du jobba imorgon?', 'Yarın çalışman lazım mı?']],
+        t: [['Jag måste {w}.', '{w:mAm} lazım.'], ['Måste du {w}?', '{w:mAn} lazım mı?']],
+      },
+      {
+        sv: 'Du behöver inte ___', tr: '-mene gerek yok',
+        note: 'Dikkat: "Du måste inte" = zorunda değilsin demektir, "yapmamalısın" değil.',
+        ex: [['Du behöver inte komma.', 'Gelmene gerek yok.']],
+        t: [['Du behöver inte {w}.', '{w:mAn(y)A} gerek yok.']],
+      },
+    ],
+  },
+  {
+    id: 'perfect', sv: 'Jag har ___-at', tr: '-dim (sonuç)', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag har ___-at', tr: '-dim',
+        note: 'har + supinum: sonucu şimdi önemli olan geçmiş. Jag har ätit = yemek yedim (şimdi tokum).',
+        ex: [['Jag har ätit.', 'Yemek yedim.'], ['Har du varit i Sverige?', "İsveç'te bulundun mu?"]],
+        t: [['Jag har {w:sup}.', '{w:DIm}.'], ['Har du {w:sup}?', '{w:DIn_mI}?']],
+      },
+      {
+        sv: 'Jag har inte ___-at', tr: '-medim',
+        ex: [['Jag har inte sovit.', 'Uyumadım.']],
+        t: [['Jag har inte {w:sup}.', '{w:mAdIm}.']],
+      },
+    ],
+  },
+  {
+    id: 'future', sv: 'Jag ska ___', tr: '-eceğim', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag ska ___', tr: '-eceğim',
+        note: '"ska" plan ve niyet bildirir.',
+        ex: [['Jag ska handla efter jobbet.', 'İşten sonra alışveriş yapacağım.']],
+        t: [['Jag ska {w}.', '{w:(y)AcAğIm}.'], ['Jag ska {w} imorgon.', 'Yarın {w:(y)AcAğIm}.']],
+      },
+      {
+        sv: 'Ska du ___?', tr: '-ecek misin?',
+        ex: [['Ska du jobba på lördag?', 'Cumartesi çalışacak mısın?']],
+        t: [['Ska du {w}?', '{w:(y)AcAk_mIsIn}?']],
+      },
+      {
+        sv: 'Jag kommer att ___', tr: '-eceğim (tahmin)',
+        note: '"kommer att" olacağını düşündüğün şeyler için: Det kommer att regna.',
+        ex: [['Det kommer att regna.', 'Yağmur yağacak.']],
+        t: [['Jag kommer att {w}.', '{w:(y)AcAğIm}.']],
+      },
+    ],
+  },
+  {
+    id: 'may', sv: 'Får jag ___?', tr: '-ebilir miyim? (izin)', slot: 'verb',
+    variants: [
+      {
+        sv: 'Får jag ___?', tr: '-ebilir miyim?',
+        note: 'İzin isterken "får" kullanılır.',
+        ex: [['Får jag komma in?', 'İçeri girebilir miyim?']],
+        t: [['Får jag {w}?', '{w:(y)Abilir_mIyIm}?']],
+      },
+      {
+        sv: 'Du får inte ___', tr: '-mek yasak',
+        ex: [['Man får inte röka här.', 'Burada sigara içmek yasak.']],
+        t: [['Du får inte {w} här.', 'Burada {w:mAk} yasak.']],
+      },
+    ],
+  },
+  {
+    id: 'wouldlike', sv: 'Jag skulle vilja ___', tr: '-mek isterdim', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag skulle vilja ___', tr: '-mek isterdim',
+        note: 'Kibarca bir şey isterken.',
+        ex: [['Jag skulle vilja boka ett bord.', 'Bir masa ayırtmak isterdim.']],
+        t: [['Jag skulle vilja {w}.', '{w:mAk} isterdim.'], ['Skulle du vilja {w}?', '{w:mAk} ister miydin?']],
+      },
+    ],
+  },
+  {
+    id: 'lets', sv: 'Ska vi ___?', tr: '-elim mi?', slot: 'verb',
+    variants: [
+      {
+        sv: 'Ska vi ___?', tr: '-elim mi?',
+        ex: [['Ska vi fika?', 'Kahve molası verelim mi?'], ['Ska vi gå?', 'Gidelim mi?']],
+        t: [['Ska vi {w}?', '{w:(y)AlIm_mI}?'], ['Ska vi {w} imorgon?', 'Yarın {w:(y)AlIm_mI}?']],
+      },
+      {
+        sv: 'Vi kan ___', tr: '-ebiliriz',
+        ex: [['Vi kan ses senare.', 'Sonra görüşebiliriz.']],
+        t: [['Vi kan {w} sedan.', 'Sonra {w:(y)AbilirIz}.']],
+      },
+      {
+        sv: 'Låt oss ___', tr: '-elim',
+        ex: [['Låt oss börja.', 'Başlayalım.']],
+        t: [['Låt oss {w}!', '{w:(y)AlIm}!']],
+      },
+    ],
+  },
+  {
+    id: 'please', sv: '___! (emir)', tr: '___!', slot: 'verb',
+    variants: [
+      {
+        sv: '___! (emir)', tr: '___!',
+        note: 'Emir kipi: -a düşer (läs!, köp!); -ar ile biten fiiller aynı kalır (tala!).',
+        ex: [['Kom hit!', 'Buraya gel!'], ['Vänta lite!', 'Biraz bekle!']],
+        t: [['{w:imp}!', '{w:}!'], ['{w:imp}, tack!', 'Lütfen {w:(y)In}!']],
+      },
+      {
+        sv: 'Kan du ___, tack?', tr: '-ir misin, lütfen?',
+        note: 'Kibar rica: "Kan du … , tack?"',
+        ex: [['Kan du stänga dörren, tack?', 'Kapıyı kapatır mısın, lütfen?']],
+        t: [['Kan du {w}, tack?', '{w:R_mIsIn}, lütfen?']],
+      },
+    ],
+  },
+  {
+    id: 'dont', sv: '___ inte!', tr: '-me!', slot: 'verb',
+    variants: [
+      {
+        sv: '___ inte!', tr: '-me! / -ma!',
+        ex: [['Spring inte!', 'Koşma!'], ['Oroa dig inte!', 'Merak etme!']],
+        t: [['{w:imp+inte}!', '{w:mA}!']],
+      },
+      {
+        sv: 'Du ska inte ___', tr: '-memelisin',
+        ex: [['Du ska inte vara rädd.', 'Korkmamalısın.']],
+        t: [['Du ska inte {w}.', '{w:mAmAlIsIn}.']],
+      },
+    ],
+  },
+  {
+    id: 'habit', sv: 'Jag brukar ___', tr: 'genelde ___-irim', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag brukar ___', tr: 'genelde ___-irim',
+        note: '"brukar" alışkanlık bildirir; Türkçedeki geniş zaman gibi.',
+        ex: [['Jag brukar dricka kaffe på morgonen.', 'Sabahları genelde kahve içerim.']],
+        t: [['Jag brukar {w}.', 'Genelde {w:RIm}.'], ['Brukar du {w}?', 'Genelde {w:R_mIsIn}?']],
+      },
+    ],
+  },
+  {
+    id: 'should', sv: 'Du borde ___', tr: '-melisin', slot: 'verb',
+    variants: [
+      {
+        sv: 'Du borde ___', tr: '-melisin',
+        ex: [['Du borde vila.', 'Dinlenmelisin.']],
+        t: [['Du borde {w}.', '{w:mAlIsIn}.'], ['Jag borde {w}.', '{w:mAlIyIm}.']],
+      },
+    ],
+  },
+  {
+    id: 'knowhow', sv: 'Jag kan ___ (bilmek)', tr: '-meyi biliyorum', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag kan ___', tr: '-meyi biliyorum',
+        note: '"kan" hem "-ebilmek" hem "bilmek" demektir: Jag kan simma = yüzmeyi biliyorum.',
+        ex: [['Jag kan simma.', 'Yüzmeyi biliyorum.'], ['Kan du köra bil?', 'Araba sürmeyi biliyor musun?']],
+        t: [['Jag kan {w}.', '{w:mAyI} biliyorum.'], ['Kan du {w}?', '{w:mAyI} biliyor musun?']],
+      },
+    ],
+  },
+  {
+    id: 'likedoing', sv: 'Jag gillar att ___', tr: '-meyi severim', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag gillar att ___', tr: '-meyi severim',
+        note: 'Fiilden önce "att" gelir: gillar att läsa.',
+        ex: [['Jag gillar att laga mat.', 'Yemek yapmayı severim.']],
+        t: [['Jag gillar att {w}.', '{w:mAyI} severim.'], ['Gillar du att {w}?', '{w:mAyI} sever misin?']],
+      },
+      {
+        sv: 'Jag älskar att ___', tr: '-meye bayılıyorum',
+        ex: [['Jag älskar att resa.', 'Seyahat etmeye bayılıyorum.']],
+        t: [['Jag älskar att {w}.', '{w:mAyA} bayılıyorum.']],
+      },
+      {
+        sv: 'Jag tycker om att ___', tr: '-mekten hoşlanırım',
+        ex: [['Jag tycker om att läsa.', 'Okumaktan hoşlanırım.']],
+        t: [['Jag tycker om att {w}.', '{w:mAktAn} hoşlanırım.']],
+      },
+    ],
+  },
+  {
+    id: 'try', sv: 'Jag försöker ___', tr: '-meye çalışıyorum', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag försöker ___', tr: '-meye çalışıyorum',
+        ex: [['Jag försöker lära mig svenska.', 'İsveççe öğrenmeye çalışıyorum.']],
+        t: [['Jag försöker {w}.', '{w:mAyA} çalışıyorum.'], ['Jag ska försöka {w}.', '{w:mAyA} çalışacağım.']],
+      },
+    ],
+  },
+  {
+    id: 'start', sv: 'Jag började ___', tr: '-meye başladım', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag började ___', tr: '-meye başladım',
+        ex: [['Jag började jobba i maj.', 'Mayısta çalışmaya başladım.']],
+        t: [['Jag började {w}.', '{w:mAyA} başladım.']],
+      },
+      {
+        sv: 'Jag slutade ___', tr: '-meyi bıraktım',
+        ex: [['Jag slutade röka.', 'Sigarayı bıraktım.']],
+        t: [['Jag slutade {w}.', '{w:mAyI} bıraktım.']],
+      },
+    ],
+  },
+  {
+    id: 'progressive', sv: 'Jag håller på att ___', tr: 'şu an ___-iyorum', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag håller på att ___', tr: 'şu an ___-iyorum',
+        note: 'Bir şeyin tam şu an sürdüğünü vurgular.',
+        ex: [['Jag håller på att laga mat.', 'Şu an yemek yapıyorum.']],
+        t: [['Jag håller på att {w}.', 'Şu an {w:Iyorum}.']],
+      },
+    ],
+  },
+  {
+    id: 'ever', sv: 'Har du någonsin ___?', tr: 'Hiç ___-din mi?', slot: 'verb',
+    variants: [
+      {
+        sv: 'Har du någonsin ___?', tr: 'Hiç ___-din mi?',
+        ex: [['Har du någonsin varit i Turkiet?', "Hiç Türkiye'de bulundun mu?"]],
+        t: [['Har du någonsin {w:sup}?', 'Hiç {w:DIn_mI}?'], ['Jag har aldrig {w:sup}.', 'Hiç {w:mAdIm}.']],
+      },
+    ],
+  },
+  {
+    id: 'forgot', sv: 'Jag glömde att ___', tr: '-meyi unuttum', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag glömde att ___', tr: '-meyi unuttum',
+        ex: [['Glöm inte att ringa!', 'Aramayı unutma!']],
+        t: [['Jag glömde att {w}.', '{w:mAyI} unuttum.'], ['Glöm inte att {w}!', '{w:mAyI} unutma!']],
+      },
+    ],
+  },
+  {
+    id: 'timeto', sv: 'Det är dags att ___', tr: '-me zamanı', slot: 'verb',
+    variants: [
+      {
+        sv: 'Det är dags att ___', tr: '-me zamanı',
+        ex: [['Det är dags att gå.', 'Gitme zamanı.']],
+        t: [['Det är dags att {w}.', '{w:mA} zamanı.']],
+      },
+    ],
+  },
+  {
+    id: 'plan', sv: 'Jag tänker ___', tr: '-meyi düşünüyorum', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag tänker ___', tr: '-meyi düşünüyorum',
+        ex: [['Jag tänker flytta till Sverige.', "İsveç'e taşınmayı düşünüyorum."]],
+        t: [['Jag tänker {w}.', '{w:mAyI} düşünüyorum.'], ['Jag planerar att {w}.', '{w:mAyI} planlıyorum.']],
+      },
+    ],
+  },
+  {
+    id: 'just', sv: 'Jag har just ___', tr: 'Az önce ___-dim', slot: 'verb',
+    variants: [
+      {
+        sv: 'Jag har just ___', tr: 'Az önce ___-dim',
+        ex: [['Jag har just ätit.', 'Az önce yemek yedim.']],
+        t: [['Jag har just {w:sup}.', 'Az önce {w:DIm}.'], ['Jag {w:past} nyss.', 'Az önce {w:DIm}.']],
+      },
+    ],
+  },
+];
+
+export const PATTERNS = [...EVERYDAY.map((p) => ({ ...p, group: 'everyday' })), ...VERBS.map((p) => ({ ...p, group: 'verbs' }))];
 
 // "Most useful" order: how often each pattern comes up when talking with Swedes.
 export const ORDER = [
   'want', 'finns', 'where', 'price', 'iam', 'itis', 'understand', 'name', 'have', 'need',
   'this', 'my', 'goingto', 'at', 'isit', 'thanks', 'seeyou', 'clock', 'howto', 'looking',
   'from', 'hurts', 'by', 'withwithout', 'like', 'think', 'more', 'nextlast', 'howmany', 'whatcalled',
+  'wantto', 'can', 'now', 'past', 'must', 'perfect', 'future', 'may', 'wouldlike', 'lets',
+  'please', 'dont', 'habit', 'should', 'knowhow', 'likedoing', 'try', 'start', 'progressive', 'ever',
+  'forgot', 'timeto', 'plan', 'just',
 ];
 PATTERNS.sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));

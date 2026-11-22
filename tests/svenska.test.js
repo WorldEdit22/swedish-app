@@ -84,6 +84,13 @@ test('group 2: a stem ending in consonant + t takes only -e and keeps its supine
   check(verb('lyfta', { vg: 2 }), { past: 'lyfte', sup: 'lyft' });
 });
 
+test('a word never ends in a double m: kom!, glöm! (but känn!, vinn!)', () => {
+  check(verb('komma', { vf: ['kommer', 'kom', 'kommit'] }), { imp: 'kom' });
+  check(verb('glömma', { vg: 2 }), { imp: 'glöm', pres: 'glömmer' });
+  check(verb('vinna', { vf: ['vinner', 'vann', 'vunnit'] }), { imp: 'vinn' });
+  check(verb('känna', { vg: 2 }), { imp: 'känn' });
+});
+
 test('group 2: only a double m or n turns single; ll and ss stay', () => {
   check(verb('kyssa', { vg: 2 }), { pres: 'kysser', past: 'kysste', sup: 'kysst', imp: 'kyss' });
   check(verb('fylla', { vg: 2 }), { pres: 'fyller', past: 'fyllde', sup: 'fyllt', imp: 'fyll' });
@@ -99,6 +106,12 @@ test('irregular verbs use their stored forms; the imperative drops a final a', (
   check(verb('gå', { vf: ['går', 'gick', 'gått'] }), { imp: 'gå' });
   check(verb('ha', { vf: ['har', 'hade', 'haft'] }), { imp: 'ha' });
   check(verb('se', { vf: ['ser', 'såg', 'sett'], imp: 'se' }), { imp: 'se' });
+});
+
+test('a +word form puts that word after the verb, before a particle', () => {
+  check(verb('tala', { vg: 1 }), { 'pres+inte': 'talar inte', 'pres+du': 'talar du' });
+  check(verb('tycka om', { vg: 2 }), { 'pres+inte': 'tycker inte om', 'pres+du': 'tycker du om', 'imp+inte': 'tyck inte om' });
+  check(verb('gå ut', { vf: ['går', 'gick', 'gått'] }), { 'past+jag': 'gick jag ut' });
 });
 
 test('particle verbs inflect the first word only', () => {

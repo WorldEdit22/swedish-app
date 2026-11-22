@@ -11,6 +11,7 @@
 //   past    preterite                      sup     supine (har talat)    imp   imperative
 //   t       adjective for ett-words        a       adjective for plural / definite
 //   komp    comparative                    superl  superlative
+//   FORM+x  that form with the word x right after the verb (pres+inte → tycker inte om)
 //
 // Word fields:
 //   all     sv, type
@@ -133,11 +134,15 @@ function verbForms(first, w) {
   return { pres: first + 'r', past: first + 'de', sup: first + 't', imp: first };
 }
 
+// Swedish never ends a word in a double m (kom, glöm); a double n stays (känn, vinn).
+const endMm = (s) => (s.endsWith('mm') ? s.slice(0, -1) : s);
+
 function verbForm(w, form) {
   if (form === 'inf') return w.sv;
   if (form === 'imp' && w.imp) return w.imp;
   const [first, rest] = splitVerb(w.sv);
-  return verbForms(first, w)[form] + rest;
+  const f = verbForms(first, w)[form];
+  return (form === 'imp' ? endMm(f) : f) + rest;
 }
 
 // ---------- adjectives ----------
@@ -191,6 +196,10 @@ const FORMS = {
 const VERB_FORMS = new Set(['inf', 'pres', 'past', 'sup', 'imp']);
 
 export function svForm(word, form = '') {
+  // "pres+inte", "pres+du": the extra word goes right after the verb, before any particle
+  // (Jag tycker inte om, Tycker du om?).
+  const plus = form.indexOf('+');
+  if (plus > 0) return svForm(word, form.slice(0, plus)).replace(/^\S+/, (v) => `${v} ${form.slice(plus + 1)}`);
   if (VERB_FORMS.has(form)) return verbForm(word, form);
   const f = FORMS[form];
   if (!f) throw new Error(`Unknown Swedish form "${form}"`);

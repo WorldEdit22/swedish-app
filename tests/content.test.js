@@ -164,10 +164,9 @@ test('pattern Turkish has no English', () => {
   assert.deepEqual(found, []);
 });
 
-// Verbs join once the verb patterns exist (see the verbs task).
-test('every noun and adjective left out of patterns has its own example or a note', () => {
+test('every noun, verb and adjective left out of patterns has its own example or a note', () => {
   const inSomePattern = (w) => allTemplates().some(({ p, v }) => fits(slotOf(p, v), w));
-  const content = WORDS.filter((w) => ['noun', 'adj'].includes(w.type));
+  const content = WORDS.filter((w) => ['noun', 'verb', 'adj'].includes(w.type));
   const empty = content.filter((w) => !inSomePattern(w) && !w.ex && !w.note).map((w) => w.id);
   assert.deepEqual(empty, []);
 });
@@ -184,4 +183,15 @@ test('everyday spot checks', () => {
   assert.deepEqual(render('seeyou', 2, 0, 'time:januari'), ['Vi ses i januari!', 'Ocakta görüşürüz!']);
   assert.deepEqual(render('clock', 1, 0, 'numbers:fyra'), ['Vi ses klockan fyra.', 'Saat dörtte görüşürüz.']);
   assert.deepEqual(render('iam', 1, 0, 'people:läkare'), ['Jag är läkare.', 'Doktorum.']);
+});
+
+test('verb spot checks', () => {
+  assert.deepEqual(render('now', 0, 0, 'actions:tala'), ['Jag talar.', 'Konuşuyorum.']);
+  assert.deepEqual(render('now', 2, 0, 'actions:tycka om'), ['Jag tycker inte om.', 'Hoşlanmıyorum.']);
+  assert.deepEqual(render('now', 1, 0, 'actions:tycka om'), ['Tycker du om?', 'Hoşlanıyor musun?']);
+  assert.deepEqual(render('perfect', 0, 0, 'actions:äta'), ['Jag har ätit.', 'Yedim.']);
+  assert.deepEqual(render('please', 0, 0, 'actions:komma'), ['Kom!', 'Gel!']);
+  assert.deepEqual(render('dont', 0, 0, 'actions:springa'), ['Spring inte!', 'Koşma!']);
+  assert.deepEqual(render('wantto', 0, 0, 'actions:dricka'), ['Jag vill dricka.', 'İçmek istiyorum.']);
+  assert.deepEqual(render('can', 1, 0, 'actions:sitta'), ['Kan jag sitta här?', 'Burada oturabilir miyim?']);
 });

@@ -251,7 +251,7 @@ export const WORDS = [
     ['vara', 'olmak', { vf: ['är', 'var', 'varit'], nc: 1, ex: ['Jag är hemma.', 'Evdeyim.'] }],
     ['ha', 'sahip olmak', { vf: ['har', 'hade', 'haft'], nc: 1, ex: ['Jag har en bil.', 'Bir arabam var.'] }],
     ['bli', 'olmak', { vf: ['blir', 'blev', 'blivit'], gloss: 'olmak (dönüşmek)', nc: 1, ex: ['Det blir kallt i kväll.', 'Bu akşam hava soğuk olacak.'] }],
-    ['göra', 'yapmak', { vf: ['gör', 'gjorde', 'gjort'] }],
+    ['göra', 'yapmak', { vf: ['gör', 'gjorde', 'gjort'], nc: 1, ex: ['Vad gör du?', 'Ne yapıyorsun?'] }],
     ['kunna', 'yapabilmek', { vf: ['kan', 'kunde', 'kunnat'], gloss: '-ebilmek', nc: 1, ex: ['Jag kan simma.', 'Yüzebilirim.'] }],
     ['vilja', 'istemek', { vf: ['vill', 'ville', 'velat'], nc: 1, ex: ['Jag vill äta.', 'Yemek istiyorum.'] }],
     ['få', 'almak', { vf: ['får', 'fick', 'fått'], gloss: 'almak, izin almak', nc: 1, ex: ['Får jag komma in?', 'İçeri girebilir miyim?'] }],

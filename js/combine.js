@@ -3,7 +3,8 @@
 // A template is { sv, tr }, two separate strings.
 //
 // Swedish:  {w} the word as written, {w:FORM} a form from svenska.js (en, def, pl, pld, gen,
-//           at, to, from, inf, pres, past, sup, imp, t, a, komp, superl) — highlighted.
+//           at, to, from, inf, pres, past, sup, imp, t, a, komp, superl; FORM+word puts a word
+//           after the verb: {w:pres+inte} → tycker inte om) — highlighted.
 //           {art} {ingen} {min} {din} {den} {denhar} {adj:<base>} agree with the word's
 //           gender — not highlighted.
 // Turkish:  {w} the Turkish meaning, {w:} its bare verb stem, {w:SUFFIX} with a suffix
@@ -14,7 +15,7 @@
 import { attach, capTr } from './grammar.js';
 import { svForm, svAgree, capSv } from './svenska.js';
 
-const SV_RE = /\{w(?::([a-z]*))?\}|\{(art|ingen|min|din|den|denhar|adj:[a-zåäö]+)\}/g;
+const SV_RE = /\{w(?::([a-z]*(?:\+[a-zåäö]+)?))?\}|\{(art|ingen|min|din|den|denhar|adj:[a-zåäö]+)\}/g;
 const TR_RE = /\{w(?::([^}]*))?\}|\{(bir)\}/g;
 
 function render(str, re, replace, cap) {
