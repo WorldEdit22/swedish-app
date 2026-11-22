@@ -47,6 +47,13 @@ test('mass nouns take no article, and overrides win', () => {
   check(noun('stad', 'en', { pl: 'städer' }), { pld: 'städerna' });
 });
 
+test('the general form is the plural, or the bare word for mass nouns', () => {
+  check(noun('hund', 'en'), { gen: 'hundar' });
+  check(noun('äpple', 'ett'), { gen: 'äpplen' });
+  check(noun('kaffe', 'ett', { m: 1 }), { gen: 'kaffe' });
+  check({ sv: 'Turkiet', type: 'noun', prop: 1 }, { gen: 'Turkiet' });
+});
+
 test('at, to and from use the preposition and the definite form', () => {
   check(noun('strand', 'en', { pl: 'stränder', prep: 'på' }), { at: 'på stranden', to: 'till stranden', from: 'från stranden' });
   check(noun('kök', 'ett'), { at: 'i köket' });

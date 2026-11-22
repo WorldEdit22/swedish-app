@@ -1,7 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { WORDS, CATEGORIES, TYPES } from '../data/words.js';
+import { PATTERNS, GROUPS, ORDER } from '../data/patterns.js';
 import { svForm, formsLine } from '../js/svenska.js';
+import { fill, fits } from '../js/combine.js';
 import { hintOf } from '../js/uttal.js';
 import { englishWords, allStrings } from './english.js';
 
@@ -82,4 +84,104 @@ test('Turkish text has no English', () => {
 test('every hint is plain text', () => {
   const bad = WORDS.filter((w) => !hintOf(w) || /undefined/.test(hintOf(w))).map((w) => w.id);
   assert.deepEqual(bad, []);
+});
+
+// ---------- patterns ----------
+
+const pattern = (id) => {
+  const p = PATTERNS.find((x) => x.id === id);
+  assert.ok(p, `missing pattern ${id}`);
+  return p;
+};
+const slotOf = (p, v) => v.slot || p.slot;
+const allTemplates = () => PATTERNS.flatMap((p) => p.variants.flatMap((v) => v.t.map((t) => ({ p, v, t }))));
+const render = (id, vi, ti, wordId) => {
+  const [sv, tr] = pattern(id).variants[vi].t[ti];
+  const r = fill({ sv, tr }, word(wordId));
+  return [r.sv, r.tr];
+};
+
+test('pattern ids are unique', () => {
+  const ids = PATTERNS.map((p) => p.id);
+  assert.equal(new Set(ids).size, ids.length);
+});
+
+test('ORDER lists every pattern exactly once and PATTERNS follows it', () => {
+  assert.deepEqual([...ORDER].sort(), PATTERNS.map((p) => p.id).sort());
+  assert.deepEqual(PATTERNS.map((p) => p.id), ORDER);
+});
+
+test('every pattern has a known group', () => {
+  for (const p of PATTERNS) assert.ok(GROUPS[p.group], `${p.id} has unknown group ${p.group}`);
+});
+
+test('every variant has examples, and a slot when it has templates', () => {
+  for (const p of PATTERNS) {
+    assert.ok(p.sv && p.tr && p.variants.length, p.id);
+    for (const v of p.variants) {
+      assert.ok(v.sv && v.tr, `${p.id}: a variant needs sv and tr`);
+      assert.ok(v.ex.length > 0, `${p.id}: ${v.sv} needs examples`);
+      if (v.t.length) assert.ok(slotOf(p, v), `${p.id}: ${v.sv} has templates but no slot`);
+    }
+  }
+});
+
+test('every slot fits at least three words', () => {
+  for (const { p, v } of allTemplates()) {
+    const n = WORDS.filter((w) => fits(slotOf(p, v), w)).length;
+    assert.ok(n >= 3, `${p.id}: slot ${slotOf(p, v)} fits only ${n} words`);
+  }
+});
+
+test('every template renders cleanly on both sides with every word that fits', () => {
+  const problems = [];
+  for (const { p, v, t } of allTemplates()) {
+    for (const w of WORDS.filter((x) => fits(slotOf(p, v), x))) {
+      const r = fill({ sv: t[0], tr: t[1] }, w);
+      if (/[{}]|undefined/.test(r.sv + r.tr)) problems.push(`${p.id} ${w.id}: ${r.sv} | ${r.tr}`);
+      // Leftover Turkish archiphonemes are upper-case letters after the first character.
+      for (const part of r.trParts.filter((x) => x.hl)) if (/[ADCRI]/.test(part.text.slice(1)) && !w.prop) problems.push(`${p.id} ${w.id}: ${part.text}`);
+    }
+  }
+  assert.deepEqual(problems, []);
+});
+
+test('mass nouns never fill countable templates', () => {
+  const bad = [];
+  for (const { p, v, t } of allTemplates()) {
+    if (!/\{w:(pl|pld)\}|\{art\}/.test(t[0])) continue;
+    for (const w of WORDS.filter((x) => fits(slotOf(p, v), x) && x.m)) bad.push(`${p.id}: ${w.id}`);
+  }
+  assert.deepEqual(bad, []);
+});
+
+test('pattern Turkish has no English', () => {
+  const text = [
+    Object.values(GROUPS),
+    ...PATTERNS.map((p) => [p.tr, ...p.variants.map((v) => [v.tr, v.note, v.ex.map((e) => e[1]), v.t.map((t) => t[1].replace(/\{[^}]*\}/g, ' '))])]),
+  ];
+  const found = allStrings(text).flatMap((s) => englishWords(s).map((e) => `${e} ← ${s}`));
+  assert.deepEqual(found, []);
+});
+
+// Verbs join once the verb patterns exist (see the verbs task).
+test('every noun and adjective left out of patterns has its own example or a note', () => {
+  const inSomePattern = (w) => allTemplates().some(({ p, v }) => fits(slotOf(p, v), w));
+  const content = WORDS.filter((w) => ['noun', 'adj'].includes(w.type));
+  const empty = content.filter((w) => !inSomePattern(w) && !w.ex && !w.note).map((w) => w.id);
+  assert.deepEqual(empty, []);
+});
+
+test('everyday spot checks', () => {
+  assert.deepEqual(render('at', 0, 0, 'nature:strand'), ['Jag är på stranden.', 'Plajdayım.']);
+  assert.deepEqual(render('at', 0, 0, 'home:hem'), ['Jag är hemma.', 'Evdeyim.']);
+  assert.deepEqual(render('hurts', 0, 0, 'body:mage'), ['Jag har ont i magen.', 'Midem ağrıyor.']);
+  assert.deepEqual(render('want', 0, 0, 'drinks:kaffe'), ['Jag vill ha kaffe.', 'Kahve istiyorum.']);
+  assert.deepEqual(render('goingto', 0, 0, 'travel:Turkiet'), ['Jag ska till Turkiet.', "Türkiye'ye gidiyorum."]);
+  assert.deepEqual(render('like', 0, 0, 'animals:hund'), ['Jag gillar hundar.', 'Köpek severim.']);
+  assert.deepEqual(render('itis', 0, 0, 'describe:dyr'), ['Det är dyrt.', 'Pahalı.']);
+  assert.deepEqual(render('seeyou', 1, 0, 'time:måndag'), ['Vi ses på måndag!', 'Pazartesi görüşürüz!']);
+  assert.deepEqual(render('seeyou', 2, 0, 'time:januari'), ['Vi ses i januari!', 'Ocakta görüşürüz!']);
+  assert.deepEqual(render('clock', 1, 0, 'numbers:fyra'), ['Vi ses klockan fyra.', 'Saat dörtte görüşürüz.']);
+  assert.deepEqual(render('iam', 1, 0, 'people:läkare'), ['Jag är läkare.', 'Doktorum.']);
 });

@@ -2,7 +2,7 @@
 //
 // A template is { sv, tr }, two separate strings.
 //
-// Swedish:  {w} the word as written, {w:FORM} a form from svenska.js (en, def, pl, pld,
+// Swedish:  {w} the word as written, {w:FORM} a form from svenska.js (en, def, pl, pld, gen,
 //           at, to, from, inf, pres, past, sup, imp, t, a, komp, superl) — highlighted.
 //           {art} {ingen} {min} {din} {den} {denhar} {adj:<base>} agree with the word's
 //           gender — not highlighted.
@@ -52,9 +52,12 @@ export function fill(tpl, word) {
 
 // slot: "type" or "type:kind|kind"; type "*" matches any word type.
 // A word may have several kinds ("room|event"); any one of them can match.
+// A slot ending in "!count" takes only countable words (for plurals and en/ett).
 export function fits(slot, word) {
   if (!slot || word.nc) return false;
-  const [type, kinds] = slot.split(':');
+  const countable = slot.endsWith('!count');
+  if (countable && word.m) return false;
+  const [type, kinds] = slot.replace(/!count$/, '').split(':');
   if (type !== '*' && word.type !== type) return false;
   if (!kinds) return true;
   const wanted = kinds.split('|');

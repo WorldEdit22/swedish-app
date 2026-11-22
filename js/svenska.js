@@ -4,6 +4,7 @@
 // svForm(word, form) — form is one of:
 //   ''      as written                     en      with article (en bil, ett hus; bare for m / prop)
 //   def     definite singular (bilen)      pl      plural (bilar)        pld   definite plural (bilarna)
+//   gen     general statements: the plural, or the bare word for mass nouns (Jag gillar hundar / kaffe)
 //   at      where: i/på + definite (på stranden), or the word's `at`
 //   to      till + definite, or `to`       from    från + definite, or `from`
 //   inf     infinitive                     pres    present (one form for every person)
@@ -176,6 +177,8 @@ const FORMS = {
   def,
   pl,
   pld,
+  // General statements (Jag gillar hundar / kaffe): the plural, or the bare word.
+  gen: (w) => (w.m || unchanging(w) ? w.sv : pl(w)),
   at: (w) => w.at || `${w.prep || 'i'} ${def(w)}`,
   to: (w) => w.to || `till ${def(w)}`,
   from: (w) => w.from || `från ${def(w)}`,

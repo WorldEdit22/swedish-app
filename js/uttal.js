@@ -116,7 +116,8 @@ const PLAIN = { a: 'a', e: 'e', i: 'i', å: 'o', ä: 'e', ö: 'ö', y: 'ü' };
 // Where the stressed vowel starts in the word (a character index).
 function stressAt(w, syllables) {
   const groups = [...w.matchAll(/[aeiouyåäö]+/g)];
-  if (syllables >= 2 && /^(be|för)[^aeiouyåäö]/.test(w)) return groups[1].index;
+  // be-/för- as an unstressed prefix (betala, förstå), but not förr- (förra).
+  if (syllables >= 2 && /^(be[^aeiouyåäö]|för[^aeiouyåäör])/.test(w)) return groups[1].index;
   const era = w.match(/er(a|ar|ade|at|as)$/);
   if (syllables >= 3 && era) return era.index;
   return 0;

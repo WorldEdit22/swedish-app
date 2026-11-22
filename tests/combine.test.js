@@ -70,6 +70,14 @@ test('fits accepts a word with several kinds', () => {
   assert.equal(fits('noun:place', jobb), false);
 });
 
+test('a slot ending in !count leaves out mass nouns', () => {
+  const vatten = n('vatten', 'su', { g: 'ett', m: 1, kind: 'drink' });
+  const glas = n('glas', 'bardak', { g: 'ett', kind: 'drink' });
+  assert.equal(fits('noun:drink!count', vatten), false);
+  assert.equal(fits('noun:drink!count', glas), true);
+  assert.equal(fits('noun:drink', vatten), true);
+});
+
 test('fits matches word type and optional kinds', () => {
   assert.equal(fits('verb', v('komma', 'gelmek')), true);
   assert.equal(fits('verb', n('hem', 'ev')), false);
