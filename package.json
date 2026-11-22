@@ -1,0 +1,13 @@
+{
+  "name": "swedish-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learn everyday Swedish patterns and words, explained in Turkish. Home-screen web app for iPhone.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/",
+    "rank": "node tools/rank-words.mjs",
+    "serve": "node tools/serve.mjs",
+    "sample": "node tools/sample.mjs"
+  }
+}
