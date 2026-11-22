@@ -22,6 +22,8 @@ test('en-words: article, definite, plural and definite plural', () => {
   check(noun('station', 'en'), { def: 'stationen', pl: 'stationer', pld: 'stationerna' });
   check(noun('tidning', 'en'), { def: 'tidningen', pl: 'tidningar', pld: 'tidningarna' });
   check(noun('sko', 'en'), { def: 'skon', pl: 'skor', pld: 'skorna' });
+  check(noun('dator', 'en'), { def: 'datorn', pl: 'datorer', pld: 'datorerna' });
+  check(noun('doktor', 'en'), { def: 'doktorn' });
 });
 
 test('ett-words: article, definite, plural and definite plural', () => {
@@ -59,6 +61,17 @@ test('group 2 verbs: voiced and voiceless stems, -r stems, -d stems and double c
   check(verb('använda', { vg: 2 }), { pres: 'använder', past: 'använde', sup: 'använt', imp: 'använd' });
   check(verb('känna', { vg: 2 }), { pres: 'känner', past: 'kände', sup: 'känt', imp: 'känn' });
   check(verb('möta', { vg: 2 }), { pres: 'möter', past: 'mötte', sup: 'mött', imp: 'möt' });
+  check(verb('glömma', { vg: 2 }), { past: 'glömde', sup: 'glömt' });
+});
+
+test('group 2: a stem ending in consonant + t takes only -e and keeps its supine', () => {
+  check(verb('gifta', { vg: 2 }), { pres: 'gifter', past: 'gifte', sup: 'gift', imp: 'gift' });
+  check(verb('lyfta', { vg: 2 }), { past: 'lyfte', sup: 'lyft' });
+});
+
+test('group 2: only a double m or n turns single; ll and ss stay', () => {
+  check(verb('kyssa', { vg: 2 }), { pres: 'kysser', past: 'kysste', sup: 'kysst', imp: 'kyss' });
+  check(verb('fylla', { vg: 2 }), { pres: 'fyller', past: 'fyllde', sup: 'fyllt', imp: 'fyll' });
 });
 
 test('group 3 verbs', () => {

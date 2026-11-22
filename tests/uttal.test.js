@@ -30,6 +30,16 @@ test('common irregular words come from the exceptions', () => {
   }
 });
 
+test('be- and för- words are stressed after the prefix, -era verbs on the e', () => {
+  const expected = {
+    behöva: 'behö:va', betala: 'beta:la', betalar: 'beta:lar', berätta: 'bereta', besöka: 'besö:ka',
+    förstå: 'föşto:', förklara: 'förkla:ra', förlora: 'förlu:ra', försöka: 'föşö:ka',
+    fotografera: 'futugrafe:ra', fotograferade: 'futugrafe:rade', studera: 'stüde:ra',
+    bebis: 'be:bis', första: 'föşta', före: 'fö:re',
+  };
+  for (const [sv, hint] of Object.entries(expected)) assert.equal(uttal(sv), hint, sv);
+});
+
 test('sentences keep spaces and punctuation, and ignore capitals', () => {
   assert.equal(uttal('Jag vill ha kaffe.'), 'ya:g vil ha: kafe.');
   assert.equal(uttal('Hej! Hur mår du?'), 'hey! hü:r mo:r dü:?');

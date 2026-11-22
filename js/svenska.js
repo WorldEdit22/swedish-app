@@ -21,7 +21,7 @@
 //   adjs    overrides t, a, komp [comparative, superlative]
 //
 // Rules:
-//   definite   en-words: +n after a vowel or an unstressed -el/-er/-en, else +en
+//   definite   en-words: +n after a vowel or an unstressed -el/-er/-en/-or, else +en
 //              ett-words: +t after a vowel, else +et
 //   plural     en: -a → -or, -are unchanged, -else → +r, -e → -ar, unstressed -el/-er/-en drop the e
 //              and take -ar, -ion/-het/-tet/-ist/-ör/-ent/-ant/-ang and longer -or/-ur/-ik take +er,
@@ -30,8 +30,8 @@
 //   def. pl.   unchanged ett plural +en, en plural in -are → -arna, -r +na, -n +a, else +na
 //   verbs      1: +r +de +t, imperative = infinitive
 //              2: stem = infinitive without -a; present stem+er (stem after r); past +de, +te after
-//                 k p s t x, a consonant+d stem only +e; a double consonant is single before d/t;
-//                 supine +t (…d → …t); imperative = stem
+//                 k p s t x, a consonant+d or consonant+t stem only +e; a double m or n is single
+//                 before d/t; supine +t (…d → …t, …t unchanged); imperative = stem
 //              3: +r +dde +tt, imperative = infinitive
 //              vf: imperative = infinitive minus a final a when longer than 2 letters
 //   adjectives t: vowel+d → tt, consonant+d → t, -t and -a unchanged, final vowel +tt, else +t
@@ -48,6 +48,8 @@ const endsAny = (s, list) => list.some((e) => s.endsWith(e));
 
 // An unstressed -el/-er/-en in a word of two or more syllables (nyckel, vinter, öken).
 const unstressedE = (s) => vowelGroups(s) >= 2 && /[^aeiouyåäö]e[lrn]$/.test(s);
+// An unstressed -or in a word of two or more syllables (dator, doktor, motor).
+const unstressedOr = (s) => vowelGroups(s) >= 2 && /[^aeiouyåäö]or$/.test(s);
 const dropE = (s) => s.slice(0, -2) + s.slice(-1);
 
 // ---------- nouns ----------
@@ -57,7 +59,7 @@ function def(w) {
   if (w.prop) return w.sv;
   const s = w.sv;
   if (w.g === 'ett') return isVowel(last(s)) ? s + 't' : s + 'et';
-  return isVowel(last(s)) || unstressedE(s) ? s + 'n' : s + 'en';
+  return isVowel(last(s)) || unstressedE(s) || unstressedOr(s) ? s + 'n' : s + 'en';
 }
 
 const ER_ENDINGS = ['ion', 'het', 'tet', 'ist', 'ör', 'ent', 'ant', 'ang'];
@@ -102,8 +104,10 @@ function splitVerb(sv) {
   return i < 0 ? [sv, ''] : [sv.slice(0, i), sv.slice(i)];
 }
 
-const single = (stem) => (stem.length > 1 && last(stem) === stem[stem.length - 2] ? stem.slice(0, -1) : stem);
+// A double m or n turns single before d / t (känna → kände, glömma → glömt); ll, ss… stay (kysste, fyllde).
+const single = (stem) => (/(mm|nn)$/.test(stem) ? stem.slice(0, -1) : stem);
 const consonantD = (stem) => stem.endsWith('d') && stem.length > 1 && !isVowel(stem[stem.length - 2]);
+const consonantT = (stem) => stem.endsWith('t') && stem.length > 1 && !isVowel(stem[stem.length - 2]);
 
 function verbForms(first, w) {
   if (w.vf) {
@@ -115,6 +119,7 @@ function verbForms(first, w) {
     const stem = first.endsWith('a') ? first.slice(0, -1) : first;
     const pres = stem.endsWith('r') ? stem : stem + 'er';
     if (consonantD(stem)) return { pres, past: stem + 'e', sup: stem.slice(0, -1) + 't', imp: stem };
+    if (consonantT(stem)) return { pres, past: stem + 'e', sup: stem, imp: stem };
     const s = single(stem);
     return { pres, past: s + (VOICELESS.has(last(s)) ? 'te' : 'de'), sup: s + 't', imp: stem };
   }

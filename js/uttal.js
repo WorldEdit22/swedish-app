@@ -12,16 +12,18 @@
 //               c → s before e i y, else k;  double consonants are written once
 //   word end    -ig → i,  -igt → it   (in words of two or more syllables)
 //   vowels      a e i → a e i;  å → o;  ä → e;  ö → ö;  y → ü
-//               o: long → u, short → o, later syllables → u
-//               u: long → ü, short → ö, later syllables → ö
-//   length      only the first vowel (where the stress usually is) can be long. It is long
-//               before one consonant sound or at the end of the word, and short before two or
-//               more consonant letters (ck, ng, rs, x count as two), before j, and before a
-//               single final m or n. A word with -tion is stressed there instead.
+//               o: long → u, short → o, unstressed → u
+//               u: long → ü, short → ö; unstressed: ü before one consonant, else ö
+//   stress      on the first vowel, except: be- and för- before a consonant put it on the next
+//               vowel (betala, förstå); -era verbs on that e (fotografera); -tion on itself
+//   length      only the stressed vowel can be long. It is long before one consonant sound or
+//               at the end of the word, and short before two or more consonant letters (ck, ng,
+//               rs, x count as two), before j, and before a single final m or n.
 
 export const EXCEPTIONS = {
   de: 'dom', dem: 'dom', mig: 'mey', dig: 'dey', sig: 'sey', och: 'ok', det: 'de:', är: 'e:r', hon: 'hun', ost: 'ust',
   sverige: 'sverye', gärna: 'ye:rna', människa: 'menişa', barn: 'ba:rn', bord: 'bu:rd', i: 'i', några: 'no:gra',
+  bebis: 'be:bis', första: 'föşta',
 };
 
 const VOWELS = new Set('aeiouyåäö');
@@ -62,7 +64,7 @@ function tokens(word) {
       continue;
     }
     if (isVowel(ch)) {
-      out.push({ v: ch });
+      out.push({ v: ch, pos: i });
       i++;
       continue;
     }
@@ -108,8 +110,17 @@ function isLong(toks, fv) {
 }
 
 const FIRST = { long: { o: 'u', u: 'ü' }, short: { o: 'o', u: 'ö' } };
-const LATER = { o: 'u', u: 'ö' };
+const LATER = { o: 'u' };
 const PLAIN = { a: 'a', e: 'e', i: 'i', å: 'o', ä: 'e', ö: 'ö', y: 'ü' };
+
+// Where the stressed vowel starts in the word (a character index).
+function stressAt(w, syllables) {
+  const groups = [...w.matchAll(/[aeiouyåäö]+/g)];
+  if (syllables >= 2 && /^(be|för)[^aeiouyåäö]/.test(w)) return groups[1].index;
+  const era = w.match(/er(a|ar|ade|at|as)$/);
+  if (syllables >= 3 && era) return era.index;
+  return 0;
+}
 
 function convert(word) {
   let w = word.replace(/é/g, 'e');
@@ -117,7 +128,8 @@ function convert(word) {
   if (syllables >= 2) w = w.replace(/igt$/, 'it').replace(/ig$/, 'i');
   const toks = tokens(w);
   const hasTion = toks.some((t) => t.tion);
-  const fv = toks.findIndex((t) => t.v);
+  const from = stressAt(w, syllables);
+  const fv = toks.findIndex((t) => t.v && t.pos >= from);
   let out = '';
   toks.forEach((t, idx) => {
     if (t.tion) out += 'şu:n';
@@ -125,7 +137,8 @@ function convert(word) {
     else if (idx === fv) {
       const long = !hasTion && isLong(toks, fv);
       out += (FIRST[long ? 'long' : 'short'][t.v] || PLAIN[t.v]) + (long ? ':' : '');
-    } else out += LATER[t.v] || PLAIN[t.v];
+    } else if (t.v === 'u') out += isLong(toks, idx) ? 'ü' : 'ö';
+    else out += LATER[t.v] || PLAIN[t.v];
   });
   return out;
 }
