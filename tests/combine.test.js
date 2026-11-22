@@ -44,6 +44,17 @@ test('verbs: the Swedish imperative and the bare Turkish stem, the infinitive an
   assert.deepEqual(both(fill(tpl('Jag vill {w}.', '{w:mAk} istiyorum.'), dricka)), ['Jag vill dricka.', 'İçmek istiyorum.']);
 });
 
+// Swedish can't drop an object the way Turkish can: "Jag gillar det", but "Beğeniyorum".
+test("a verb's object follows the verb and its particle, after any inserted word, unhighlighted", () => {
+  const tyckaOm = v('tycka om', 'hoşlanmak', { vg: 2, obj: 'det' });
+  const r = fill(tpl('Idag {w:pres+jag}.', 'Bugün {w:Iyorum}.'), tyckaOm);
+  assert.deepEqual(both(r), ['Idag tycker jag om det.', 'Bugün hoşlanıyorum.']);
+  assert.deepEqual(r.svParts, [{ text: 'Idag ', hl: false }, { text: 'tycker jag om', hl: true }, { text: ' det.', hl: false }]);
+  assert.equal(fill(tpl('Jag {w:pres+inte}.', '{w:mIyorum}.'), tyckaOm).sv, 'Jag tycker inte om det.');
+  assert.equal(fill(tpl('Ska vi {w}?', '{w:(y)AlIm_mI}?'), tyckaOm).sv, 'Ska vi tycka om det?');
+  assert.equal(fill(tpl('{w:imp}!', '{w:}!'), v('ta', 'almak', { vf: ['tar', 'tog', 'tagit'], obj: 'det' })).sv, 'Ta det!');
+});
+
 test('agreement words follow the gender and are not highlighted', () => {
   const r = fill(tpl('Det här är {min} {w}.', 'Bu benim {w:(I)m}.'), hus);
   assert.deepEqual(both(r), ['Det här är mitt hus.', 'Bu benim evim.']);

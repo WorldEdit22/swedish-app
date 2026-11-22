@@ -7,6 +7,8 @@
 //           after the verb: {w:pres+inte} → tycker inte om) — highlighted.
 //           {art} {ingen} {min} {din} {den} {denhar} {adj:<base>} agree with the word's
 //           gender — not highlighted.
+//           A verb's object (obj: "det") follows every verb form, after its particle and any
+//           inserted word — not highlighted: Idag tycker jag om det.
 // Turkish:  {w} the Turkish meaning, {w:} its bare verb stem, {w:SUFFIX} with a suffix
 //           (see grammar.js) — highlighted. {bir} is "bir " before a countable noun and
 //           nothing for a mass noun or a name — not highlighted.
@@ -29,7 +31,9 @@ function render(str, re, replace, cap) {
   let last = 0;
   for (const m of str.matchAll(re)) {
     if (m.index > last) push(str.slice(last, m.index), false);
-    push(...replace(m));
+    const [text, hl, tail] = replace(m);
+    push(text, hl);
+    if (tail) push(tail, false);
     last = m.index + m[0].length;
   }
   if (last < str.length) push(str.slice(last), false);
@@ -45,8 +49,10 @@ function trWord(word, suffix) {
   return word.prop && suffix && s.startsWith(word.tr) && s.length > word.tr.length ? `${word.tr}'${s.slice(word.tr.length)}` : s;
 }
 
+const objOf = (word) => (word.type === 'verb' && word.obj ? ` ${word.obj}` : '');
+
 export function fill(tpl, word) {
-  const svParts = render(tpl.sv, SV_RE, (m) => (m[2] ? [svAgree(word, m[2]), false] : [svForm(word, m[1] || ''), true]), capSv);
+  const svParts = render(tpl.sv, SV_RE, (m) => (m[2] ? [svAgree(word, m[2]), false] : [svForm(word, m[1] || ''), true, objOf(word)]), capSv);
   const trParts = render(tpl.tr, TR_RE, (m) => (m[2] ? [word.m || word.prop ? '' : 'bir ', false] : [trWord(word, m[1]), true]), capTr);
   return { sv: join(svParts), tr: join(trParts), svParts, trParts };
 }

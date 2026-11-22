@@ -108,10 +108,23 @@ test('a 503 is retried once', async () => {
   assert.equal(calls.length, 2);
 });
 
-test("a 400 is not retried and shows Google's message inside the Turkish one", async () => {
+// The service's own explanation is English, so the Turkish message names only the status.
+test('a 400 is not retried, and its message is Turkish without the service\'s English text', async () => {
   const calls = stubFetch({ status: 400, body: { error: { message: 'API key not valid.' } } });
-  await assert.rejects(explainSentence(KEYS, 'Kom.', { retryMs: 0 }), { message: T.ai.badKey(T.ai.code(400, 'API key not valid.')) });
+  await assert.rejects(explainSentence(KEYS, 'Kom.', { retryMs: 0 }), { message: T.ai.badKey(T.ai.code(400)) });
   assert.equal(calls.length, 1);
+  assert.ok(!T.ai.badKey(T.ai.code(400)).includes('API key'));
+});
+
+test('a Gemini reply that is not JSON gives a Turkish message, not the parser\'s English one', async () => {
+  globalThis.fetch = async () => ({
+    ok: true,
+    status: 200,
+    json: async () => {
+      throw new SyntaxError('Unexpected token < in JSON at position 0');
+    },
+  });
+  await assert.rejects(generate({ provider: 'gemini', keys: { gemini: 'k' }, models: {} }, 'x'), { message: T.ai.failed });
 });
 
 // Gemini's 429 body names the quota that ran out.

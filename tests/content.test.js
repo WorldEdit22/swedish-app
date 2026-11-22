@@ -211,7 +211,9 @@ test('sentence-order and connector spot checks', () => {
   assert.deepEqual(render('adjagree', 0, 0, 'travel:bil'), ['Det är en stor bil.', 'Bu büyük bir araba.']);
   assert.deepEqual(render('doubledef', 0, 0, 'home:hus'), ['Jag vill ha det stora huset.', 'Büyük olan evi istiyorum.']);
   assert.deepEqual(render('v2', 0, 0, 'actions:äta'), ['Idag äter jag.', 'Bugün yiyorum.']);
-  assert.deepEqual(render('v2', 0, 0, 'actions:tycka om'), ['Idag tycker jag om.', 'Bugün hoşlanıyorum.']);
+  assert.deepEqual(render('v2', 0, 0, 'actions:tycka om'), ['Idag tycker jag om det.', 'Bugün hoşlanıyorum.']);
+  assert.deepEqual(render('v2', 0, 1, 'actions:träffa'), ['Imorgon ska jag träffa dem.', 'Yarın buluşacağım.']);
+  assert.deepEqual(render('inte', 2, 0, 'actions:gilla'), ['Hon säger att hon inte gillar det.', 'Beğenmediğini söylüyor.']);
   assert.deepEqual(render('inte', 2, 0, 'actions:simma'), ['Hon säger att hon inte simmar.', 'Yüzmediğini söylüyor.']);
   assert.deepEqual(render('if', 0, 0, 'actions:komma'), ['Om du kommer, blir jag glad.', 'Gelirsen sevinirim.']);
   assert.deepEqual(render('assoon', 0, 0, 'actions:komma'), ['Jag ringer så fort jag kommer.', 'Gelir gelmez ararım.']);
@@ -219,11 +221,99 @@ test('sentence-order and connector spot checks', () => {
 
 test('verb spot checks', () => {
   assert.deepEqual(render('now', 0, 0, 'actions:tala'), ['Jag talar.', 'Konuşuyorum.']);
-  assert.deepEqual(render('now', 2, 0, 'actions:tycka om'), ['Jag tycker inte om.', 'Hoşlanmıyorum.']);
-  assert.deepEqual(render('now', 1, 0, 'actions:tycka om'), ['Tycker du om?', 'Hoşlanıyor musun?']);
+  assert.deepEqual(render('now', 2, 0, 'actions:tycka om'), ['Jag tycker inte om det.', 'Hoşlanmıyorum.']);
+  assert.deepEqual(render('now', 1, 0, 'actions:tycka om'), ['Tycker du om det?', 'Hoşlanıyor musun?']);
+  assert.deepEqual(render('please', 0, 0, 'actions:ta'), ['Ta det!', 'Al!']);
+  assert.deepEqual(render('now', 0, 0, 'actions:tjäna'), ['Jag tjänar pengar.', 'Para kazanıyorum.']);
   assert.deepEqual(render('perfect', 0, 0, 'actions:äta'), ['Jag har ätit.', 'Yedim.']);
   assert.deepEqual(render('please', 0, 0, 'actions:komma'), ['Kom!', 'Gel!']);
   assert.deepEqual(render('dont', 0, 0, 'actions:springa'), ['Spring inte!', 'Koşma!']);
   assert.deepEqual(render('wantto', 0, 0, 'actions:dricka'), ['Jag vill dricka.', 'İçmek istiyorum.']);
   assert.deepEqual(render('can', 1, 0, 'actions:sitta'), ['Kan jag sitta här?', 'Burada oturabilir miyim?']);
+  assert.deepEqual(render('now', 0, 0, 'actions:lämna'), ['Jag lämnar det.', 'Bırakıyorum.']);
+});
+
+// ---------- fixes from the final review ----------
+
+// Swedish never uses these verbs without an object ("Jag gillar det", not "Jag gillar").
+const NEEDS_OBJECT = [
+  'tycka om', 'gilla', 'älska', 'hitta', 'använda', 'visa', 'ge', 'ta', 'hämta', 'träffa', 'besöka', 'byta', 'bära',
+  'laga', 'bygga', 'hyra', 'låna', 'krama', 'kyssa', 'dela', 'ladda', 'sakna', 'känna', 'lämna', 'skicka', 'tjäna',
+];
+
+test('verbs that need an object carry one into every sentence, but not into their forms line', () => {
+  assert.deepEqual(NEEDS_OBJECT.filter((sv) => !word(`actions:${sv}`).obj), []);
+  assert.equal(formsLine(word('actions:gilla')), 'gillar · gillade · har gillat');
+});
+
+test('word forms the review found wrong', () => {
+  assert.equal(formsLine(word('animals:katt')), 'en katt · katten · katter · katterna');
+  assert.equal(formsLine(word('body:huvud')), 'ett huvud · huvudet · huvuden · huvudena');
+  assert.equal(formsLine(word('numbers:kilo')), 'ett kilo · kilot · kilo · kilona');
+});
+
+const wordsFor = (id) => {
+  const p = pattern(id);
+  return WORDS.filter((w) => p.variants.some((v) => v.t.length && fits(slotOf(p, v), w)));
+};
+
+test('en/ett, adjective and definite patterns use things, never people or places', () => {
+  const ids = ['enett', 'adjagree', 'definite', 'doubledef'];
+  const people = ids.flatMap((id) => wordsFor(id).filter((w) => /\b(family|person|role)\b/.test(w.kind)).map((w) => `${id}: ${w.id}`));
+  assert.deepEqual(people, []);
+  assert.deepEqual(ids.filter((id) => /\bplace\b/.test(pattern(id).slot)), []);
+});
+
+test('Turkish spot checks for words the suffix rules got wrong', () => {
+  assert.deepEqual(render('now', 0, 0, 'actions:förlora'), ['Jag förlorar.', 'Kaybediyorum.']);
+  assert.deepEqual(render('iam', 1, 0, 'town:tandläkare'), ['Jag är tandläkare.', 'Diş hekimiyim.']);
+  assert.deepEqual(render('iam', 1, 0, 'work:student'), ['Jag är student.', 'Üniversite öğrencisiyim.']);
+  assert.deepEqual(render('my', 0, 0, 'people:dotter'), ['Var är min dotter?', 'Kız evladım nerede?']);
+  assert.deepEqual(render('withwithout', 0, 0, 'food:smör'), ['Utan smör, tack.', 'Tereyağsız, lütfen.']);
+  assert.deepEqual(render('withwithout', 1, 0, 'food:smör'), ['Med smör, tack.', 'Tereyağlı olsun, lütfen.']);
+});
+
+test('"gammal" (eski) describes things, so "Jag är ___" never says "Eskiyim"', () => {
+  assert.ok(!wordsFor('iam').includes(word('describe:gammal')));
+});
+
+// Food and pastimes said in general take the bare word: Jag gillar pizza, not "pizzor".
+const BARE_GEN = [
+  'food:potatis', 'food:soppa', 'food:sallad', 'food:pizza', 'food:kebab', 'food:korv', 'food:lök', 'food:paprika',
+  'food:svamp', 'food:gurka', 'food:frukt', 'hobbies:teater', 'hobbies:gitarr', 'hobbies:piano', 'hobbies:sång',
+];
+
+test('"Jag gillar ___" takes the bare word for food and pastimes said in general', () => {
+  assert.deepEqual(render('like', 0, 0, 'food:pizza'), ['Jag gillar pizza.', 'Pizza severim.']);
+  assert.deepEqual(BARE_GEN.filter((id) => svForm(word(id), 'gen') !== word(id).sv), []);
+  assert.deepEqual(render('like', 0, 0, 'animals:hund'), ['Jag gillar hundar.', 'Köpek severim.']);
+});
+
+test('"förra / nästa" leaves out "dag" (förra dagen means something else), "varje dag" keeps it', () => {
+  assert.ok(!wordsFor('nextlast').includes(word('time:dag')));
+  const varje = PATTERNS.flatMap((p) => p.variants).find((v) => v.sv === 'varje ___');
+  assert.ok(fits(varje.slot, word('time:dag')));
+});
+
+test('"Jag behöver inte ___" uses ingen / inget, as its example does', () => {
+  assert.deepEqual(render('need', 1, 0, 'drinks:vatten'), ['Jag behöver inget vatten.', 'Suya ihtiyacım yok.']);
+  assert.deepEqual(render('need', 1, 0, 'home:tandborste'), ['Jag behöver ingen tandborste.', 'Diş fırçasına ihtiyacım yok.']);
+});
+
+test('"mina" for plural things', () => {
+  assert.deepEqual(render('my', 1, 0, 'home:nyckel'), ['Var är mina nycklar?', 'Anahtarlarım nerede?']);
+  assert.deepEqual(render('my', 1, 0, 'home:tandborste'), ['Var är mina tandborstar?', 'Diş fırçalarım nerede?']);
+});
+
+// The Swedish field is read aloud by the Swedish voice and gets a pronunciation hint, so a
+// Turkish label inside it ("inte nereye gelir?", "(emir)") is wrong. Every word a headline uses
+// must appear in some Swedish word, example or template of the app.
+test('pattern headlines in the Swedish field are Swedish', () => {
+  const tokens = (s) => s.toLocaleLowerCase('sv').replace(/-[a-zåäö]+/g, ' ').split(/[^a-zåäöéçğışü]+/).filter((t) => t.length > 1);
+  const known = new Set();
+  const add = (s) => tokens(s).forEach((t) => known.add(t));
+  for (const w of WORDS) [w.sv, w.ex?.[0] || '', formsLine(w)].forEach(add);
+  for (const p of PATTERNS) for (const v of p.variants) [...v.ex.map((e) => e[0]), ...v.t.map((t) => t[0])].forEach(add);
+  const heads = PATTERNS.flatMap((p) => [p.sv, ...p.variants.map((v) => v.sv)]);
+  assert.deepEqual(heads.filter((s) => /[()]/.test(s) || tokens(s).some((t) => !known.has(t))), []);
 });

@@ -149,8 +149,9 @@ const explainPrompt = (sentence) =>
   '(in Turkish: the stem and each ending with its meaning, for example "bil + -en (belirli hâli)"; just the word when it has no ending). ' +
   'Reply with JSON only, in this shape: {"tr":"...","structure":"...","words":[{"w":"...","base":"...","tr":"...","parts":"..."}]}';
 
-// An error for a failed reply, with the service's own explanation when it gives one.
-// A 429 names the quota that ran out: a per-minute one only needs a short wait.
+// An error for a failed reply. The service's own explanation is English, so the Turkish
+// message names only the status. A 429 names the quota that ran out: a per-minute one only
+// needs a short wait.
 async function httpError(res, limitMsg = T.ai.limit) {
   let error = null;
   try {
@@ -163,7 +164,7 @@ async function httpError(res, limitMsg = T.ai.limit) {
     const perMinute = quotas.some((q) => /PerMinute/i.test(q)) && !quotas.some((q) => /PerDay/i.test(q));
     return new AIError(perMinute ? T.ai.minute : limitMsg);
   }
-  const code = T.ai.code(res.status, str(error?.message));
+  const code = T.ai.code(res.status);
   if ([400, 401, 403, 404].includes(res.status)) return new AIError(T.ai.badKey(code));
   return new AIError(T.ai.service(code));
 }
@@ -203,8 +204,13 @@ async function callGemini({ key, model, parts, temperature, timeout = 25000, ret
       continue;
     }
     if (!res.ok) throw await httpError(res, limitMsg);
-    const data = await res.json();
-    return (data.candidates?.[0]?.content?.parts || []).map((x) => x.text || '').join('');
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      throw new AIError(T.ai.failed); // the parser's own message is English
+    }
+    return (data?.candidates?.[0]?.content?.parts || []).map((x) => x.text || '').join('');
   }
 }
 

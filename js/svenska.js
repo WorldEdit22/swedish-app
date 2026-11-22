@@ -4,7 +4,8 @@
 // svForm(word, form) — form is one of:
 //   ''      as written                     en      with article (en bil, ett hus; bare for m / prop)
 //   def     definite singular (bilen)      pl      plural (bilar)        pld   definite plural (bilarna)
-//   gen     general statements: the plural, or the bare word for mass nouns (Jag gillar hundar / kaffe)
+//   gen     general statements: the plural, or the bare word for mass nouns and words with
+//           gen: 1 (Jag gillar hundar / kaffe / pizza)
 //   at      where: i/på + definite (på stranden), or the word's `at`
 //   to      till + definite, or `to`       from    från + definite, or `from`
 //   inf     infinitive                     pres    present (one form for every person)
@@ -95,7 +96,8 @@ function pld(w) {
   if (w.pld) return w.pld;
   const p = pl(w);
   if (unchanging(w)) return p;
-  if (w.g === 'ett' && p === w.sv) return p + 'en';
+  // An unchanged ett plural takes -en (husen), or -na after a vowel (kilona).
+  if (w.g === 'ett' && p === w.sv) return isVowel(last(p)) ? p + 'na' : p + 'en';
   if (p.endsWith('are')) return p.slice(0, -1) + 'na';
   if (p.endsWith('r')) return p + 'na';
   if (p.endsWith('n')) return p + 'a';
@@ -182,8 +184,9 @@ const FORMS = {
   def,
   pl,
   pld,
-  // General statements (Jag gillar hundar / kaffe): the plural, or the bare word.
-  gen: (w) => (w.m || unchanging(w) ? w.sv : pl(w)),
+  // General statements (Jag gillar hundar / kaffe / pizza): the plural, or the bare word
+  // for mass nouns and words marked gen.
+  gen: (w) => (w.m || w.gen || unchanging(w) ? w.sv : pl(w)),
   at: (w) => w.at || `${w.prep || 'i'} ${def(w)}`,
   to: (w) => w.to || `till ${def(w)}`,
   from: (w) => w.from || `från ${def(w)}`,

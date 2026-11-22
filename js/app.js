@@ -728,7 +728,7 @@ $('#settings').addEventListener('click', async (e) => {
       const ex = await generate(store.settings, wordPrompt({ word: 'hej', meaning: 'merhaba', type: 'phrase', patterns: [], n: 1 }));
       out.textContent = S.works(ex[0].sv, ex[0].tr);
     } catch (err) {
-      out.textContent = err.message;
+      out.textContent = errorText(err);
     }
   } else if (id === 'set-backup') {
     const text = store.backupText();

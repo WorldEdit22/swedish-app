@@ -88,7 +88,7 @@ node tools/make-icons.mjs                 # redraw the flag icons
 
 ### Adding content
 
-- **A word:** add a row `[swedish, turkish, options]` to the right group in `data/words.js`. Nouns need `g: 'en' | 'ett'`; verbs need `vg: 1 | 2 | 3` or `vf: [present, past, supine]`. Its `kind` decides which patterns it joins (see the list at the top of the file). Add `ut` if the pronunciation hint is wrong. The Turkish meaning (`tr`) must be one form the suffix engine can inflect; put alternatives in `gloss`.
+- **A word:** add a row `[swedish, turkish, options]` to the right group in `data/words.js`. Nouns need `g: 'en' | 'ett'` (and `gen: 1` if "Jag gillar ___" takes the bare word, like *pizza*); verbs need `vg: 1 | 2 | 3` or `vf: [present, past, supine]`, and `obj: 'det'` (or `'dem'`…) if Swedish never uses them without an object (*Jag gillar det*). Its `kind` decides which patterns it joins (see the list at the top of the file). Add `ut` if the pronunciation hint is wrong. The Turkish meaning (`tr`) must be one form the suffix engine can inflect; put alternatives in `gloss`.
 - **A pattern:** add it to `data/patterns.js` and to `ORDER`. Templates are `[swedish, turkish]`: Swedish uses `{w}`, `{w:def}`, `{w:pres}`, `{w:pres+inte}`, `{art}`, `{min}`… (see `js/combine.js`), Turkish uses suffix codes such as `{w:(y)A}` and `{w:Iyorum}` (see `js/grammar.js`).
 - **Text on screen:** add it to `js/metin.js`, in Turkish. A test fails if English slips in.
 - Then run `node --test tests/`. The content tests render every template with every word that fits.

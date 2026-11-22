@@ -116,7 +116,7 @@ const EVERYDAY = [
         t: [['Jag är {w}.', '{w:(y)Im}.'], ['Jag är lite {w} idag.', 'Bugün biraz {w:(y)Im}.']],
       },
       {
-        sv: 'Jag är ___ (meslek)', tr: '___-im (meslek)', slot: 'noun:role',
+        sv: 'Jag är ___', tr: '___-im (meslek)', slot: 'noun:role',
         note: 'Meslek ve milliyetten önce "en/ett" gelmez: Jag är läkare.',
         ex: [['Jag är lärare.', 'Öğretmenim.'], ['Min man är svensk.', 'Kocam İsveçli.']],
         t: [['Jag är {w}.', '{w:(y)Im}.'], ['Är du {w}?', '{w:_mIsIn}?']],
@@ -236,9 +236,10 @@ const EVERYDAY = [
         t: [['Jag behöver {w:en}.', '{w:(y)A} ihtiyacım var.'], ['Behöver du {w:en}?', '{w:(y)A} ihtiyacın var mı?']],
       },
       {
-        sv: 'Jag behöver inte ___', tr: '___-e ihtiyacım yok',
+        sv: 'Jag behöver ingen ___', tr: '___-e ihtiyacım yok',
+        note: '"inte en" yerine "ingen" (ett-kelimelerle "inget") denir.',
         ex: [['Jag behöver ingen påse, tack.', 'Poşete ihtiyacım yok, teşekkürler.']],
-        t: [['Jag behöver inte {w:en}.', '{w:(y)A} ihtiyacım yok.']],
+        t: [['Jag behöver {ingen} {w}.', '{w:(y)A} ihtiyacım yok.']],
       },
     ],
   },
@@ -265,13 +266,19 @@ const EVERYDAY = [
     ],
   },
   {
-    id: 'my', sv: 'min / mitt ___', tr: '___-im', slot: 'noun:thing|family|room|vehicle|animal',
+    id: 'my', sv: 'min / mitt / mina ___', tr: '___-im', slot: 'noun:thing|family|room|vehicle|animal',
     variants: [
       {
         sv: 'min / mitt ___', tr: '___-im',
         note: 'en-kelime: min, ett-kelime: mitt, çoğul: mina. İsim belirli hâl almaz: min bil.',
         ex: [['Var är min telefon?', 'Telefonum nerede?'], ['Det här är mitt hus.', 'Bu benim evim.']],
         t: [['Var är {min} {w}?', '{w:(I)m} nerede?'], ['Det här är {min} {w}.', 'Bu benim {w:(I)m}.']],
+      },
+      {
+        sv: 'mina ___', tr: '___-lerim', slot: 'noun:thing|vehicle|animal!count',
+        note: 'Çoğulda hep "mina", isim çoğul olur: mina nycklar.',
+        ex: [['Var är mina nycklar?', 'Anahtarlarım nerede?'], ['Mina barn bor i Sverige.', "Çocuklarım İsveç'te yaşıyor."]],
+        t: [['Var är mina {w:pl}?', '{w:lArIm} nerede?']],
       },
       {
         sv: 'din / ditt ___', tr: '___-in',
@@ -362,7 +369,7 @@ const EVERYDAY = [
         t: [['Vi ses {w:at}!', '{w:DA} görüşürüz!']],
       },
       {
-        sv: 'varje ___', tr: 'her ___', slot: 'noun:period|day|daytime',
+        sv: 'varje ___', tr: 'her ___', slot: 'noun:period|each|day|daytime',
         ex: [['Jag tränar varje vecka.', 'Her hafta spor yapıyorum.'], ['Vi fikar varje dag.', 'Her gün kahve molası veriyoruz.']],
         t: [['Jag tränar varje {w}.', 'Her {w} spor yapıyorum.']],
       },
@@ -557,7 +564,7 @@ const EVERYDAY = [
       },
       {
         sv: '___-ast', tr: 'en ___',
-        ex: [['Vilken är bäst?', 'Hangisi en iyi?']],
+        ex: [['Vilken är bäst?', 'Hangisi en iyi?'], ['Vilken är mest populär?', 'Hangisi en popüler?']],
         t: [['Den här är {w:superl}.', 'Bu en {w}.']],
       },
     ],
@@ -667,7 +674,7 @@ const VERBS = [
     id: 'now', sv: 'Jag ___-ar', tr: '-iyorum', slot: 'verb',
     variants: [
       {
-        sv: 'Jag ___-ar (şimdiki zaman)', tr: '-iyorum / -irim',
+        sv: 'Jag ___-ar', tr: '-iyorum / -irim (şimdiki zaman)',
         note: 'İsveççede şimdiki zaman tek biçimdir ve her kişide aynıdır: jag talar, du talar, vi talar. Hem "şimdi" hem "genelde" anlamına gelir.',
         ex: [['Jag förstår.', 'Anlıyorum.'], ['Jag bor i Göteborg.', "Göteborg'da yaşıyorum."]],
         t: [['Jag {w:pres}.', '{w:Iyorum}.'], ['Jag {w:pres} nu.', 'Şu an {w:Iyorum}.']],
@@ -695,7 +702,7 @@ const VERBS = [
     id: 'past', sv: 'Jag ___-ade', tr: '-dim', slot: 'verb',
     variants: [
       {
-        sv: 'Jag ___-ade (geçmiş zaman)', tr: '-dim / -dım / -tim',
+        sv: 'Jag ___-ade', tr: '-dim / -dım / -tim (geçmiş zaman)',
         note: 'Geçmiş zaman da her kişide aynıdır. Düzenli fiiller -ade, -de veya -te alır; düzensizler ezberlenir (åt, gick, var).',
         ex: [['Jag åt frukost.', 'Kahvaltı yaptım.'], ['Vi träffades igår.', 'Dün buluştuk.']],
         t: [['Jag {w:past}.', '{w:DIm}.'], ['Jag {w:past} igår.', 'Dün {w:DIm}.']],
@@ -814,10 +821,10 @@ const VERBS = [
     ],
   },
   {
-    id: 'please', sv: '___! (emir)', tr: '___!', slot: 'verb',
+    id: 'please', sv: '___!', tr: '___! (emir)', slot: 'verb',
     variants: [
       {
-        sv: '___! (emir)', tr: '___!',
+        sv: '___!', tr: '___! (emir)',
         note: 'Emir kipi: -a düşer (läs!, köp!); -ar ile biten fiiller aynı kalır (tala!).',
         ex: [['Kom hit!', 'Buraya gel!'], ['Vänta lite!', 'Biraz bekle!']],
         t: [['{w:imp}!', '{w:}!'], ['{w:imp}, tack!', 'Lütfen {w:(y)In}!']],
@@ -867,7 +874,7 @@ const VERBS = [
     ],
   },
   {
-    id: 'knowhow', sv: 'Jag kan ___ (bilmek)', tr: '-meyi biliyorum', slot: 'verb',
+    id: 'knowhow', sv: 'Jag kan ___', tr: '-meyi biliyorum (bilmek)', slot: 'verb',
     variants: [
       {
         sv: 'Jag kan ___', tr: '-meyi biliyorum',
@@ -1182,7 +1189,9 @@ const CONNECTORS = [
 ];
 
 // Sentence order: what Swedish does differently from Turkish.
-const COUNTABLE = 'noun:food|thing|place|vehicle|animal|family!count';
+// Things only: people take han / hon, not "den", and "den stora mamman" or "ett stort sjukhus
+// som är nytt" make odd examples.
+const COUNTABLE = 'noun:food|thing|vehicle|animal!count';
 const ORDER_PATTERNS = [
   {
     id: 'v2', sv: 'Idag ___ jag', tr: 'fiil ikinci sırada', slot: 'verb',
@@ -1207,7 +1216,7 @@ const ORDER_PATTERNS = [
     ],
   },
   {
-    id: 'inte', sv: 'inte nereye gelir?', tr: 'olumsuzluk', slot: 'verb',
+    id: 'inte', sv: 'Jag ___ inte', tr: 'olumsuzluk: "inte" nereye gelir?', slot: 'verb',
     variants: [
       {
         sv: 'Jag ___ inte', tr: '-miyorum',

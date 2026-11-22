@@ -22,6 +22,13 @@ test('every name app.js imports exists in its module', async () => {
   assert.deepEqual(missing, []);
 });
 
+// A browser or parser error's own text is English; only the app's own errors carry Turkish.
+test("app.js shows an error's text only for the app's own Turkish errors", () => {
+  const src = readFileSync(new URL('../js/app.js', import.meta.url), 'utf8');
+  const raw = src.split('\n').filter((line) => /\b\w+\.message\b/.test(line) && !/instanceof/.test(line));
+  assert.deepEqual(raw.map((l) => l.trim()), []);
+});
+
 test('app.js has no visible text of its own: every string comes from metin.js or the data', () => {
   const src = readFileSync(new URL('../js/app.js', import.meta.url), 'utf8');
   // Text between tags inside template strings, e.g. `<h2>Settings</h2>`, would be visible.

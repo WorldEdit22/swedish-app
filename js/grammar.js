@@ -16,6 +16,8 @@
 //   soft  – stem used before a vowel (kitap → kitab, şehir → şehr)
 //   h     – harmony vowel override for loanwords (saat → h: 'e')
 //   cmp   – compound noun ending in a possessive (otobüs durağı → durağına)
+//   bare  – a compound without its possessive, when dropping it and hardening the stem
+//           gets it wrong (tereyağı → tereyağ, not tereyak)
 //   noSoft – turn off automatic k → ğ softening
 
 const VOWELS = new Set('aeıioöuüâîû');
@@ -79,20 +81,22 @@ export function attach(word, suffix) {
   let atStem = true; // nothing emitted yet, so stem rules still apply
   let harmonyOverride = word.h || null;
 
-  // Compound nouns ending in a possessive take n before case endings.
+  // Compound nouns ending in a possessive take n before case endings (the dative, the
+  // accusative and DA…), but not before "I am": diş hekimine, diş hekimini, diş hekimiyim.
   // A third-person possessive is already there, so (s)I adds nothing,
   // and my / your replace it: baş ağrısı → baş ağrım, kredi kartı → kredi kartın.
   if (word.cmp) {
     if (suffix.startsWith('(s)I')) tokens = tokens.slice(2);
-    else if (suffix.startsWith('(y)A') || suffix.startsWith('(y)I')) tokens = ['n', ...tokens.slice(1)];
+    else if (suffix.startsWith('(y)A') || /^\(y\)I(?![a-zçğıöşüA-Z])/.test(suffix)) tokens = ['n', ...tokens.slice(1)];
     else if (suffix.startsWith('DA')) tokens = ['n', ...tokens];
     else if (suffix.startsWith('(I)')) out = /[aeıioöuü]s[ıiuü]$/.test(base) ? base.slice(0, -2) : base.slice(0, -1);
-    // The plural goes before the possessive, which comes back as -I, and a softened stem
-    // hardens again before the consonant: otobüs durağı → otobüs durakları, buzdolabı → buzdolapları.
-    else if (suffix === 'lAr') {
+    // The plural, -li and -siz go on the compound without its possessive, and a softened
+    // stem hardens again before the consonant: otobüs durağı → otobüs durakları,
+    // buzdolabı → buzdolapları, domuz eti → domuz etsiz. A bare plural takes the possessive back.
+    else if (/^(lAr|lI|sIz)/.test(suffix)) {
       const bare = /[aeıioöuü]s[ıiuü]$/.test(base) ? base.slice(0, -2) : base.slice(0, -1);
-      out = bare.replace(/[ğbdc]$/, (c) => ({ ğ: 'k', b: 'p', d: 't', c: 'ç' })[c]);
-      tokens = tokenize('lArI');
+      out = word.bare || bare.replace(/[ğbdc]$/, (c) => ({ ğ: 'k', b: 'p', d: 't', c: 'ç' })[c]);
+      if (suffix === 'lAr') tokens = tokenize('lArI');
     }
   }
 

@@ -34,7 +34,7 @@ export const T = {
     limit: "Günlük ücretsiz sınır doldu. Daha sonra tekrar dene veya Ayarlar'dan başka bir sağlayıcı seç.",
     scanLimit: 'Günlük ücretsiz sınır doldu. Yarın tekrar dene.',
     minute: 'Kısa sürede çok fazla istek gönderildi. Bir dakika bekleyip tekrar dene.',
-    code: (status, detail) => `hata ${status}${detail ? `: ${detail}` : ''}`,
+    code: (status) => `hata ${status}`,
     badKey: (code) => `Yapay zekâ servisi anahtarı veya modeli kabul etmedi (${code}). Ayarlar'ı kontrol et.`,
     service: (code) => `Yapay zekâ servisinde bir sorun var (${code}). Daha sonra tekrar dene.`,
     timeout: 'Yapay zekâ cevap vermekte çok gecikti. Tekrar dene.',

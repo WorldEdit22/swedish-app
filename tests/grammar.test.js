@@ -229,6 +229,23 @@ test('compound nouns in the plural drop their possessive and take -leri / -ları
   assert.equal(attach(cmp('buzdolabı'), 'lAr'), 'buzdolapları');
 });
 
+test('compound nouns take "I am" without the n of the case endings', () => {
+  const cmp = (tr) => ({ tr, type: 'noun', cmp: 1 });
+  assert.equal(attach(cmp('diş hekimi'), '(y)Im'), 'diş hekimiyim');
+  assert.equal(attach(cmp('üniversite öğrencisi'), '(y)Iz'), 'üniversite öğrencisiyiz');
+  assert.equal(attach(cmp('diş hekimi'), '(y)I'), 'diş hekimini');
+});
+
+test('compound nouns drop their possessive before -li / -siz and -lerim', () => {
+  const cmp = (tr, o = {}) => ({ tr, type: 'noun', cmp: 1, ...o });
+  assert.equal(attach(cmp('domuz eti'), 'sIz'), 'domuz etsiz');
+  assert.equal(attach(cmp('domuz eti'), 'lI'), 'domuz etli');
+  assert.equal(attach(cmp('tereyağı', { bare: 'tereyağ' }), 'sIz'), 'tereyağsız');
+  assert.equal(attach(cmp('tereyağı', { bare: 'tereyağ' }), 'lAr'), 'tereyağları');
+  assert.equal(attach(cmp('diş fırçası'), 'lArIm'), 'diş fırçalarım');
+  assert.equal(attach(cmp('otobüs durağı'), 'lArIm'), 'otobüs duraklarım');
+});
+
 test('capTr capitalises the Turkish way', () => {
   assert.equal(capTr('istanbul'), 'İstanbul');
   assert.equal(capTr('ılık'), 'Ilık');
