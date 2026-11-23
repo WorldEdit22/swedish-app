@@ -7,7 +7,8 @@ import { patternExamples, wordExamples, wordPatternPairs, slotOf } from './examp
 import { formsLine } from './svenska.js';
 import { uttal, hintOf } from './uttal.js';
 import { store } from './store.js';
-import { dayOf, DIRS, isKnown, isMastered } from './srs.js';
+import { correct, dayOf, DIRS, isKnown, isMastered, status } from './srs.js';
+import { recallHtml } from './practiceview.js';
 import { PROVIDERS, AIError, generate, patternPrompt, wordPrompt, readPage, explainSentence } from './ai.js';
 import { reloadOnUpdate } from './update.js';
 import { esc, fold, SPEAKER, BUBBLE, ABC } from './html.js';
@@ -280,21 +281,29 @@ const headButtons = () =>
 
 // The title row with ✕ sits in .s-top, which stays at the top while the card scrolls.
 // Then the Swedish with a speaker, its pronunciation, its forms, and the meta line.
-function headHtml(title, x, { meta = '', forms = '' } = {}) {
+function headHtml(key, title, x, { meta = '', forms = '' } = {}) {
+  const today = dayOf(Date.now());
+  const rows = DIRS.map((dir) => ({
+    dir,
+    label: T.practice.dirs[dir],
+    st: status(store.card(key, dir), today),
+    last: store.card(key, dir)?.last,
+  }));
   return (
     `<div class="s-top"><div class="grabber"></div>` +
     `<div class="s-head"><h2>${esc(title)}</h2>${headButtons()}</div></div>` +
     `<div class="s-tr"><span lang="sv">${esc(x.sv)}</span>${sayButton(x.sv.replace(/_+|…|\.\.\./g, ' '))}</div>` +
     (ui.showHints ? `<p class="hint">[${esc(hintFor(x))}]</p>` : '') +
     (forms ? `<div class="forms" lang="sv">${esc(forms)}</div>` : '') +
-    (meta ? `<div class="s-meta">${meta}</div>` : '')
+    (meta ? `<div class="s-meta">${meta}</div>` : '') +
+    recallHtml(rows)
   );
 }
 
 const exampleOpts = () => ({ words: BY_COMMON, patterns: PATTERNS, isSelected: selected, isKnown: known });
 
 function patternSheet(p) {
-  let h = headHtml(p.tr, p);
+  let h = headHtml(p.key, p.tr, p);
   const hint = hints();
   p.variants.forEach((v, vi) => {
     h +=
@@ -313,7 +322,7 @@ function patternSheet(p) {
 function wordSheet(w) {
   const c = CAT[w.cat];
   const meta = `${esc(TYPES[w.type].one)} · ${c.icon} ${esc(c.label)}`;
-  let h = headHtml(w.label, w, { meta, forms: formsLine(w) });
+  let h = headHtml(w.id, w.label, w, { meta, forms: formsLine(w) });
   if (w.note) h += `<p class="note">${esc(w.note)}</p>`;
   h += examplesHtml(wordExamples(w, exampleOpts()), (p) => p.label);
   if (w.type !== 'phrase') h += aiHtml(w.id);
@@ -645,7 +654,13 @@ $('#sheet-body').addEventListener('click', (e) => {
   if (act === 'close') sheet.close();
   else if (act === 'translate') openTranslator();
   else if (act === 'alphabet') openAlphabet();
-  else if (act === 'back') openScanView(scanView.kind === 'sentence' ? { kind: 'scan', id: scanView.id } : { kind: 'scans' });
+  else if (act === 'recall') {
+    const { dir, grade } = btn.dataset;
+    store.setCard(openKey, dir, correct(store.card(openKey, dir), grade, dayOf(Date.now()), Math.random));
+    const top = sheet.scrollTop;
+    renderSheet();
+    sheet.scrollTop = top;
+  } else if (act === 'back') openScanView(scanView.kind === 'sentence' ? { kind: 'scan', id: scanView.id } : { kind: 'scans' });
   else if (act === 'open-scan') openScanView({ kind: 'scan', id: btn.dataset.id });
   else if (act === 'delete-scan') {
     if (confirm(T.scans.confirmDelete)) {
@@ -748,6 +763,7 @@ $('#settings').addEventListener('click', async (e) => {
       msg.textContent = S.notBackup;
       return;
     }
+    if (!confirm(S.confirmRestore)) return;
     store.replaceCards(restored);
     renderSettings();
     $('#set-progress-msg').textContent = S.restored;

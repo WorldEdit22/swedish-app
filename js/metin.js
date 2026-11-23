@@ -121,7 +121,7 @@ export const T = {
     tryIt: 'Dene: Hej! Hur mår du?',
     trySay: 'Hej! Hur mår du?',
     progress: 'İlerleme',
-    progressText: (nP, tP, nW, tW) => `${tP} kalıptan ${nP} tanesi ve ${tW} kelimeden ${nW} tanesi öğrenildi.`,
+    progressText: (nP, tP, nW, tW) => `${tP} kalıptan ${nP} tanesi ve ${tW} kelimeden ${nW} tanesi ezberlendi.`,
     backupHelp: "İlerleme bu telefonda saklanır. Arada bir yedek kopyala, örneğin Notlar'a.",
     copy: 'Yedeği kopyala',
     restore: 'Geri yükle…',
@@ -132,7 +132,8 @@ export const T = {
     pastePrompt: "Yedeği yukarıya yapıştır, sonra tekrar Geri yükle'ye bas.",
     restored: 'İlerleme geri yüklendi.',
     notBackup: 'Bu, bu uygulamanın yedeğine benzemiyor.',
-    confirmReset: 'Her şey öğrenilmedi olarak işaretlensin mi? Bu geri alınamaz.',
+    confirmReset: 'Tüm çalışma ilerlemesi silinsin mi? Bu geri alınamaz.',
+    confirmRestore: 'Bu yedek geri yüklensin mi? Şu anki çalışma ilerlemesinin yerine geçer.',
     about: 'Hakkında',
     aboutRanks:
       'Kelimeler, büyük bir İsveççe film ve dizi altyazısı koleksiyonunda ne kadar sık geçtiklerine göre sıralanmıştır (FrequencyWords, CC BY-SA 4.0). Kalıplar günlük hayattaki faydasına göre sıralanmıştır.',
