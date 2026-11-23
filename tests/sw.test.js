@@ -52,9 +52,9 @@ test('every app module is in the offline cache', async () => {
 test("activate deletes only this app's old caches", async () => {
   // The Turkish app on the same github.io origin keeps its offline copy.
   const deleted = [];
-  const handlers = load({ keys: async () => ['swedish-v0', 'turkish-v11', 'swedish-v1'], delete: async (k) => deleted.push(k) });
+  const handlers = load({ keys: async () => ['swedish-v1', 'turkish-v12', 'swedish-v2'], delete: async (k) => deleted.push(k) });
   let done;
   handlers.activate({ waitUntil: (p) => (done = p) });
   await done;
-  assert.deepEqual(deleted, ['swedish-v0']);
+  assert.deepEqual(deleted, ['swedish-v1']);
 });

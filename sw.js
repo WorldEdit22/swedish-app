@@ -1,7 +1,7 @@
 // Offline support: serve from the cache instantly, refresh the cache in the
 // background so the next launch picks up any new version.
 
-const CACHE = 'swedish-v1';
+const CACHE = 'swedish-v2';
 const ASSETS = [
   './',
   'index.html',

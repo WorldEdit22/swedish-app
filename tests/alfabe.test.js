@@ -35,7 +35,8 @@ test('the window lists every letter with its example and hint, then the tricky s
   assert.equal((html.match(/class="abc-row"/g) || []).length, 29);
   assert.equal((html.match(/class="abc-combo"/g) || []).length, COMBOS.length);
   assert.ok(html.includes(T.alphabet.title) && html.includes(T.alphabet.combos) && html.includes(esc(T.alphabet.long)));
-  assert.ok(html.includes('data-say="A"'), 'tapping a letter says it');
+  assert.ok(html.includes('data-say="a"') && !html.includes('data-say="A"'), 'tapping a letter says the small letter, not "versal A"');
+  assert.ok(html.includes('data-say="å"'));
   const a = LETTERS[0];
   assert.ok(html.includes(`[H:${a.ex[0]}]`), 'the example shows its hint');
   assert.ok(html.includes(`data-say="${a.ex[0]}"`), 'the example has a speaker');

@@ -20,7 +20,8 @@ export function alfabeHtml(letters, combos, hint) {
     .map(
       (l) =>
         `<div class="abc-row">` +
-        `<button class="abc-letter" data-say="${esc(l.ch)}" lang="sv" aria-label="${esc(`${T.aria.listen}: ${l.ch}`)}">${esc(l.ch)} ${esc(l.ch.toLocaleLowerCase('sv'))}</button>` +
+        // The small letter: for a capital, the iPhone's Swedish voice says "versal A".
+        `<button class="abc-letter" data-say="${esc(l.ch.toLocaleLowerCase('sv'))}" lang="sv" aria-label="${esc(`${T.aria.listen}: ${l.ch}`)}">${esc(l.ch)} ${esc(l.ch.toLocaleLowerCase('sv'))}</button>` +
         `<div class="abc-info"><div class="abc-name">[${esc(l.name)}]</div><div class="abc-sound">${esc(l.sound)}</div></div>` +
         exampleHtml(l.ex[0], l.ex[1], l.ut || hint(l.ex[0])) +
         `</div>`,
