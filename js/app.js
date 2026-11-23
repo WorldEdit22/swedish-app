@@ -7,9 +7,8 @@ import { patternExamples, wordExamples, wordPatternPairs, slotOf } from './examp
 import { formsLine } from './svenska.js';
 import { uttal, hintOf } from './uttal.js';
 import { store } from './store.js';
-import { dayOf } from './srs.js';
+import { dayOf, DIRS, isKnown, isMastered } from './srs.js';
 import { PROVIDERS, AIError, generate, patternPrompt, wordPrompt, readPage, explainSentence } from './ai.js';
-import { swipe } from './swipe.js';
 import { reloadOnUpdate } from './update.js';
 import { esc, fold, SPEAKER, BUBBLE, ABC } from './html.js';
 import { shrinkPhoto } from './photo.js';
@@ -61,7 +60,8 @@ const shuffle = (arr) => {
   }
   return a;
 };
-const learned = (x) => store.isLearned(keyOf(x));
+const known = (x) => DIRS.some((d) => isKnown(store.card(keyOf(x), d)));
+const mastered = (x) => DIRS.every((d) => isMastered(store.card(keyOf(x), d)));
 const selected = (x) => store.isSelected(keyOf(x));
 
 const INFO = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><path d="M12 7.6v.01"/></svg>';
@@ -111,16 +111,12 @@ function visibleItems(tab) {
   }
   if (!isP && ui.type !== 'all') items = items.filter((w) => w.type === ui.type);
   if (isP && ui.pgroup !== 'all') items = items.filter((p) => p.group === ui.pgroup);
-  const st = ui.status[tab];
-  if (st !== 'all') items = items.filter((x) => learned(x) === (st === 'learned'));
 
   const byRank = (a, b) => a.rank - b.rank;
   const sort = ui.sort[tab];
   const sorted = [...items];
   if (sort === 'sv') sorted.sort((a, b) => a.sv.localeCompare(b.sv, 'sv'));
   else if (sort === 'tr') sorted.sort((a, b) => a.label.localeCompare(b.label, 'tr'));
-  else if (sort === 'todo') sorted.sort((a, b) => learned(a) - learned(b) || byRank(a, b));
-  else if (sort === 'learned') sorted.sort((a, b) => learned(b) - learned(a) || byRank(a, b));
   else if (sort === 'topic') sorted.sort((a, b) => CAT_ORDER[a.cat] - CAT_ORDER[b.cat] || byRank(a, b));
   else sorted.sort(byRank);
   return sorted;
@@ -129,12 +125,11 @@ function visibleItems(tab) {
 // Tapping a block selects it; the ⓘ button opens its card. Blocks show the Turkish;
 // the Swedish (and its pronunciation) only when switched on in Settings.
 function blockHtml(x, showIcon) {
-  const on = learned(x);
   const sel = store.isSelected(keyOf(x));
   const dot = isPattern(x) ? '' : `<span class="dot t-${x.type}"></span>`;
   return (
-    `<div class="block${on ? ' on' : ''}${sel ? ' sel' : ''}" data-key="${esc(keyOf(x))}" role="button" tabindex="0"` +
-    ` aria-pressed="${sel}" aria-label="${esc(`${x.label}, ${x.sv}${on ? T.aria.learnedSuffix : ''}`)}">` +
+    `<div class="block${sel ? ' sel' : ''}" data-key="${esc(keyOf(x))}" role="button" tabindex="0"` +
+    ` aria-pressed="${sel}" aria-label="${esc(`${x.label}, ${x.sv}`)}">` +
     `<div class="b-label">${dot}<span>${esc(x.label)}</span></div>` +
     (ui.showSwedish
       ? `<div class="b-sv" lang="sv">${esc(x.sv)}${ui.showHints ? ` <span class="hint">[${esc(hintFor(x))}]</span>` : ''}</div>`
@@ -157,7 +152,7 @@ function renderList() {
       const inCat = items.filter((w) => w.cat === c.id);
       if (!inCat.length) continue;
       const all = WORDS.filter((w) => w.cat === c.id);
-      const done = all.filter(learned).length;
+      const done = all.filter(mastered).length;
       html +=
         `<h2 class="sec">${c.icon} ${esc(c.label)} <span class="count">${done}/${all.length}</span></h2>` +
         `<div class="grid">${inCat.map((w) => blockHtml(w, false)).join('')}</div>`;
@@ -171,7 +166,7 @@ function renderList() {
 
 function renderProgress() {
   const all = ui.tab === 'patterns' ? PATTERNS : ui.tab === 'words' ? WORDS : null;
-  $('#progress').textContent = all ? T.progress(all.filter(learned).length, all.length) : T.settingsTitle;
+  $('#progress').textContent = all ? T.mastered(all.filter(mastered).length, all.length) : T.settingsTitle;
 }
 
 function renderControls() {
@@ -186,7 +181,6 @@ function renderControls() {
     return;
   }
 
-  document.querySelectorAll('#status button').forEach((b) => b.classList.toggle('on', b.dataset.status === ui.status[tab]));
   $('#sort').innerHTML = Object.entries(T.sorts[tab])
     .map(([v, label]) => `<option value="${v}"${ui.sort[tab] === v ? ' selected' : ''}>${esc(label)}</option>`)
     .join('');
@@ -287,19 +281,17 @@ const headButtons = () =>
 // The title row with ✕ sits in .s-top, which stays at the top while the card scrolls.
 // Then the Swedish with a speaker, its pronunciation, its forms, and the meta line.
 function headHtml(title, x, { meta = '', forms = '' } = {}) {
-  const on = learned(x);
   return (
     `<div class="s-top"><div class="grabber"></div>` +
     `<div class="s-head"><h2>${esc(title)}</h2>${headButtons()}</div></div>` +
     `<div class="s-tr"><span lang="sv">${esc(x.sv)}</span>${sayButton(x.sv.replace(/_+|…|\.\.\./g, ' '))}</div>` +
     (ui.showHints ? `<p class="hint">[${esc(hintFor(x))}]</p>` : '') +
     (forms ? `<div class="forms" lang="sv">${esc(forms)}</div>` : '') +
-    (meta ? `<div class="s-meta">${meta}</div>` : '') +
-    `<button class="learn-btn${on ? ' on' : ''}" data-act="toggle">${esc(on ? T.learn.on : T.learn.off)}</button>`
+    (meta ? `<div class="s-meta">${meta}</div>` : '')
   );
 }
 
-const exampleOpts = () => ({ words: BY_COMMON, patterns: PATTERNS, isSelected: selected, isLearned: learned });
+const exampleOpts = () => ({ words: BY_COMMON, patterns: PATTERNS, isSelected: selected, isKnown: known });
 
 function patternSheet(p) {
   let h = headHtml(p.tr, p);
@@ -615,11 +607,11 @@ async function askAi(button) {
   if (isPattern(x)) {
     const v = x.variants[Number(button.dataset.v)];
     const fitting = BY_COMMON.filter((w) => fits(slotOf(x, v), w));
-    const mine = fitting.filter(learned);
+    const mine = fitting.filter(known);
     const words = shuffle(mine.length ? mine : fitting.slice(0, 20)).slice(0, 6);
     prompt = patternPrompt({ variant: v, patternTr: x.tr, words, existing });
   } else {
-    const pairs = wordPatternPairs(x, PATTERNS).filter(({ p }) => learned(p));
+    const pairs = wordPatternPairs(x, PATTERNS).filter(({ p }) => known(p));
     const patterns = shuffle(pairs.map(({ v }) => v)).slice(0, 4);
     prompt = wordPrompt({ word: x.sv, meaning: x.label, type: x.type, patterns, existing });
   }
@@ -662,12 +654,7 @@ $('#sheet-body').addEventListener('click', (e) => {
     }
   } else if (act === 'retry-read') readPhoto(null);
   else if (act === 'retry-explain') explain(sentenceOf(scanView));
-  else if (act === 'toggle') {
-    store.toggleLearned(openKey);
-    const on = store.isLearned(openKey);
-    btn.classList.toggle('on', on);
-    btn.textContent = on ? T.learn.on : T.learn.off;
-  } else if (act === 'ai') askAi(btn);
+  else if (act === 'ai') askAi(btn);
   else if (act === 'setup') {
     sheet.close();
     setTab('settings');
@@ -681,8 +668,8 @@ function renderSettings() {
   const S = T.settings;
   const p = PROVIDERS[s.provider];
   const voice = swedishVoice();
-  const nP = PATTERNS.filter(learned).length;
-  const nW = WORDS.filter(learned).length;
+  const nP = PATTERNS.filter(mastered).length;
+  const nW = WORDS.filter(mastered).length;
   const switchRow = (id, label, on) =>
     `<label class="toggle-row"><span>${esc(label)}</span><input type="checkbox" class="switch" id="${id}"${on ? ' checked' : ''}></label>`;
   $('#settings').innerHTML =
@@ -812,29 +799,6 @@ function toast(message, ms = 1500) {
   toastTimer = setTimeout(() => el.classList.remove('show'), ms);
 }
 
-function setLearned(key, on) {
-  if (store.isLearned(key) !== on) store.toggleLearned(key);
-  toast(on ? T.learn.toastOn : T.learn.toastOff);
-  renderList();
-}
-
-// Swipe a block right to mark it learned, left to unmark; the block follows the finger.
-const swiper = swipe($('#list'), {
-  find: (e) => e.target.closest?.('.block') || null,
-  onDrag: (block, dx) => {
-    const x = Math.max(-90, Math.min(90, dx * 0.6));
-    block.classList.add('dragging');
-    block.classList.toggle('to-on', dx >= 60);
-    block.classList.toggle('to-off', dx <= -60);
-    block.style.transform = `translateX(${x}px)`;
-  },
-  onEnd: (block) => {
-    block.classList.remove('dragging', 'to-on', 'to-off');
-    block.style.transform = '';
-  },
-  onSwipe: (block, dir) => setLearned(block.dataset.key, dir === 'right'),
-});
-
 // Selection: shown in place, so the list keeps its scroll position and focus.
 // The clear button counts and clears only the tab you are on: pattern keys start with "p:".
 const inThisTab = (key) => key.startsWith('p:') === (ui.tab === 'patterns');
@@ -863,7 +827,7 @@ $('#clear-sel').addEventListener('click', () => {
 
 $('#list').addEventListener('click', (e) => {
   const block = e.target.closest('.block');
-  if (!block || swiper.consumeClick()) return;
+  if (!block) return;
   if (e.target.closest('.b-info')) openSheet(block.dataset.key);
   else toggleSelect(block);
 });
@@ -886,15 +850,6 @@ $('#tr-btn').innerHTML = BUBBLE;
 $('#tr-btn').addEventListener('click', () => openTranslator());
 $('#abc-btn').innerHTML = ABC;
 $('#abc-btn').addEventListener('click', () => openAlphabet());
-
-$('#status').addEventListener('click', (e) => {
-  const b = e.target.closest('[data-status]');
-  if (!b) return;
-  ui.status[ui.tab] = b.dataset.status;
-  store.saveUi();
-  renderControls();
-  renderList();
-});
 
 $('#sort').addEventListener('change', (e) => {
   ui.sort[ui.tab] = e.target.value;

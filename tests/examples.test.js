@@ -64,32 +64,32 @@ const all = (res) => [...res.selected, ...res.examples];
 // ---------- pattern card ----------
 
 test('pattern examples start with one sentence per selected word that fits, most common first', () => {
-  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(vatten, te, komma), isLearned: none });
+  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(vatten, te, komma), isKnown: none });
   assert.deepEqual(res.selected.map((r) => r.sv), ['Jag vill ha te.', 'Jag vill ha vatten.']);
   assert.ok(res.selected.every((r) => r.svParts.some((p) => p.hl)));
   assert.ok(!all(res).some((r) => /komm/i.test(r.sv)), 'a verb does not fit "Jag vill ha ___"');
 });
 
 test('a selected word that does not fit a form is listed as not used', () => {
-  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(vatten, komma), isLearned: none });
+  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(vatten, komma), isKnown: none });
   assert.deepEqual(res.notUsed, [komma]);
   assert.deepEqual(res.selected.map((r) => r.sv), ['Jag vill ha vatten.']);
 });
 
 test('with nothing selected there is no selection section', () => {
-  const res = patternExamples(want, 0, { words: WORDS, isSelected: none, isLearned: none });
+  const res = patternExamples(want, 0, { words: WORDS, isSelected: none, isKnown: none });
   assert.deepEqual(res.selected, []);
   assert.deepEqual(res.notUsed, []);
 });
 
 test('hand-written examples open the Examples section, without highlight', () => {
-  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(te), isLearned: none });
+  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(te), isKnown: none });
   assert.equal(res.selected[0].sv, 'Jag vill ha te.');
   assert.deepEqual(res.examples[0], { sv: 'Jag vill ha en biljett.', tr: 'Bir bilet istiyorum.' });
 });
 
 test('a hand-written example equal to a generated one appears once, highlighted', () => {
-  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(vatten), isLearned: none });
+  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(vatten), isKnown: none });
   const same = all(res).filter((r) => r.sv === 'Jag vill ha vatten.');
   assert.equal(same.length, 1);
   assert.ok(same[0].svParts, 'the highlighted, generated sentence is kept');
@@ -97,7 +97,7 @@ test('a hand-written example equal to a generated one appears once, highlighted'
 
 test('then up to 3 with learned words, never repeating a selected word', () => {
   for (let run = 0; run < 30; run++) {
-    const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(te), isLearned: sel(te, vatten, kaffe, saft, mjolk) });
+    const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(te), isKnown: sel(te, vatten, kaffe, saft, mjolk) });
     assert.equal(generated(res.examples).length, 3, '3 learned extras');
     assert.equal(all(res).filter((r) => r.sv === 'Jag vill ha te.').length, 1);
     assert.equal(new Set(all(res).map((r) => r.sv)).size, all(res).length, 'no sentence twice');
@@ -108,21 +108,21 @@ test('with no fitting word learned, the extras come from the 15 most common fitt
   const many = Array.from({ length: 20 }, (_, i) => drink(`d${i}`, `dryck${i}`, `içecek${i}`));
   const first15 = new Set(Array.from({ length: 15 }, (_, i) => `dryck${i}`));
   for (let run = 0; run < 50; run++) {
-    const extras = generated(patternExamples(want, 0, { words: many, isSelected: none, isLearned: none }).examples);
+    const extras = generated(patternExamples(want, 0, { words: many, isSelected: none, isKnown: none }).examples);
     assert.equal(extras.length, 3);
     for (const r of extras) assert.ok(first15.has(hlSv(r)), `${hlSv(r)} is not among the 15 most common`);
   }
 });
 
 test('when every learned word is selected, the extras come from common words', () => {
-  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(te), isLearned: sel(te) });
+  const res = patternExamples(want, 0, { words: WORDS, isSelected: sel(te), isKnown: sel(te) });
   assert.equal(res.selected.length, 1);
   assert.equal(generated(res.examples).length, 3, '3 common extras');
   assert.equal(all(res).filter((r) => r.sv === 'Jag vill ha te.').length, 1);
 });
 
 test('a form without templates lists every selected word as not used', () => {
-  const res = patternExamples(want, 1, { words: WORDS, isSelected: sel(te, komma), isLearned: sel(vatten) });
+  const res = patternExamples(want, 1, { words: WORDS, isSelected: sel(te, komma), isKnown: sel(vatten) });
   assert.deepEqual(res.selected, []);
   assert.deepEqual(res.notUsed, [te, komma]);
   assert.deepEqual(res.examples, [{ sv: 'Ett te, tack.', tr: 'Bir çay, lütfen.' }]);
@@ -131,7 +131,7 @@ test('a form without templates lists every selected word as not used', () => {
 // ---------- word card ----------
 
 test('word examples start with each selected pattern, one sentence per variant the word fits', () => {
-  const res = wordExamples(te, { patterns: [want, order, where], isSelected: sel(order, where), isLearned: none });
+  const res = wordExamples(te, { patterns: [want, order, where], isSelected: sel(order, where), isKnown: none });
   assert.deepEqual(res.selected.map((r) => [r.sv, r.from]), [
     ['Kan jag få te?', 'Kan jag få ___? · ___ alabilir miyim?'],
     ['Finns det te?', 'Finns det ___? · ___ alabilir miyim?'],
@@ -140,7 +140,7 @@ test('word examples start with each selected pattern, one sentence per variant t
 });
 
 test('a word card lists selected patterns the word fits in no form as not used', () => {
-  const res = wordExamples(te, { patterns: [want, order, where], isSelected: sel(order, where), isLearned: none });
+  const res = wordExamples(te, { patterns: [want, order, where], isSelected: sel(order, where), isKnown: none });
   assert.deepEqual(res.notUsed, [where]);
   assert.equal(res.selected.length, 2);
 });
@@ -149,7 +149,7 @@ test("then the word's own example, then up to 4 with learned patterns, skipping 
   const tea = drink('te', 'te', 'çay', { ex: ['Dricker du te?', 'Çay içer misin?'] });
   const six = Array.from({ length: 6 }, (_, i) => numbered(i));
   for (let run = 0; run < 30; run++) {
-    const res = wordExamples(tea, { patterns: six, isSelected: sel(six[2]), isLearned: () => true });
+    const res = wordExamples(tea, { patterns: six, isSelected: sel(six[2]), isKnown: () => true });
     assert.deepEqual(res.selected.map((r) => r.from), ['___ 2 · Kalıp 2']);
     assert.deepEqual(res.examples[0], { sv: 'Dricker du te?', tr: 'Çay içer misin?' });
     const extras = res.examples.slice(1);
@@ -160,7 +160,7 @@ test("then the word's own example, then up to 4 with learned patterns, skipping 
 
 test('when every learned pattern is selected, the extras come from the most useful patterns', () => {
   const six = Array.from({ length: 6 }, (_, i) => numbered(i));
-  const res = wordExamples(te, { patterns: six, isSelected: sel(six[0]), isLearned: sel(six[0]) });
+  const res = wordExamples(te, { patterns: six, isSelected: sel(six[0]), isKnown: sel(six[0]) });
   assert.deepEqual(res.selected.map((r) => r.from), ['___ 0 · Kalıp 0']);
   assert.equal(res.examples.length, 4, '4 common extras');
   assert.ok(!res.examples.some((r) => r.from.endsWith('Kalıp 0')));
@@ -170,7 +170,7 @@ test('with no learned pattern, the extras come from the 15 most useful patterns'
   const twenty = Array.from({ length: 20 }, (_, i) => numbered(i));
   const first15 = new Set(Array.from({ length: 15 }, (_, i) => `___ ${i} · Kalıp ${i}`));
   for (let run = 0; run < 50; run++) {
-    const res = wordExamples(te, { patterns: twenty, isSelected: none, isLearned: none });
+    const res = wordExamples(te, { patterns: twenty, isSelected: none, isKnown: none });
     assert.deepEqual(res.selected, []);
     assert.equal(res.examples.length, 4);
     for (const r of res.examples) assert.ok(first15.has(r.from), `${r.from} is not among the 15 most useful`);

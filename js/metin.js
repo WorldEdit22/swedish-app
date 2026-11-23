@@ -4,23 +4,19 @@
 
 export const T = {
   tabs: { words: 'Kelimeler', patterns: 'Kalıplar' },
-  status: { all: 'Tümü', todo: 'Öğrenilecek', learned: 'Öğrenilen' },
   // Sort menus, in menu order: { id: label }.
   sorts: {
-    patterns: { common: 'En faydalı', sv: 'A–Ö İsveççe', todo: 'Önce öğrenilecekler', learned: 'Önce öğrenilenler' },
-    words: { topic: 'Konuya göre', common: 'En yaygın', tr: 'A–Z Türkçe', sv: 'A–Ö İsveççe', todo: 'Önce öğrenilecekler', learned: 'Önce öğrenilenler' },
+    patterns: { common: 'En faydalı', sv: 'A–Ö İsveççe' },
+    words: { topic: 'Konuya göre', common: 'En yaygın', tr: 'A–Z Türkçe', sv: 'A–Ö İsveççe' },
   },
   all: 'Tümü',
   aria: {
     wordType: 'Kelime türü', patternGroup: 'Kalıp grubu', details: 'Ayrıntılar', listen: 'Dinle', close: 'Kapat', back: 'Geri',
-    translate: 'Çevir', alphabet: 'Alfabe', swap: 'Dilleri değiştir', clearText: 'Metni sil', deleteScan: 'Taramayı sil',
-    learnedSuffix: ', öğrenildi',
-  },
+    translate: 'Çevir', alphabet: 'Alfabe', swap: 'Dilleri değiştir', clearText: 'Metni sil', deleteScan: 'Taramayı sil',  },
   clear: (n) => `Temizle (${n})`,
-  progress: (n, total) => `${n} / ${total} öğrenildi`,
+  mastered: (n, total) => `${n} / ${total} ezberlendi`,
   settingsTitle: 'Ayarlar',
   empty: 'Burada bir şey yok. Başka bir filtre veya arama dene.',
-  learn: { off: 'Öğrendim', on: '✓ Öğrenildi', toastOn: '✓ Öğrenildi', toastOff: 'Öğrenilmedi' },
   sections: { selected: 'Seçiminden', notUsed: 'Burada kullanılmadı: ', examples: 'Örnekler', ai: 'Yapay zekâdan' },
   ai: {
     more: '✨ Daha fazla örnek',
