@@ -113,6 +113,17 @@ test('Settings draws in Turkish', () => {
   $('#gear').fire('click');
 });
 
+test('switching tabs scrolls the list, not the window, back to the top', () => {
+  $('#list').scrollTop = 500;
+  const tabs = document.querySelector('.tabs');
+  try {
+    tabs.fire('click', { target: { closest: () => ({ dataset: { tab: 'patterns' } }) } });
+    assert.equal($('#list').scrollTop, 0);
+  } finally {
+    tabs.fire('click', { target: { closest: () => ({ dataset: { tab: 'words' } }) } });
+  }
+});
+
 test('searching without å, ä, ö finds the word', () => {
   $('#search').value = 'har';
   $('#search').fire('input');
