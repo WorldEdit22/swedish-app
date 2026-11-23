@@ -7,6 +7,7 @@ import { patternExamples, wordExamples, wordPatternPairs, slotOf } from './examp
 import { formsLine } from './svenska.js';
 import { uttal, hintOf } from './uttal.js';
 import { store } from './store.js';
+import { dayOf } from './srs.js';
 import { PROVIDERS, AIError, generate, patternPrompt, wordPrompt, readPage, explainSentence } from './ai.js';
 import { swipe } from './swipe.js';
 import { reloadOnUpdate } from './update.js';
@@ -755,17 +756,17 @@ $('#settings').addEventListener('click', async (e) => {
       msg.textContent = S.pastePrompt;
       return;
     }
-    const restored = store.parseBackup(ta.value);
+    const restored = store.parseBackup(ta.value, dayOf(Date.now()));
     if (!restored) {
       msg.textContent = S.notBackup;
       return;
     }
-    store.replaceLearned(restored);
+    store.replaceCards(restored);
     renderSettings();
     $('#set-progress-msg').textContent = S.restored;
   } else if (id === 'set-reset') {
     if (confirm(S.confirmReset)) {
-      store.replaceLearned({});
+      store.resetProgress();
       renderSettings();
     }
   }
