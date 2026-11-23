@@ -11,8 +11,9 @@ export const T = {
   },
   all: 'Tümü',
   aria: {
-    wordType: 'Kelime türü', patternGroup: 'Kalıp grubu', details: 'Ayrıntılar', listen: 'Dinle', close: 'Kapat', back: 'Geri',
-    translate: 'Çevir', alphabet: 'Alfabe', swap: 'Dilleri değiştir', clearText: 'Metni sil', deleteScan: 'Taramayı sil',  },
+    wordType: 'Kelime türü', patternGroup: 'Kalıp grubu', topic: 'Konu', details: 'Ayrıntılar', listen: 'Dinle', close: 'Kapat', back: 'Geri',
+    translate: 'Çevir', alphabet: 'Alfabe', swap: 'Dilleri değiştir', clearText: 'Metni sil', deleteScan: 'Taramayı sil',
+  },
   clear: (n) => `Temizle (${n})`,
   mastered: (n, total) => `${n} / ${total} ezberlendi`,
   settingsTitle: 'Ayarlar',
