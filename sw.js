@@ -15,6 +15,7 @@ const ASSETS = [
   'js/html.js',
   'js/metin.js',
   'js/photo.js',
+  'js/guideview.js',
   'js/practiceview.js',
   'js/scanview.js',
   'js/store.js',
