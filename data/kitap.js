@@ -250,7 +250,7 @@ export const KITAP = [
           ['Han jobb*ar* på ett sjukhus.', 'Bir hastanede çalışıyor.'],
         ],
       },
-      { tip: 'Mastarı olduğu gibi kullanma: "Jag tala svenska" değil, "Jag tala*r* svenska". Şimdiki zaman neredeyse hep *-r* ile biter. Yalnızca kan, vill, ska, måste gibi yardımcı fiiller ve *vet* (bilmek) farklıdır: Jag vet.' },
+      { tip: 'Mastarı olduğu gibi kullanma: "Jag tala svenska" değil, "Jag tala*r* svenska". Şimdiki zaman neredeyse hep *-r* ile biter. Birkaç fiil -r almaz: kan, vill, ska, måste, *vet* (bilmek) ve finns, hoppas gibi -s ile biten fiiller.' },
     ],
   },
   {
