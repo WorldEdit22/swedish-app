@@ -56,7 +56,7 @@ export const YARDIM = {
       sub: 'Üstteki konuşma balonu',
       blocks: [
         { p: 'Konuşma balonu bir çeviri penceresi açar. Yaz ya da yapıştır, Türkçe ile İsveççe arasında yazarken çevrilir.' },
-        { p: 'Yönü çevirmek için değiştirme düğmesini kullan. Balon her pencerenin başlığında da var, yani okurken çevirebilirsin.' },
+        { p: 'Yönü çevirmek için değiştirme düğmesini kullan. Balon her kelime, kalıp ve tarama penceresinin başlığında da var, yani okurken çevirebilirsin.' },
       ],
     },
     {
@@ -66,7 +66,7 @@ export const YARDIM = {
       sub: 'Üstteki açık kitap',
       blocks: [
         { p: 'Üstteki açık kitap kısa bir dil bilgisi kitabı açar. Önce harfler ve sesler gelir, sonra her seferinde tek bir konu.' },
-        { p: 'Her İsveççe cümlenin yanında bir hoparlör var. Kitap her pencerenin başlığında da var.' },
+        { p: 'Her İsveççe cümlenin yanında bir hoparlör var. Kitap da orada.' },
         { tip: 'Merak ettiğinde aç. Sırayla okumak zorunda değilsin.' },
       ],
     },
