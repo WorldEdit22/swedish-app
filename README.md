@@ -13,7 +13,8 @@ Everything a person sees in the app is Turkish; there is no English. The code, c
   - Each day brings 15 new cards per direction. **Daha fazla yeni kart** adds 15 more, and **Geri al** takes back the last answer.
   - Items marked as learned in the old version are carried over once, as cards you already know.
 - **Pronunciation hints** in Turkish letters under every Swedish word and sentence (*jag [ya:g]*, ":" = long vowel). Switch them off in Settings.
-- **Alphabet** button (Aa) next to the translate button: all 29 letters with their sounds and an example word, and the tricky sounds (sj, tj, soft g and k, long and short vowels…), each with a speaker.
+- **Grammar book:** the book button in the top row (and in the word, pattern and scan windows) opens short grammar sections with tappable examples. Its first section is the letters and sounds: all 29 letters with an example word, and the tricky sounds (sj, tj, soft g and k, long and short vowels…), each with a speaker.
+- **Help:** the **?** button in the top row explains what the app is for, gives a short guide to each feature, and suggests a daily routine.
 - **Translate**: Turkish ⇄ Swedish through Google Translate (no key, needs the internet).
 - **More examples** and **photo scans** with a free AI (Gemini recommended), as in the Turkish app; answers and explanations come in Turkish.
 - A speaker button reads Swedish aloud using the phone's built-in Swedish voice. iPhone silent mode mutes it.
@@ -88,7 +89,7 @@ node tools/make-icons.mjs                 # redraw the flag icons
 | `js/ai.js` | Optional free-AI examples, scans and explanations. |
 | `data/words.js` | The words with topic, type, Swedish and Turkish grammar hints. |
 | `data/patterns.js` | The patterns, their variants, examples and templates. |
-| `data/alfabe.js` | The alphabet window's letters and tricky sounds. |
+| `data/alfabe.js` | The letters and tricky sounds. |
 | `data/ranks.js` | Generated frequency scores. |
 
 ### Adding content
