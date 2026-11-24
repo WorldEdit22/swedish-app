@@ -277,10 +277,10 @@ function faceOf(x) {
   if (isPattern(x)) {
     const v = pick(x.variants.filter((o) => o.ex.length));
     const [sv, tr] = pick(v.ex);
-    return { ...face, dot: null, icon: null, forms: null, note: v.note || null, variant: { native: v.tr, target: v.sv }, example: example(sv, tr) };
+    return { ...face, icon: null, forms: null, note: v.note || null, variant: { native: v.tr, target: v.sv }, example: example(sv, tr) };
   }
   const row = x.ex ? { sv: x.ex[0], tr: x.ex[1] } : wordExamples(x, exampleOpts()).examples[0];
-  return { ...face, dot: x.type, icon: CAT[x.cat].icon, forms: formsLine(x), note: x.note || null, variant: null, example: row ? example(row.sv, row.tr) : null };
+  return { ...face, icon: CAT[x.cat].icon, forms: formsLine(x), note: x.note || null, variant: null, example: row ? example(row.sv, row.tr) : null };
 }
 
 function ensureSession() {
@@ -1068,7 +1068,8 @@ if ('speechSynthesis' in window) {
   });
 }
 
-ui.tab = 'words'; // the app always opens on Words
+ui.tab = 'words'; // the app always opens on Words,
+ui.mode = 'practice'; // in Practice
 render();
 
 if ('serviceWorker' in navigator && location.protocol === 'https:') {

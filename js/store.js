@@ -72,7 +72,7 @@ export const store = {
     sort: { patterns: 'common', words: 'topic' },
     type: 'all',
     pgroup: 'all',
-    mode: 'browse',
+    mode: 'practice',
     dir: 'say',
     topic: 'all',
     showSwedish: false, // blocks show the Turkish; Swedish is for checking yourself
