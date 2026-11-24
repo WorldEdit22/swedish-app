@@ -64,7 +64,7 @@ export const KITAP = [
           ['Vi har *ett* hus och *en* bil.', 'Bir evimiz ve bir arabamız var.'],
         ],
       },
-      { tip: 'Türkçede "bir"i çoğu zaman söylemeyiz: "Kitap okuyorum." İsveççede sayılabilen tek bir şeyden önce *en* ya da *ett* gerekir: Jag läser *en* bok. Yeni bir ismi de hep *en* ya da *ett* ile birlikte ezberle: "bil" değil, "en bil".' },
+      { tip: 'Türkçede "bir"i çoğu zaman söylemeyiz: "Kitap okuyorum." İsveççede sayılabilen tek bir şeyden önce *en* ya da *ett* gerekir: Jag läser *en* bok. Meslekten önce ise gelmez: Hon är läkare. Yeni bir ismi de hep *en* ya da *ett* ile birlikte ezberle: "bil" değil, "en bil".' },
     ],
   },
   {
@@ -84,6 +84,7 @@ export const KITAP = [
           ],
         },
       },
+      { p: 'Dikkat: -el ve -er ile biten en-kelimeler yalnızca *-n* alır: nyckel → nyckel*n*, syster → syster*n*.' },
       { p: 'Araya sıfat girerse belirlilik iki kez gösterilir: önde *den* (ett-kelimede *det*), sonda yine ek. Sıfat ise *-a* alır: *den* stora bil*en*, *det* stora hus*et*.' },
       {
         ex: [
@@ -153,7 +154,7 @@ export const KITAP = [
           ['Det är kall*t* idag.', 'Bugün hava soğuk.'],
         ],
       },
-      { tip: '*är* fiilinden sonra da uyumu unutma: "Vi är trött" değil, "Vi är trött*a*". Cümle *Det är* ile başlıyorsa sıfat -t alır: Det är dyr*t*! (Pahalı!)' },
+      { tip: '*är* fiilinden sonra da uyumu unutma: "Vi är trött" değil, "Vi är trött*a*". *Det är*\'den sonra sıfat tek başına geliyorsa (arkasında isim yoksa) -t alır: Det är dyr*t*! (Pahalı!)' },
     ],
   },
   {
@@ -249,7 +250,7 @@ export const KITAP = [
           ['Han jobb*ar* på ett sjukhus.', 'Bir hastanede çalışıyor.'],
         ],
       },
-      { tip: 'Mastarı olduğu gibi kullanma: "Jag tala svenska" değil, "Jag tala*r* svenska". Şimdiki zaman neredeyse hep *-r* ile biter. Yalnızca kan, vill, ska, måste gibi yardımcı fiiller farklıdır.' },
+      { tip: 'Mastarı olduğu gibi kullanma: "Jag tala svenska" değil, "Jag tala*r* svenska". Şimdiki zaman neredeyse hep *-r* ile biter. Yalnızca kan, vill, ska, måste gibi yardımcı fiiller ve *vet* (bilmek) farklıdır: Jag vet.' },
     ],
   },
   {
@@ -325,7 +326,7 @@ export const KITAP = [
           ['Jag *har bott* i Sverige i tre år.', "Üç yıldır İsveç'te yaşıyorum."],
         ],
       },
-      { tip: "Türkçede \"Üç yıldır İsveç'te yaşıyorum\" deriz. İsveççede hâlâ süren bir durum için de *har* + supinum gerekir: Jag *har bott* här i tre år. \"Jag bor här i tre år\" yanlıştır." },
+      { tip: "Türkçede \"Üç yıldır İsveç'te yaşıyorum\" deriz. İsveççede bir şeyin ne kadar süredir sürdüğünü söylerken *har* + supinum gerekir: Jag *har bott* här i tre år. Bu anlamda \"Jag bor här i tre år\" yanlıştır." },
     ],
   },
   {
@@ -388,7 +389,7 @@ export const KITAP = [
           ['*Var* försiktig!', 'Dikkatli ol!'],
         ],
       },
-      { tip: 'Mastarı emir gibi kullanma: "Äta!" değil, *Ät!*; "Komma!" değil, *Kom!* Yalnızca -ar alan fiillerde mastar ile emir aynıdır: Vänta! Titta! (Bak!)' },
+      { tip: 'Mastarı emir gibi kullanma: "Äta!" değil, *Ät!*; "Komma!" değil, *Kom!* Şimdiki zamanı -ar ile biten fiillerde ve kısa fiillerde mastar ile emir aynıdır: Vänta! Titta! (Bak!) Gå!' },
     ],
   },
   {
