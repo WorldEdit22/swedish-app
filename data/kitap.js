@@ -64,7 +64,7 @@ export const KITAP = [
           ['Vi har *ett* hus och *en* bil.', 'Bir evimiz ve bir arabamız var.'],
         ],
       },
-      { tip: 'Türkçede "bir"i çoğu zaman söylemeyiz: "Kitap okuyorum." İsveççede sayılabilen tek bir şeyden önce *en* ya da *ett* gerekir: Jag läser *en* bok. Meslekten önce ise gelmez: Hon är läkare. Yeni bir ismi de hep *en* ya da *ett* ile birlikte ezberle: "bil" değil, "en bil".' },
+      { tip: 'Türkçede "bir"i çoğu zaman söylemeyiz: "Kitap okuyorum." İsveççede sayılabilen tek bir şeyden önce *en* ya da *ett* gerekir: Jag läser *en* bok. Meslekten önce ise gelmez: Hon är läkare. Sıfat varsa gelir: Hon är *en* duktig läkare. Yeni bir ismi de hep *en* ya da *ett* ile birlikte ezberle: "bil" değil, "en bil".' },
     ],
   },
   {
@@ -84,7 +84,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'Dikkat: -el ve -er ile biten en-kelimeler yalnızca *-n* alır: nyckel → nyckel*n*, syster → syster*n*.' },
+      { p: 'Dikkat: -el ve -er ile biten en-kelimeler yalnızca *-n* alır: nyckel → nyckel*n*, syster → syster*n*. Son hecesi vurgusuz ve -el, -er ya da -en ile biten ett-kelimelerde ise kelimenin son e\'si düşer: vatten → vatt*net*, fönster → fönst*ret*, socker → sock*ret*.' },
       { p: 'Araya sıfat girerse belirlilik iki kez gösterilir: önde *den* (ett-kelimede *det*), sonda yine ek. Sıfat ise *-a* alır: *den* stora bil*en*, *det* stora hus*et*.' },
       {
         ex: [
@@ -115,7 +115,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'İpuçları: -a ile biten en-kelimeler genelde *-or* alır (skola → skolor). Birçok kısa en-kelime *-ar* alır (dag → dagar). Son hecesi vurgulu, yabancı kökenli kelimeler genelde *-er* alır (telefon → telefoner); bu gruptaki ünlüyle biten kelimeler yalnızca *-r* alır (sko → skor). Ünlüyle biten ett-kelimeler *-n* alır, ünsüzle bitenler hiç ek almaz (barn → barn).' },
+      { p: 'İpuçları: -a ile biten en-kelimeler genelde *-or* alır (skola → skolor). Birçok kısa en-kelime *-ar* alır (dag → dagar). Son hecesi vurgulu, yabancı kökenli kelimeler genelde *-er* alır (telefon → telefoner); bu gruptaki ünlüyle biten kelimeler yalnızca *-r* alır (sko → skor). Ünlüyle biten ett-kelimeler *-n* alır, ünsüzle bitenler genelde hiç ek almaz (barn → barn).' },
       {
         ex: [
           ['Vi har två bil*ar*.', 'İki arabamız var.'],
@@ -356,7 +356,7 @@ export const KITAP = [
           ['Jag jobbar imorgon.', 'Yarın çalışıyorum.'],
         ],
       },
-      { tip: '*ska* kelimesinden sonra *att* gelmez: "Jag ska att åka" değil, "Jag *ska* åka". *att* yalnızca *kommer att* içinde vardır. *kommer* tek başına "geliyor" demektir: Han kommer imorgon (Yarın geliyor).' },
+      { tip: '*ska* kelimesinden sonra *att* gelmez: "Jag ska att åka" değil, "Jag *ska* åka". Bu üç yoldan yalnızca *kommer att* ile *att* gelir. *kommer* tek başına "geliyor" demektir: Han kommer imorgon (Yarın geliyor).' },
     ],
   },
   {
