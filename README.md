@@ -6,7 +6,12 @@ Everything a person sees in the app is Turkish; there is no English. The code, c
 
 - **Words** tab: about 1,000 words grouped by topic, sorted by how often they appear in spoken Swedish. Blocks show the Turkish meaning; the Swedish can be switched on in Settings (off by default, to test yourself). Each word's window shows the Swedish, its pronunciation in Turkish letters, its forms (*en bil · bilen · bilar · bilarna*, *talar · talade · har talat*), and examples.
 - **Patterns** tab: 78 patterns in four groups — Günlük, Fiiller ve zamanlar, Bağlaçlar and Cümle düzeni (verb-second order, questions, where *inte* goes, en/ett and adjective agreement).
-- Tap blocks to select them; an open pattern then shows examples with your selected words, and an open word shows examples with your selected patterns. Swipe right to mark learned (the block turns yellow), left to unmark.
+- Tap blocks to select them; an open pattern then shows examples with your selected words, and an open word shows examples with your selected patterns, preferring words and patterns you know (practised).
+- **Browse and Practice:** the switch in the top bar changes between the two modes.
+  - **Browse** is the list of words and patterns. A word's or pattern's window has a recall section, where you can also correct the answer for that card.
+  - **Practice** is spaced repetition, like Anki. Each direction (TR → SV and SV → TR) has its own schedule. Tap the card to show the answer, then choose **Bilemedim** (forgot; it comes back a few cards later), **Zor** (hard; soon) or **Kolay** (easy; after a longer wait).
+  - Each day brings 15 new cards per direction. **Daha fazla yeni kart** adds 15 more, and **Geri al** takes back the last answer.
+  - Items marked as learned in the old version are carried over once, as cards you already know.
 - **Pronunciation hints** in Turkish letters under every Swedish word and sentence (*jag [ya:g]*, ":" = long vowel). Switch them off in Settings.
 - **Alphabet** button (Aa) next to the translate button: all 29 letters with their sounds and an example word, and the tricky sounds (sj, tj, soft g and k, long and short vowels…), each with a speaker.
 - **Translate**: Turkish ⇄ Swedish through Google Translate (no key, needs the internet).
