@@ -96,6 +96,7 @@ export const T = {
     title: 'Çalışma',
   },
   book: { title: 'Dil bilgisi' },
+  help: { title: 'Yardım' },
   alphabet: { combos: 'Zor sesler', long: '":" uzun sesi gösterir: a: = uzun a.' },
   settings: {
     blocks: 'Bloklar',

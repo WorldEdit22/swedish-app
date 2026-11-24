@@ -11,7 +11,7 @@ import { answer, buildQueue, correct, dayOf, DIRS, isKnown, isMastered, isNew, n
 import { cardHtml, countsText, doneHtml, recallHtml } from './practiceview.js';
 import { PROVIDERS, AIError, generate, patternPrompt, wordPrompt, readPage, explainSentence } from './ai.js';
 import { reloadOnUpdate } from './update.js';
-import { esc, fold, SPEAKER, BUBBLE, BOOK } from './html.js';
+import { esc, fold, SPEAKER, BUBBLE, BOOK, QUESTION } from './html.js';
 import { shrinkPhoto } from './photo.js';
 import { sentencesOf, scanDate, scansListHtml, scanHtml, sentenceHtml } from './scanview.js';
 import { translate, TranslateError, FAILED, googleLink, swapState } from './translate.js';
@@ -19,6 +19,7 @@ import { translatorHtml, resultHtml } from './translateview.js';
 import { alfabeBodyHtml } from './alfabeview.js';
 import { guideListHtml, guideSectionHtml } from './guideview.js';
 import { KITAP } from '../data/kitap.js';
+import { YARDIM } from '../data/yardim.js';
 import { T } from './metin.js';
 
 // Every visible string comes from T (js/metin.js) or the data; app.js has no text of its own.
@@ -760,7 +761,8 @@ translator.addEventListener('close', () => {
 // It remembers where it was: reopening shows the same page at the same scroll.
 
 const book = $('#book');
-const anyWindowOpen = () => sheet.open || translator.open || book.open;
+const help = $('#help');
+const anyWindowOpen = () => sheet.open || translator.open || book.open || help.open;
 
 // content() → { title, intro, sections, hint, alphabet() }, called each time the window opens.
 // hint: the pronunciation function for examples, or null while hints are off.
@@ -829,6 +831,14 @@ const bookWindow = guideWindow(book, $('#book-body'), () => ({
   alphabet: () => alfabeBodyHtml(LETTERS, COMBOS, sayIt),
 }));
 const openBook = () => bookWindow.open();
+
+const helpWindow = guideWindow(help, $('#help-body'), () => ({
+  title: T.help.title,
+  intro: YARDIM.intro,
+  sections: YARDIM.sections,
+  hint: null,
+  alphabet: () => '',
+}));
 
 async function askAi(button) {
   const x = ITEM.get(openKey);
@@ -1031,7 +1041,7 @@ let toastTimer = null;
 function toast(message, ms = 1500) {
   const el = $('#toast');
   // An open window sits above the whole page, so the toast goes inside the top one while it is open.
-  const host = translator.open ? translator : book.open ? book : sheet.open ? sheet : document.body;
+  const host = translator.open ? translator : book.open ? book : help.open ? help : sheet.open ? sheet : document.body;
   if (el.parentElement !== host) host.append(el);
   el.textContent = message;
   el.classList.add('show');
@@ -1091,6 +1101,8 @@ $('#tr-btn').innerHTML = BUBBLE;
 $('#tr-btn').addEventListener('click', () => openTranslator());
 $('#book-btn').innerHTML = BOOK;
 $('#book-btn').addEventListener('click', () => openBook());
+$('#help-btn').innerHTML = QUESTION;
+$('#help-btn').addEventListener('click', () => helpWindow.open());
 
 $('#sort').addEventListener('change', (e) => {
   ui.sort[ui.tab] = e.target.value;
