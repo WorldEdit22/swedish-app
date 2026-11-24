@@ -64,14 +64,14 @@ export function cardHtml(face, { dir, revealed, previews, canUndo }) {
 
   const top = `<div class="pc-front"${revealed ? '' : ' data-act="reveal"'}>${meta}${front}${revealed ? '' : `<div class="pc-show">${P.show}</div>`}</div>`;
 
-  const grades = revealed
-    ? '<div class="grades">' +
-      GRADES.map(
-        (g) =>
-          `<button class="grade ${g}" data-grade="${g}"><span class="grade-label">${P.grades[g]}</span><span class="grade-ivl">${esc(intervalText(previews[g]))}</span></button>`,
-      ).join('') +
-      '</div>'
-    : '';
+  // Unrevealed, the row stays in the layout (hidden, inert) so Undo below doesn't move between cards.
+  const grades =
+    `<div class="grades${revealed ? '' : ' grades-hold'}"${revealed ? '' : ' aria-hidden="true"'}>` +
+    GRADES.map(
+      (g) =>
+        `<button class="grade ${g}"${revealed ? ` data-grade="${g}"` : ' disabled tabindex="-1"'}><span class="grade-label">${P.grades[g]}</span><span class="grade-ivl">${esc(intervalText(previews[g]))}</span></button>`,
+    ).join('') +
+    '</div>';
 
   return `<div class="pc">${top}${back}</div>${grades}${canUndo ? UNDO : ''}`;
 }

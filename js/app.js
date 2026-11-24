@@ -201,6 +201,7 @@ function renderControls() {
   }
 
   document.querySelectorAll('#mode button').forEach((b) => {
+    b.textContent = T.practice.modes[b.dataset.mode];
     b.classList.toggle('on', b.dataset.mode === ui.mode);
     b.setAttribute('aria-pressed', String(b.dataset.mode === ui.mode));
   });

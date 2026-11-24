@@ -291,6 +291,22 @@ function inPractice(fn, setup = () => {}) {
   }
 }
 
+test('the mode buttons take their labels from T.practice.modes', async () => {
+  const { T } = await import('../js/metin.js');
+  const btn = (mode) => ({ dataset: { mode }, textContent: '', classList: { toggle() {} }, setAttribute() {} });
+  const buttons = [btn('browse'), btn('practice')];
+  const original = document.querySelectorAll;
+  document.querySelectorAll = (s) => (s === '#mode button' ? buttons : []);
+  try {
+    setMode('practice');
+    setMode('browse');
+  } finally {
+    document.querySelectorAll = original;
+  }
+  assert.equal(buttons[0].textContent, T.practice.modes.browse);
+  assert.equal(buttons[1].textContent, T.practice.modes.practice);
+});
+
 test("Practice shows the most common word's native text and hides the search row", () => {
   store.toggleSelected('drinks:vatten'); // so Browse has a Temizle (1) button to hide
   try {
