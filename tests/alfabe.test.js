@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { LETTERS, COMBOS } from '../data/alfabe.js';
-import { alfabeHtml } from '../js/alfabeview.js';
+import { alfabeBodyHtml } from '../js/alfabeview.js';
 import { T } from '../js/metin.js';
 import { esc } from '../js/html.js';
 import { englishWords, allStrings } from './english.js';
@@ -30,26 +30,26 @@ test('at least ten tricky sounds, each explained with an example', () => {
   }
 });
 
-test('the window lists every letter with its example and hint, then the tricky sounds', () => {
-  const html = alfabeHtml(LETTERS, COMBOS, hint);
+test('the body lists every letter with its example and hint, then the tricky sounds, without a title bar', () => {
+  const html = alfabeBodyHtml(LETTERS, COMBOS, hint);
   assert.equal((html.match(/class="abc-row"/g) || []).length, 29);
   assert.equal((html.match(/class="abc-combo"/g) || []).length, COMBOS.length);
-  assert.ok(html.includes(T.alphabet.title) && html.includes(T.alphabet.combos) && html.includes(esc(T.alphabet.long)));
+  assert.ok(html.includes(T.alphabet.combos) && html.includes(esc(T.alphabet.long)));
+  assert.ok(!html.includes('s-top') && !html.includes('data-act="close"'), 'the book supplies the title bar');
   assert.ok(html.includes('data-say="a"') && !html.includes('data-say="A"'), 'tapping a letter says the small letter, not "versal A"');
   assert.ok(html.includes('data-say="å"'));
   const a = LETTERS[0];
   assert.ok(html.includes(`[H:${a.ex[0]}]`), 'the example shows its hint');
   assert.ok(html.includes(`data-say="${a.ex[0]}"`), 'the example has a speaker');
-  assert.ok(html.includes('data-act="close"'));
 });
 
 test("a letter's own hint override wins", () => {
-  const html = alfabeHtml([{ ch: 'C', name: 'se:', sound: 'x', ex: ['cykel', 'bisiklet'], ut: 'sükel' }], [], hint);
+  const html = alfabeBodyHtml([{ ch: 'C', name: 'se:', sound: 'x', ex: ['cykel', 'bisiklet'], ut: 'sükel' }], [], hint);
   assert.ok(html.includes('[sükel]'));
 });
 
 test('text is escaped', () => {
-  const html = alfabeHtml([{ ch: '<', name: '<n>', sound: '<s>', ex: ['<e>', '<t>'] }], [{ title: '<c>', sound: '<d>', ex: [['<x>', '<y>']] }], hint);
+  const html = alfabeBodyHtml([{ ch: '<', name: '<n>', sound: '<s>', ex: ['<e>', '<t>'] }], [{ title: '<c>', sound: '<d>', ex: [['<x>', '<y>']] }], hint);
   for (const tag of ['<n>', '<s>', '<e>', '<t>', '<c>', '<d>', '<x>', '<y>']) assert.ok(!html.includes(tag), tag);
 });
 

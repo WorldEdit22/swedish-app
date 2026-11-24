@@ -1,6 +1,7 @@
-// The alphabet window's HTML: every letter with its name, its sound in Turkish
-// terms and an example word, then the tricky sounds. `hint` turns Swedish text into
-// its pronunciation (always shown here: this window is about sounds).
+// The alphabet section's body, for the book: every letter with its name, its sound in
+// Turkish terms and an example word, then the tricky sounds. The book supplies the title
+// bar. `hint` turns Swedish text into its pronunciation (always shown here: this section is
+// about sounds).
 
 import { esc, SPEAKER } from './html.js';
 import { T } from './metin.js';
@@ -15,7 +16,7 @@ function exampleHtml(sv, tr, h) {
   );
 }
 
-export function alfabeHtml(letters, combos, hint) {
+export function alfabeBodyHtml(letters, combos, hint) {
   const rows = letters
     .map(
       (l) =>
@@ -36,8 +37,6 @@ export function alfabeHtml(letters, combos, hint) {
     )
     .join('');
   return (
-    `<div class="s-top"><div class="grabber"></div>` +
-    `<div class="s-head"><h2>${esc(A.title)}</h2><button class="close" data-act="close" aria-label="${esc(T.aria.close)}">✕</button></div></div>` +
     `<p class="note">${esc(A.long)}</p>` +
     `<div class="abc-list">${rows}</div>` +
     `<h3 class="abc-head">${esc(A.combos)}</h3>${tricky}`

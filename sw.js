@@ -26,6 +26,7 @@ const ASSETS = [
   'js/update.js',
   'js/uttal.js',
   'data/alfabe.js',
+  'data/kitap.js',
   'data/patterns.js',
   'data/ranks.js',
   'data/words.js',

@@ -12,7 +12,7 @@ export const T = {
   all: 'Tümü',
   aria: {
     wordType: 'Kelime türü', patternGroup: 'Kalıp grubu', topic: 'Konu', details: 'Ayrıntılar', listen: 'Dinle', close: 'Kapat', back: 'Geri',
-    translate: 'Çevir', alphabet: 'Alfabe', swap: 'Dilleri değiştir', clearText: 'Metni sil', deleteScan: 'Taramayı sil',
+    translate: 'Çevir', book: 'Dil bilgisi', swap: 'Dilleri değiştir', clearText: 'Metni sil', deleteScan: 'Taramayı sil',
   },
   clear: (n) => `Temizle (${n})`,
   mastered: (n, total) => `${n} / ${total} ezberlendi`,
@@ -95,7 +95,8 @@ export const T = {
     counts: (d, f) => `${d} tekrar · ${f} yeni`,
     title: 'Çalışma',
   },
-  alphabet: { title: 'İsveç alfabesi', combos: 'Zor sesler', long: '":" uzun sesi gösterir: a: = uzun a.' },
+  book: { title: 'Dil bilgisi' },
+  alphabet: { combos: 'Zor sesler', long: '":" uzun sesi gösterir: a: = uzun a.' },
   settings: {
     blocks: 'Bloklar',
     showSv: 'Bloklarda İsveççeyi göster',
