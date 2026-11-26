@@ -69,7 +69,7 @@ export const KITAP = [
         },
       },
       { p: 'Yumuşak ünlüler Türkçedeki ince ünlülere benzer. Türkçede de *kedi*\'deki k, *kaş*\'taki k\'den biraz incedir; İsveççede bu fark çok daha büyüktür.' },
-      { p: 'Kural en çok kelimenin başında geçerlidir. Ek gelince ses değişmez: dag → dag*en*, bok → bok*en*; g ve k sert kalır. Birkaç sık kelime de kurala uymaz, k sert okunur: *kille* (oğlan), *kex* (bisküvi), *kö* (sıra).' },
+      { p: 'Kural en çok kelimenin başında geçerlidir. Ek gelince ses değişmez: dag → dag*en*, bok → bok*en*; g ve k sert kalır. Birkaç sık kelime de kurala uymaz, k sert okunur: *kille* (oğlan), *kex* (bisküvi), *keps* (kasket).' },
       { p: 'r, arkasından gelen *s*, *t*, *d* ya da *n* ile kaynaşır: dilin ucu geriye kıvrılır ve r ayrıca duyulmaz. rs neredeyse ş olur: kors (haç). rt, rd, rn de tek ses gibidir: kort (kart), bord (masa), barn (çocuk). Bu, iki kelime arasında da olur: har du, "ha:dü" gibi okunur.' },
       {
         ex: [
