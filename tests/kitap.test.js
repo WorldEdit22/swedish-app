@@ -4,8 +4,8 @@ import { KITAP } from '../data/kitap.js';
 import { englishWords, allStrings } from './english.js';
 
 const IDS = [
-  'harfler', 'sira', 'soru', 'inte', 'enett', 'belirli', 'cogul', 'sifat', 'karsilastirma', 'zamir',
-  'iyelik', 'edat', 'sayilar', 'simdiki', 'gecmis', 'perfekt', 'gelecek', 'emir', 'modal', 'baglac',
+  'harfler', 'unlu', 'unsuz', 'sira', 'vara', 'soru', 'inte', 'enett', 'belirli', 'cogul', 'sifat', 'karsilastirma',
+  'zamir', 'iyelik', 'edat', 'sayilar', 'simdiki', 'gecmis', 'perfekt', 'gelecek', 'emir', 'modal', 'baglac',
 ];
 const CHAPTERS = [
   'Sesler ve harfler', 'Cümle', 'İsimler ve sıfatlar', 'Küçük kelimeler', 'Fiiller ve zamanlar', 'Kipler ve edilgen',
@@ -77,7 +77,11 @@ test('every grammar section has a tip, in about 120–250 words', () => {
 });
 
 // Points the spec names for a section: each must appear in it (any case, without the * marks).
-const COVERAGE = {};
+const COVERAGE = {
+  unlu: ['tack', 'villa'],
+  unsuz: ['sked', 'kille'],
+  vara: ['finns', 'det är'],
+};
 test('every section covers the points the spec names', () => {
   for (const [id, terms] of Object.entries(COVERAGE)) {
     const s = KITAP.find((x) => x.id === id);

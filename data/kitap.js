@@ -11,6 +11,79 @@ export const KITAP = [
     blocks: [{ alphabet: true }],
   },
   {
+    id: 'unlu',
+    chapter: 'Sesler ve harfler',
+    icon: '📏',
+    title: 'Uzun ve kısa ünlüler',
+    sub: 'tak ve tack: uzunluk anlamı değiştirir',
+    blocks: [
+      { p: 'Türkçede bir ünlüyü uzun ya da kısa söylemek anlamı pek değiştirmez. İsveççede değiştirir: *tak* (tavan) ile *tack* (teşekkürler) ayrı kelimelerdir. Neyse ki uzunluğu çoğu zaman yazıdan anlayabilirsin:' },
+      {
+        list: [
+          'Vurgulu ünlüden sonra tek ünsüz varsa ya da ünlü kelimenin sonundaysa ünlü *uzundur*: tak, glas, bo.',
+          'Arkasında iki ünsüz varsa (çift ya da farklı) ünlü *kısadır*: tack, glass, hund.',
+          'Vurgusuz hecelerdeki ünlüler hep kısadır: flick*a*, skol*a*.',
+        ],
+      },
+      { p: 'Kısa ünlüden sonra ünsüz biraz uzar, tıpkı Türkçedeki *elli* ve *anne* gibi: *villa* "vil-la" diye okunur, *vila* ise "vi:la" diye.' },
+      {
+        table: {
+          head: ['Uzun', 'Türkçe', 'Kısa', 'Türkçe'],
+          rows: [
+            ['tak', 'tavan', 'tack', 'teşekkürler'],
+            ['glas', 'bardak', 'glass', 'dondurma'],
+            ['vila', 'dinlenmek', 'villa', 'müstakil ev'],
+            ['ful', 'çirkin', 'full', 'dolu'],
+          ],
+        },
+      },
+      { p: 'İstisna: kelime sonundaki m genelde tek yazılır, n de birçok küçük kelimede. Bu yüzden *han*, *hon*, *vem*, *hem* tek ünsüze rağmen kısa okunur. Ek gelince çift harf ortaya çıkar: hem → hem*m*a, rum → rum*m*et.' },
+      { p: 'Bir ek de ünlüyü kısaltabilir. Sıfat ett-kelimeyle -t alır (*Sıfat uyumu* bölümüne bak); bazı sıfatlarda bu -tt olur ve ünlü kısalır: röd → rö*tt*, vit → vi*tt*, ny → ny*tt*. stor → stor*t* ise uzun kalır.' },
+      {
+        ex: [
+          ['*Tack* för maten!', 'Yemek için teşekkürler!'],
+          ['Jag vill *vila* lite.', 'Biraz dinlenmek istiyorum.'],
+          ['Vi bor i en *villa*.', 'Müstakil bir evde oturuyoruz.'],
+          ['Taket är *vitt*.', 'Tavan beyaz.'],
+        ],
+      },
+      { tip: 'Bir ünlüyü nasıl okuyacağını bilmiyorsan arkasındaki ünsüzleri say. Yanlış uzunluk başka bir kelime çıkarır: *Tack!* derken a\'yı uzatırsan "tavan" demiş olursun.' },
+    ],
+  },
+  {
+    id: 'unsuz',
+    chapter: 'Sesler ve harfler',
+    icon: '👄',
+    title: 'Yumuşayan ve kaynaşan ünsüzler',
+    sub: 'k, g, sk ünlüye göre değişir; r ise kaynaşır',
+    blocks: [
+      { p: "İsveççede *k*, *g* ve *sk*'nin nasıl okunacağı arkalarından gelen ünlüye bağlıdır. Bu kural için ünlüler iki gruba ayrılır: sert ünlüler (a, o, u, å) ve yumuşak ünlüler (e, i, y, ä, ö)." },
+      {
+        table: {
+          head: ['', 'a, o, u, å önünde', 'e, i, y, ä, ö önünde'],
+          rows: [
+            ['k', 'k: ko (inek)', 'ş: kör (sürüyor)'],
+            ['g', 'g: gå (gitmek)', 'y: göra (yapmak)'],
+            ['sk', 'sk: skal (kabuk)', 'ş: sked (kaşık)'],
+          ],
+        },
+      },
+      { p: 'Yumuşak ünlüler Türkçedeki ince ünlülere benzer. Türkçede de *kedi*\'deki k, *kaş*\'taki k\'den biraz incedir; İsveççede bu fark çok daha büyüktür.' },
+      { p: 'Kural en çok kelimenin başında geçerlidir. Ek gelince ses değişmez: dag → dag*en*, bok → bok*en*; g ve k sert kalır. Birkaç sık kelime de kurala uymaz, k sert okunur: *kille* (oğlan), *kex* (bisküvi), *kö* (sıra).' },
+      { p: 'r, arkasından gelen *s*, *t*, *d* ya da *n* ile kaynaşır: dilin ucu geriye kıvrılır ve r ayrıca duyulmaz. rs neredeyse ş olur: kors (haç). rt, rd, rn de tek ses gibidir: kort (kart), bord (masa), barn (çocuk). Bu, iki kelime arasında da olur: har du, "ha:dü" gibi okunur.' },
+      {
+        ex: [
+          ['Kan jag få en *sked*?', 'Bir kaşık alabilir miyim?'],
+          ['Vad ska vi *göra* idag?', 'Bugün ne yapalım?'],
+          ['*Kycklingen* är god.', 'Tavuk lezzetli.'],
+          ['*Förstår* du?', 'Anlıyor musun?'],
+          ['Kan jag betala med *kort*?', 'Kartla ödeyebilir miyim?'],
+        ],
+      },
+      { tip: 'Yeni bir kelimede k, g ya da sk görünce hemen arkasındaki ünlüye bak: e, i, y, ä, ö ise yumuşak oku. İstisnaları (kille gibi) tek tek öğren.' },
+    ],
+  },
+  {
     id: 'sira',
     chapter: 'Cümle',
     icon: '🔀',
@@ -37,6 +110,38 @@ export const KITAP = [
         ],
       },
       { tip: 'Kontrol et: fiilden önce yalnızca tek bir öğe var mı? Varsa cümle doğrudur. "Idag jag dricker kaffe" yanlıştır, çünkü fiilden önce iki öğe var.' },
+    ],
+  },
+  {
+    id: 'vara',
+    chapter: 'Cümle',
+    icon: '🟰',
+    title: '"Olmak" ve "var"',
+    sub: 'är, det finns ve har',
+    blocks: [
+      { p: 'Türkçede "olmak" şimdiki zamanda görünmez; işi ekler ve *var* görür. İsveççede her biri için ayrı bir fiil vardır:' },
+      {
+        table: {
+          head: ['Türkçe', 'İsveççe'],
+          rows: [
+            ['Evde*yim*.', 'Jag *är* hemma.'],
+            ['Evde kahve *var*.', 'Det *finns* kaffe hemma.'],
+            ['Araba*m var*.', 'Jag *har* en bil.'],
+          ],
+        },
+      },
+      { p: '*är* (mastarı *vara*) herkes için aynıdır: jag är, du är, vi är. Hiçbir zaman atlanmaz: "Jag trött" değil, "Jag *är* trött".' },
+      { p: '*det finns* "var" demektir; olumsuzu *det finns inte* ya da *det finns ingen*, sorusu *finns det…?* olur. "Benim … var" için ise *har* kullanılır: Jag har inte tid. (Vaktim yok.)' },
+      { p: '*det finns* ile *det är* farklıdır. *det finns* bir şeyin var olduğunu söyler: Det finns mat i kylen. (Buzdolabında yemek var.) *det är* ise "bu / o …dır" demektir: Det är min man. (Bu benim kocam.) Bilinen birinin ya da bir şeyin yerini de *är* söyler, tıpkı Türkçede "var" demediğimiz gibi: Mamma är i köket. (Annem mutfakta.)' },
+      {
+        ex: [
+          ['Jag *är* lite trött idag.', 'Bugün biraz yorgunum.'],
+          ['*Finns det* en bank här i närheten?', 'Buralarda bir banka var mı?'],
+          ['Det *finns* ingen mjölk kvar.', 'Hiç süt kalmamış.'],
+          ['*Har* du tid imorgon?', 'Yarın vaktin var mı?'],
+        ],
+      },
+      { tip: 'Türkçedeki *var* ile İsveççedeki *var* aynı kelime değildir. İsveççede *var* "idi" (Jag var hemma: Evdeydim) ya da "nerede" demektir. Türkçedeki "var" için *det finns*, "-im var" için *har* kullan.' },
     ],
   },
   {
