@@ -95,7 +95,7 @@ export const T = {
     counts: (d, f) => `${d} tekrar · ${f} yeni`,
     title: 'Çalışma',
   },
-  book: { title: 'Dil bilgisi' },
+  book: { title: 'Dil bilgisi', next: 'Sonraki' },
   help: { title: 'Yardım' },
   alphabet: { combos: 'Zor sesler', long: '":" uzun sesi gösterir: a: = uzun a.' },
   settings: {

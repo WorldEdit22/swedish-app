@@ -66,6 +66,7 @@ export const YARDIM = {
       sub: 'Üstteki açık kitap',
       blocks: [
         { p: 'Üstteki açık kitap kısa bir dil bilgisi kitabı açar. Önce harfler ve sesler gelir, sonra her seferinde tek bir konu.' },
+        { p: 'Kitap bölümlere ayrılmıştır. Bir sayfanın altındaki *Sonraki* düğmesi bir sonraki sayfaya geçer.' },
         { p: 'Her İsveççe cümlenin yanında bir hoparlör var. Kitap düğmesi her kelime, kalıp ve tarama penceresinin başlığında da var.' },
         { tip: 'Merak ettiğinde aç. Sırayla okumak zorunda değilsin.' },
       ],

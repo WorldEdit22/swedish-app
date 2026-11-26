@@ -19,7 +19,8 @@ const top = (title, back) =>
 export function guideListHtml({ title, intro, sections }) {
   const rows = sections
     .map(
-      (s) =>
+      (s, i) =>
+        (s.chapter && s.chapter !== sections[i - 1]?.chapter ? `<h3 class="gd-chapter">${esc(s.chapter)}</h3>` : '') +
         `<button class="gd-row" data-act="open-section" data-id="${esc(s.id)}">` +
         `<span class="gd-icon">${esc(s.icon)}</span>` +
         `<span class="gd-text"><span class="gd-title">${esc(s.title)}</span><span class="gd-sub">${esc(s.sub)}</span></span>` +
@@ -59,6 +60,11 @@ function blockHtml(block, { hint, alphabet }) {
 }
 
 // hint: (text) => string, or null for no pronunciation line. alphabet: the HTML for an { alphabet: true } block.
-export function guideSectionHtml(section, { hint = null, alphabet = '' } = {}) {
-  return top(section.title, true) + section.blocks.map((b) => blockHtml(b, { hint, alphabet })).join('');
+// next: { id, title } of the section to go on to, or null for no Next button.
+export function guideSectionHtml(section, { hint = null, alphabet = '', next = null } = {}) {
+  return (
+    top(section.title, true) +
+    section.blocks.map((b) => blockHtml(b, { hint, alphabet })).join('') +
+    (next ? `<button class="gd-next" data-act="next" data-id="${esc(next.id)}">${esc(T.book.next)}: ${esc(next.title)} ›</button>` : '')
+  );
 }

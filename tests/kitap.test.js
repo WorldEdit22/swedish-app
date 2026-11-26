@@ -4,8 +4,12 @@ import { KITAP } from '../data/kitap.js';
 import { englishWords, allStrings } from './english.js';
 
 const IDS = [
-  'harfler', 'sira', 'enett', 'belirli', 'cogul', 'sifat', 'zamir', 'iyelik', 'simdiki', 'gecmis',
-  'perfekt', 'gelecek', 'emir', 'modal', 'inte', 'soru', 'edat', 'baglac', 'karsilastirma', 'sayilar',
+  'harfler', 'sira', 'soru', 'inte', 'enett', 'belirli', 'cogul', 'sifat', 'karsilastirma', 'zamir',
+  'iyelik', 'edat', 'sayilar', 'simdiki', 'gecmis', 'perfekt', 'gelecek', 'emir', 'modal', 'baglac',
+];
+const CHAPTERS = [
+  'Sesler ve harfler', 'Cümle', 'İsimler ve sıfatlar', 'Küçük kelimeler', 'Fiiller ve zamanlar', 'Kipler ve edilgen',
+  'Uzun cümleler',
 ];
 const KINDS = ['p', 'list', 'table', 'ex', 'tip', 'alphabet'];
 const grammar = KITAP.filter((s) => !s.blocks.some((b) => b.alphabet));
@@ -21,9 +25,14 @@ test("the book's sections in order, the alphabet first", () => {
   assert.deepEqual(KITAP[0].blocks, [{ alphabet: true }]);
 });
 
-test('every section has an icon, title, sub and blocks of the known kinds', () => {
+test('every section is in a chapter; the chapters come in order, each in one run', () => {
+  const runs = KITAP.map((s) => s.chapter).filter((c, i, all) => i === 0 || c !== all[i - 1]);
+  assert.deepEqual(runs, CHAPTERS);
+});
+
+test('every section has an icon, title, sub, chapter and blocks of the known kinds', () => {
   for (const s of KITAP) {
-    for (const k of ['id', 'icon', 'title', 'sub']) assert.ok(typeof s[k] === 'string' && s[k].trim(), `${s.id}.${k}`);
+    for (const k of ['id', 'icon', 'title', 'sub', 'chapter']) assert.ok(typeof s[k] === 'string' && s[k].trim(), `${s.id}.${k}`);
     assert.ok(Array.isArray(s.blocks) && s.blocks.length, s.id);
     for (const b of s.blocks) {
       const keys = Object.keys(b);
@@ -37,6 +46,7 @@ test('every section has an icon, title, sub and blocks of the known kinds', () =
         assert.ok(head === null || Array.isArray(head), `${s.id}: table head`);
         assert.ok(Array.isArray(rows) && rows.length, `${s.id}: table rows`);
         const width = head ? head.length : rows[0].length;
+        assert.ok(width <= 4, `${s.id}: ${width} table columns`);
         for (const r of rows) assert.ok(r.length === width && r.every((c) => typeof c === 'string'), `${s.id}: table row ${r}`);
       }
       if (b.ex) assert.ok(Array.isArray(b.ex), `${s.id}: ex`);
@@ -66,6 +76,17 @@ test('every grammar section has a tip, in about 120–250 words', () => {
   }
 });
 
+// Points the spec names for a section: each must appear in it (any case, without the * marks).
+const COVERAGE = {};
+test('every section covers the points the spec names', () => {
+  for (const [id, terms] of Object.entries(COVERAGE)) {
+    const s = KITAP.find((x) => x.id === id);
+    assert.ok(s, `${id} exists`);
+    const text = strings(s.blocks).join(' ').replaceAll('*', '').toLocaleLowerCase('tr');
+    for (const t of terms) assert.ok(text.includes(t.toLocaleLowerCase('tr')), `${id}: ${t}`);
+  }
+});
+
 test('every * mark is closed', () => {
   for (const text of strings(KITAP)) {
     assert.equal((text.match(/\*/g) || []).length % 2, 0, text);
@@ -83,7 +104,7 @@ test('examples use only Swedish letters and punctuation on the Swedish side', ()
 
 // The Swedish example sentences (the first of each pair) are left out: they are the thing being taught.
 test('the Turkish text of the book has no English', () => {
-  const turkish = KITAP.map((s) => [s.title, s.sub, s.blocks.map((b) => (b.ex ? b.ex.map((e) => e[1]) : b))]);
+  const turkish = KITAP.map((s) => [s.title, s.sub, s.chapter, s.blocks.map((b) => (b.ex ? b.ex.map((e) => e[1]) : b))]);
   const found = allStrings(turkish).flatMap((t) => englishWords(t).map((w) => `${w} ← ${t}`));
   assert.deepEqual(found, []);
 });
