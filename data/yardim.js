@@ -12,7 +12,7 @@ export const YARDIM = {
       blocks: [
         { p: 'Üstten *Çalış*\'a geç. Kartlar tek tek gelir. Cevabı içinden söyle, sonra *Cevabı göster*\'e dokun.' },
         { p: 'Nasıl gittiğini söyle: *Bilemedim*, *Zor* ya da *Kolay*. Her düğme kartın ne zaman geri geleceğini gösterir. Bilemediğin kart çabuk gelir, kolay olan çok sonra.' },
-        { list: ['Yanlış düğmeye mi bastın? *Geri al* cevabı geri alır.', 'Üstteki düğme yönü değiştirir: *TR → SV* (İsveççesini söyle) ya da *SV → TR* (anlamını bul).'] },
+        { list: ['Yanlış düğmeye mi bastın? *Geri al* cevabı geri alır.', 'Üstteki düğme yönü değiştirir: *TR → SV* (İsveççesini söyle) ya da *SV → TR* (anlamını bul).', 'Bir yönde yeni öğrendiğin kelime ya da kalıp, aklında taze kalmasın diye diğer yönde ancak bir hafta sonra yeni kart olarak gelir.'] },
         { tip: 'Her yönde günde 15 yeni kart gelir. Bitince *Daha fazla yeni kart* 15 kart daha verir.' },
       ],
     },

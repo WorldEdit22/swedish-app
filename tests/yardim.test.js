@@ -21,6 +21,12 @@ test('every topic has an icon, title, sub and 2 to 6 short lines, and no example
   }
 });
 
+test('the practice topic says why a word learned one way waits before it comes up new the other way', () => {
+  const practice = YARDIM.sections.find((s) => s.id === 'practice');
+  const text = practice.blocks.flatMap((b) => b.list || [b.p || b.tip]).join(' ');
+  assert.match(text, /diğer yönde ancak bir hafta sonra/);
+});
+
 test('the help has no English', () => {
   // The ids are internal names, never shown.
   const visible = [YARDIM.intro, YARDIM.sections.map(({ id, ...rest }) => rest)];
