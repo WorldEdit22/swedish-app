@@ -21,7 +21,7 @@ export const KITAP = [
       {
         list: [
           'Vurgulu ünlüden sonra tek ünsüz varsa ya da ünlü kelimenin sonundaysa ünlü *uzundur*: tak, glas, bo.',
-          'Arkasında iki ünsüz varsa (çift ya da farklı) ünlü *kısadır*: tack, glass, hund.',
+          'Arkasında iki ünsüz varsa (çift ya da farklı) ünlü genelde *kısadır*: tack, glass, hund. Ama rd ve rn önünde çoğu zaman uzundur: barn, bord.',
           'Vurgusuz hecelerdeki ünlüler hep kısadır: flick*a*, skol*a*.',
         ],
       },
@@ -38,7 +38,7 @@ export const KITAP = [
         },
       },
       { p: 'İstisna: kelime sonundaki m genelde tek yazılır, n de birçok küçük kelimede. Bu yüzden *han*, *hon*, *vem*, *hem* tek ünsüze rağmen kısa okunur. Ek gelince çift harf ortaya çıkar: hem → hem*m*a, rum → rum*m*et.' },
-      { p: 'Bir ek de ünlüyü kısaltabilir. Sıfat ett-kelimeyle -t alır (*Sıfat uyumu* bölümüne bak); bazı sıfatlarda bu -tt olur ve ünlü kısalır: röd → rö*tt*, vit → vi*tt*, ny → ny*tt*. stor → stor*t* ise uzun kalır.' },
+      { p: 'Ek, kökteki ünlünün uzunluğunu genelde değiştirmez: stor → stor*t*, läsa → läs*te*; ünlü iki ünsüze rağmen uzun kalır. Ama bazı sıfatlarda ett-kelimeyle gelen -t eki -tt olur ve ünlü kısalır (*Sıfat uyumu* bölümüne bak): röd → rö*tt*, vit → vi*tt*, ny → ny*tt*.' },
       {
         ex: [
           ['*Tack* för maten!', 'Yemek için teşekkürler!'],
@@ -69,7 +69,7 @@ export const KITAP = [
         },
       },
       { p: 'Yumuşak ünlüler Türkçedeki ince ünlülere benzer. Türkçede de *kedi*\'deki k, *kaş*\'taki k\'den biraz incedir; İsveççede bu fark çok daha büyüktür.' },
-      { p: 'Kural en çok kelimenin başında geçerlidir. Ek gelince ses değişmez: dag → dag*en*, bok → bok*en*; g ve k sert kalır. Birkaç sık kelime de kurala uymaz, k sert okunur: *kille* (oğlan), *kex* (bisküvi), *keps* (kasket).' },
+      { p: 'Kural kelimenin (ya da vurgulu hecenin) başında geçerlidir. Kelime içinde k ve g genelde sert kalır (tycker, pojke), ek gelince de değişmez: dag → dag*en*, bok → bok*en*. Birkaç sık kelime de kurala uymaz, k sert okunur: *kille* (oğlan), *kex* (bisküvi), *keps* (kasket).' },
       { p: 'r, arkasından gelen *s*, *t*, *d* ya da *n* ile kaynaşır: dilin ucu geriye kıvrılır ve r ayrıca duyulmaz. rs neredeyse ş olur: kors (haç). rt, rd, rn de tek ses gibidir: kort (kart), bord (masa), barn (çocuk). Bu, iki kelime arasında da olur: har du, "ha:dü" gibi okunur.' },
       {
         ex: [
@@ -80,7 +80,7 @@ export const KITAP = [
           ['Kan jag betala med *kort*?', 'Kartla ödeyebilir miyim?'],
         ],
       },
-      { tip: 'Yeni bir kelimede k, g ya da sk görünce hemen arkasındaki ünlüye bak: e, i, y, ä, ö ise yumuşak oku. İstisnaları (kille gibi) tek tek öğren.' },
+      { tip: 'Yeni bir kelimenin başında k, g ya da sk görünce hemen arkasındaki ünlüye bak: e, i, y, ä, ö ise yumuşak oku. Ek gelince ses değişmez. İstisnaları (kille gibi) tek tek öğren.' },
     ],
   },
   {
