@@ -7,7 +7,7 @@ import { patternExamples, wordExamples, wordPatternPairs, slotOf } from './examp
 import { formsLine } from './svenska.js';
 import { uttal, hintOf } from './uttal.js';
 import { store } from './store.js';
-import { answer, buildQueue, correct, dayOf, DIRS, isKnown, isMastered, isNew, nextInterval, requeue, status, unqueue } from './srs.js';
+import { answer, buildQueue, correct, dayOf, DIRS, isKnown, isMastered, isNew, newCandidates, nextInterval, requeue, status, unqueue } from './srs.js';
 import { cardHtml, countsText, doneHtml, recallHtml } from './practiceview.js';
 import { PROVIDERS, AIError, generate, patternPrompt, wordPrompt, readPage, explainSentence } from './ai.js';
 import { reloadOnUpdate } from './update.js';
@@ -271,6 +271,9 @@ function selectionKeys() {
 }
 
 const selectionCards = () => selectionKeys().map((key) => store.card(key, ui.dir));
+// The same item's card in the other direction: what was just practised there is held back here.
+const otherOf = (key) => store.card(key, ui.dir === 'say' ? 'understand' : 'say');
+const offerable = (today) => newCandidates(selectionKeys(), (key) => store.card(key, ui.dir), today, otherOf);
 
 // See practiceview.js for the face's fields. Pronunciation hints only while they are switched on.
 function faceOf(x) {
@@ -290,7 +293,7 @@ function ensureSession() {
   const today = dayOf(Date.now());
   const sig = `${ui.tab}|${ui.tab === 'patterns' ? ui.pgroup : ui.topic}|${ui.dir}|${today}`;
   if (session?.sig !== sig) {
-    const queue = buildQueue(selectionKeys(), (key) => store.card(key, ui.dir), today, store.doseLeft(ui.dir, today), Math.random);
+    const queue = buildQueue(selectionKeys(), (key) => store.card(key, ui.dir), today, store.doseLeft(ui.dir, today), Math.random, otherOf);
     session = { sig, queue, face: null, revealed: false, undo: null };
   }
   return session;
@@ -301,7 +304,7 @@ function practiceCounts() {
   const today = dayOf(Date.now());
   const cards = selectionCards();
   const due = cards.filter((c) => !isNew(c) && c.due <= today).length;
-  const fresh = Math.min(store.doseLeft(ui.dir, today), cards.filter(isNew).length);
+  const fresh = Math.min(store.doseLeft(ui.dir, today), offerable(today).length);
   return countsText(due, Math.max(0, fresh));
 }
 
@@ -309,7 +312,7 @@ function doneState() {
   const today = dayOf(Date.now());
   const cards = selectionCards();
   const ahead = cards.filter((c) => !isNew(c) && c.due > today).map((c) => c.due - today);
-  return { newToday: store.doseUsed(ui.dir, today), canMore: cards.some(isNew), nextIn: ahead.length ? Math.min(...ahead) : null };
+  return { newToday: store.doseUsed(ui.dir, today), canMore: offerable(today).length > 0, nextIn: ahead.length ? Math.min(...ahead) : null };
 }
 
 function renderPractice() {
