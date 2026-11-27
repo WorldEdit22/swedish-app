@@ -776,7 +776,7 @@ export const KITAP = [
         },
       },
       { p: '*över* "geçiyor", *i* ise "var" demektir. Yarımdan beş dakika önce ve sonra *halv*\'e göre söylenir: fem i halv fyra (3.25), fem över halv fyra (3.35).' },
-      { p: 'Gün ve ay adları küçük harfle yazılır. Günlerle *på*, aylarla *i* kullanılır: på måndag (pazartesi), i juli (temmuzda). Geçmiş ve gelecek için: *förra veckan* (geçen hafta), *nästa vecka* (gelecek hafta), *om en vecka* (bir hafta sonra), *för två år sedan* (iki yıl önce).' },
+      { p: 'Gün ve ay adları küçük harfle yazılır. Günlerle *på*, aylarla *i* kullanılır: på måndag (önümüzdeki pazartesi), i juli (temmuzda). Geçen pazartesi ise *i måndags* olur. Geçmiş ve gelecek için: *förra veckan* (geçen hafta), *nästa vecka* (gelecek hafta), *om en vecka* (bir hafta sonra), *för två år sedan* (iki yıl önce).' },
       {
         ex: [
           ['Hur mycket är klockan? – Kvart *i* fyra.', 'Saat kaç? – Dörde çeyrek var.'],
