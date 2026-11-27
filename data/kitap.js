@@ -790,6 +790,45 @@ export const KITAP = [
     ],
   },
   {
+    id: 'gruplar',
+    chapter: 'Fiiller ve zamanlar',
+    icon: '🗂️',
+    title: 'Fiil grupları',
+    sub: 'tala, köpa, bo, skriva: dört grup, dört biçim',
+    blocks: [
+      { p: 'İsveççede fiiller dört gruba ayrılır. İlk üç grupta bir fiilin grubunu bilirsen öteki biçimlerini de bilirsin. Her fiilin dört temel biçimi vardır:' },
+      {
+        table: {
+          head: ['Mastar', 'Şimdiki', 'Geçmiş', 'Supinum'],
+          rows: [
+            ['tala', 'tala*r*', 'tala*de*', 'tala*t*'],
+            ['köpa', 'köp*er*', 'köp*te*', 'köp*t*'],
+            ['bo', 'bo*r*', 'bo*dde*', 'bo*tt*'],
+            ['skriva', 'skriv*er*', '*skrev*', '*skrivit*'],
+          ],
+        },
+      },
+      {
+        list: [
+          '*1. grup* (tala): şimdiki zamanı *-ar* ile biter: jobba, titta, prata. En büyük gruptur; dile yeni giren fiiller de bu gruba girer.',
+          '*2. grup* (köpa): şimdiki zamanı *-er*, geçmişi *-de* ya da *-te* ile biter: ringa, läsa.',
+          '*3. grup* (bo): tek heceli kısa fiiller: tro, må. (gå ve se gibi birkaçı düzensizdir.)',
+          '*4. grup* (skriva): düzensiz fiiller. Çoğu geçmişte ek almaz, içindeki ünlü değişir; supinumu çoğu zaman *-it* ile biter: dricka, komma.',
+        ],
+      },
+      { p: 'Bu biçimlerin ne zaman kullanıldığını *Şimdiki zaman*, *Geçmiş zaman* ve *har + supinum* bölümleri anlatır.' },
+      {
+        ex: [
+          ['Jag *pratar* med mamma varje dag.', 'Annemle her gün konuşurum.'],
+          ['Vi *köpte* en ny soffa igår.', 'Dün yeni bir kanepe aldık.'],
+          ['Vi *bodde* i Ankara förut.', "Eskiden Ankara'da otururduk."],
+          ['Jag har *skrivit* till läraren.', 'Öğretmene yazdım.'],
+        ],
+      },
+      { tip: 'Yeni bir fiili şimdiki ve geçmiş biçimiyle birlikte ezberle: köpa, köper, köpte. Şimdiki zamanı *-ar* ile biten fiil hep 1. gruptadır; *-er* ile biten ise 2. ya da 4. grupta olabilir, bunu geçmiş biçimi gösterir.' },
+    ],
+  },
+  {
     id: 'simdiki',
     chapter: 'Fiiller ve zamanlar',
     icon: '▶️',
@@ -900,6 +939,39 @@ export const KITAP = [
     ],
   },
   {
+    id: 'hade',
+    chapter: 'Fiiller ve zamanlar',
+    icon: '⏮️',
+    title: 'hade + supinum',
+    sub: 'Jag hade ätit: Türkçedeki -mişti',
+    blocks: [
+      { p: 'Türkçede "yemiştim, gelmişti" deriz: geçmişteki bir andan da önce olmuş bir şeyi anlatırız. İsveççede bunun için *hade* + supinum kullanılır: Jag *hade ätit*. (Yemiştim.)' },
+      { p: "*hade*, *har*'ın geçmiş biçimidir ve herkes için aynıdır: jag hade, du hade, vi hade. Supinum hiç değişmez, yalnızca *har* yerine *hade* gelir. Supinum biçimleri için *har + supinum* bölümüne bak." },
+      {
+        table: {
+          head: ['Türkçe', 'İsveççe'],
+          rows: [
+            ['yedim (şimdi tokum)', 'jag *har* ätit'],
+            ['yemiştim', 'jag *hade* ätit'],
+            ['gelmişti', 'han *hade* kommit'],
+            ['görmemiştim', 'jag *hade inte* sett'],
+          ],
+        },
+      },
+      { p: 'Çoğu zaman iki olay vardır: biri geçmişte olur, öteki ondan da önce olmuştur. Bu yüzden *när* (-dığında) ve *redan* (çoktan) ile sık kullanılır: När vi kom, *hade* filmen redan *börjat*. (Geldiğimizde film çoktan başlamıştı.)' },
+      { p: "Türkçede uzak geçmiş için de \"-mişti\" deriz: Buraya 2015'te gelmiştim. Arada ikinci bir geçmiş olay yoksa İsveççede düz geçmiş zaman kullanılır: Jag kom hit 2015." },
+      { p: 'Arkasından supinum gelmezse *hade* "vardı" demektir: Jag hade en katt. (Bir kedim vardı.)' },
+      {
+        ex: [
+          ['Jag *hade* aldrig *sett* snö förut.', 'Daha önce hiç kar görmemiştim.'],
+          ['Han *hade* glömt sina nycklar.', 'Anahtarlarını unutmuştu.'],
+          ['De bjöd på mat, men jag *hade* redan *ätit*.', 'Yemek ikram ettiler ama ben çoktan yemiştim.'],
+        ],
+      },
+      { tip: '*hade*\'den sonra geçmiş biçim değil, supinum gelir: "Jag hade åt" değil, Jag hade *ätit*. *har*\'dan sonra da aynısı olur.' },
+    ],
+  },
+  {
     id: 'gelecek',
     chapter: 'Fiiller ve zamanlar',
     icon: '🔜',
@@ -928,6 +1000,61 @@ export const KITAP = [
         ],
       },
       { tip: '*ska* kelimesinden sonra *att* gelmez: "Jag ska att åka" değil, "Jag *ska* åka". Bu üç yoldan yalnızca *kommer att* ile *att* gelir. *kommer* tek başına "geliyor" demektir: Han kommer imorgon (Yarın geliyor).' },
+    ],
+  },
+  {
+    id: 'aliskanlik',
+    chapter: 'Fiiller ve zamanlar',
+    icon: '🔄',
+    title: 'Alışkanlıklar ve süren işler',
+    sub: 'brukar, brukade, håller på att, satt och läste',
+    blocks: [
+      { p: 'Türkçede alışkanlığı geniş zamanla söyleriz: Sabahları çay içerim. İsveççede şimdiki zaman da kullanılabilir, ama alışkanlık için çok sık *brukar* + mastar kullanılır. *brukar* fiile "genelde" anlamı katar ve arkasından *att* gelmez: Jag *brukar* dricka te på morgonen.' },
+      { p: 'Geçmişteki alışkanlık için *brukade* kullanılır. Türkçedeki *-erdi* gibidir: Vi *brukade* åka till Turkiet varje sommar. (Her yaz Türkiye\'ye giderdik.)' },
+      { p: 'Bir işin tam şu an sürdüğünü, henüz bitmediğini vurgulamak için *håller på att* + mastar kullanılır.' },
+      { p: 'Süren bir işi anlatmanın bir yolu da iki fiili *och* ile bağlamaktır. İlki kişinin nasıl durduğunu söyler: *sitta* (oturmak), *stå* (ayakta durmak), *ligga* (yatmak). İkincisi ne yaptığını söyler. İki fiil aynı zamanda olur ve aynı zaman biçimini alır: Hon *satt och läste*. (Oturmuş okuyordu.)' },
+      {
+        ex: [
+          ['Jag *brukar* ta bussen till jobbet.', 'İşe genelde otobüsle giderim.'],
+          ['Vi *brukade* bada här när vi var små.', 'Küçükken burada yüzerdik.'],
+          ['Vänta lite, jag *håller på att* laga mat.', 'Biraz bekle, şu an yemek yapıyorum.'],
+          ['Han *satt och* tittade på tv hela kvällen.', 'Bütün akşam oturup televizyon izledi.'],
+        ],
+      },
+      { tip: 'Türkçedeki her "-iyor" için *håller på att* gerekmez: Jag läser en bok (Bir kitap okuyorum) yeterlidir. *håller på att* yalnızca işin tam şu an sürdüğünü vurgular.' },
+    ],
+  },
+  {
+    id: 'partikel',
+    chapter: 'Fiiller ve zamanlar',
+    icon: '🧲',
+    title: 'Partikelli fiiller',
+    sub: 'gå ut, stänga av, tycka om: vurgu küçük kelimede',
+    blocks: [
+      { p: 'Bazı fiillerin yanına küçük bir kelime gelir: *ut*, *av*, *om*, *upp*, *ihåg*. Bu kelimeye *partikel* denir. Fiil ile partikel birlikte tek bir anlam taşır; bu anlam fiilin kendi anlamından çok farklı olabilir:' },
+      {
+        table: {
+          head: ['Fiil', 'Anlamı', 'Partikelle', 'Anlamı'],
+          rows: [
+            ['gå', 'gitmek', 'gå *ut*', 'dışarı çıkmak'],
+            ['stänga', 'kapatmak (kapıyı)', 'stänga *av*', 'kapatmak (cihazı)'],
+            ['tycka', 'düşünmek', 'tycka *om*', 'sevmek'],
+            ['ge', 'vermek', 'ge *upp*', 'vazgeçmek'],
+            ['komma', 'gelmek', 'komma *ihåg*', 'hatırlamak'],
+          ],
+        },
+      },
+      { p: 'Partikel vurgulu söylenir, fiil ise hafif kalır. Vurgu anlamı değiştirebilir: *om* vurguluysa *tycka om* "sevmek" olur. Vurgusuz *om* ise "hakkında" anlamına gelen bir edattır: Vad tycker du om filmen? (Film hakkında ne düşünüyorsun?)' },
+      { p: 'Ana cümlede *inte* fiil ile partikelin arasına girer: Jag tycker *inte* om fisk. (Balık sevmem.)' },
+      {
+        ex: [
+          ['Ska vi *gå ut* ikväll?', 'Bu akşam dışarı çıkalım mı?'],
+          ['Glöm inte att *stänga av* spisen!', 'Ocağı kapatmayı unutma!'],
+          ['Barnen *tycker om* glass.', 'Çocuklar dondurma sever.'],
+          ['Jag *kommer* inte *ihåg* hans namn.', 'Adını hatırlamıyorum.'],
+        ],
+      },
+      { tip: 'Partikeli atlama: "Jag tycker kaffe" yanlıştır, Jag tycker *om* kaffe doğrudur. Yeni bir partikelli fiili hep partikeliyle birlikte, tek bir kelime gibi ezberle: tycka om, gå ut, komma ihåg.' },
     ],
   },
   {

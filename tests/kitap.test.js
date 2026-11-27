@@ -6,7 +6,8 @@ import { englishWords, allStrings } from './english.js';
 const IDS = [
   'harfler', 'unlu', 'unsuz', 'sira', 'vara', 'soru', 'inte',
   'enett', 'belirli', 'cogul', 'sifat', 'cifte', 'karsilastirma', 'genitif', 'bilesik', 'turetme',
-  'zamir', 'iyelik', 'sig', 'belirsiz', 'edat', 'yer', 'sayilar', 'saat', 'simdiki', 'gecmis', 'perfekt', 'gelecek', 'emir', 'modal', 'baglac',
+  'zamir', 'iyelik', 'sig', 'belirsiz', 'edat', 'yer', 'sayilar', 'saat',
+  'gruplar', 'simdiki', 'gecmis', 'perfekt', 'hade', 'gelecek', 'aliskanlik', 'partikel', 'emir', 'modal', 'baglac',
 ];
 const CHAPTERS = [
   'Sesler ve harfler', 'Cümle', 'İsimler ve sıfatlar', 'Küçük kelimeler', 'Fiiller ve zamanlar', 'Kipler ve edilgen',
@@ -94,6 +95,10 @@ const COVERAGE = {
   yer: ['hemma', 'dit'],
   sayilar: ['första'],
   saat: ['halv', 'sedan'],
+  gruplar: ['köpte', 'bott'],
+  hade: ['hade', 'supinum'],
+  aliskanlik: ['brukar', 'håller på'],
+  partikel: ['tycka om'],
 };
 test('every section covers the points the spec names', () => {
   for (const [id, terms] of Object.entries(COVERAGE)) {
