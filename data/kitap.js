@@ -585,6 +585,74 @@ export const KITAP = [
     ],
   },
   {
+    id: 'sig',
+    chapter: 'Küçük kelimeler',
+    icon: '🪞',
+    title: 'Kendi: sig ve själv',
+    sub: 'tvätta sig, lära sig, Jag gjorde det själv',
+    blocks: [
+      { p: 'Türkçede "kendini" deriz ya da fiile bir ek koyarız: yıka*n*mak, giyi*n*mek. İsveççede fiilden sonra bir zamir gelir. *jag*, *du*, *vi* ve *ni* için bu zamir nesne biçimiyle aynıdır: mig, dig, oss, er. *han*, *hon*, *den*, *det* ve *de* için ise ayrı bir kelime vardır: *sig* ("sey" diye okunur).' },
+      {
+        table: {
+          head: ['', 'tvätta sig (yıkanmak)'],
+          rows: [
+            ['jag', 'tvättar *mig*'],
+            ['du', 'tvättar *dig*'],
+            ['han, hon', 'tvättar *sig*'],
+            ['vi', 'tvättar *oss*'],
+            ['ni', 'tvättar *er*'],
+            ['de', 'tvättar *sig*'],
+          ],
+        },
+      },
+      { p: 'Bazı fiiller hep böyle kullanılır, Türkçedeki karşılıklarında "kendi" olmasa bile: *lära sig* (öğrenmek), *känna sig* (kendini … hissetmek), *sätta sig* (oturmak), *klä på sig* (giyinmek), *skynda sig* (acele etmek).' },
+      { p: '*själv* "kendim, kendin" demektir: işi başkası değil, kişinin kendisi yapar. Çoğulda *själva* olur: Vi gjorde det själva. (Kendimiz yaptık.) *mig själv*, *sig själv* ise vurgulu "kendimi, kendini" demektir: Han tänker bara på sig själv. (Yalnızca kendini düşünüyor.)' },
+      {
+        ex: [
+          ['Jag *lär mig* svenska.', 'İsveççe öğreniyorum.'],
+          ['Jag *känner mig* lite trött.', 'Kendimi biraz yorgun hissediyorum.'],
+          ['*Sätt dig* här!', 'Buraya otur!'],
+          ['Ta hand om *dig*!', 'Kendine iyi bak!'],
+          ['Jag gjorde det *själv*.', 'Kendim yaptım.'],
+        ],
+      },
+      { tip: '*han*, *hon* ve *de* için *sig* kullan, *honom*, *henne* ya da *dem* değil: Anna tittar på *sig* i spegeln (Anna aynada kendine bakıyor), ama Anna tittar på *henne* (başka bir kadına bakıyor). Öznenin kendi şeyleri için de *sin* kullanılır: *İyelik* bölümüne bak.' },
+    ],
+  },
+  {
+    id: 'belirsiz',
+    chapter: 'Küçük kelimeler',
+    icon: '👉',
+    title: 'Bu, biri, hiç, hepsi',
+    sub: 'den här, någon, ingen, alla, många…',
+    blocks: [
+      { p: 'Türkçede *bu araba*, *bu ev*, *bu evler* deriz: *bu* isme göre değişmez. İsveççede bu tür kelimeler en-kelimeye, ett-kelimeye ve çoğula göre biçim alır:' },
+      {
+        table: {
+          head: ['', 'en-kelime', 'ett-kelime', 'Çoğul'],
+          rows: [
+            ['bu', 'den här', 'det här', 'de här'],
+            ['bir, bazı', 'någon', 'något', 'några'],
+            ['hiç, hiçbir', 'ingen', 'inget', 'inga'],
+          ],
+        },
+      },
+      { p: '*den här* ile isim belirli hâl alır: den här bil*en* (bu araba), det här hus*et* (bu ev). "Şu, o" için *den där* denir.' },
+      { p: 'Tek başına *någon* "biri", *något* "bir şey" demektir; soruda "hiç" anlamı da taşır. *ingen* "hiç kimse", *inget* "hiçbir şey" demektir. *ingen*, *inte någon* ile aynıdır: Jag har inga pengar = Jag har inte några pengar (Hiç param yok).' },
+      { p: '*alla* "herkes, hepsi", *allt* "her şey" demektir. *varje* (her) hiç değişmez: varje dag. Türkçedeki "çok" ve "az" için ikişer kelime vardır: sayılamayan şeylerle *mycket* ve *lite* (mycket tid, lite socker), sayılabilenlerle *många* ve *få* (många barn, få bilar).' },
+      {
+        ex: [
+          ['Vad kostar *den här* jackan?', 'Bu mont ne kadar?'],
+          ['Är det *någon* hemma?', 'Evde kimse var mı?'],
+          ['*Ingen* vet var nycklarna är.', 'Anahtarların nerede olduğunu kimse bilmiyor.'],
+          ['Det var *många* människor där.', 'Orada çok insan vardı.'],
+          ['Jag dricker kaffe *varje* dag.', 'Her gün kahve içerim.'],
+        ],
+      },
+      { tip: 'Türkçede "Kimse gelmedi" deriz: hem *kimse* hem olumsuz fiil. İsveççede *ingen* zaten olumsuzdur, yanına *inte* gelmez: "Ingen kom inte" değil, *Ingen* kom.' },
+    ],
+  },
+  {
     id: 'edat',
     chapter: 'Küçük kelimeler',
     icon: '📍',
@@ -606,7 +674,7 @@ export const KITAP = [
         },
       },
       { p: '*i* mi, *på* mı? *i* bir şeyin içi için: i huset, i parken, i Sverige. *på* bir yüzeyin üstü ve birçok yer için: på bordet, på jobbet, på banken. Tam bir kuralı yoktur; ifadeyle birlikte ezberle.' },
-      { p: 'Zamanda günlerle *på* (på lördag: cumartesi günü), aylarla *i* kullanılır (i maj).' },
+      { p: 'Gün ve ay adlarıyla da *på* ve *i* kullanılır: *Saat ve takvim* bölümüne bak.' },
       {
         ex: [
           ['Jag bor *i* Sverige.', "İsveç'te yaşıyorum."],
@@ -615,15 +683,51 @@ export const KITAP = [
           ['Jag är *hos* läkaren.', 'Doktordayım.'],
         ],
       },
-      { tip: "Hareket varsa *till* kullan: Jag är *i* Stockholm (Stockholm'dayım), ama Jag åker *till* Stockholm (Stockholm'a gidiyorum). Ev için ayrı kelimeler vardır: *hemma* (evde), *hem* (eve): Jag är hemma. / Jag går hem." },
+      { tip: "Hareket varsa *till* kullan: Jag är *i* Stockholm (Stockholm'dayım), ama Jag åker *till* Stockholm (Stockholm'a gidiyorum). Ev, burası ve orası için edat yerine ayrı kelimeler vardır: *Yer ve yön* bölümüne bak." },
+    ],
+  },
+  {
+    id: 'yer',
+    chapter: 'Küçük kelimeler',
+    icon: '🧭',
+    title: 'Yer ve yön',
+    sub: 'här ve hit, hemma ve hem: nerede mi, nereye mi?',
+    blocks: [
+      { p: 'Türkçede yeri *-de*, yönü *-e* ekiyle ayırırız: burada / buraya, evde / eve. İsveççede bazı yer kelimelerinin de iki biçimi vardır: biri bir yerde olmak, öteki bir yere gitmek içindir.' },
+      {
+        table: {
+          head: ['Nerede? (-de)', 'Nereye? (-e)', 'Türkçe'],
+          rows: [
+            ['här', 'hit', 'burada / buraya'],
+            ['där', 'dit', 'orada / oraya'],
+            ['hemma', 'hem', 'evde / eve'],
+            ['inne', 'in', 'içeride / içeri'],
+            ['ute', 'ut', 'dışarıda / dışarı'],
+            ['uppe', 'upp', 'yukarıda / yukarı'],
+            ['nere', 'ner', 'aşağıda / aşağı'],
+          ],
+        },
+      },
+      { p: 'Fiile bak: *gå*, *komma*, *åka* gibi hareket fiilleriyle ikinci sütun gelir (Kom hit!), *vara*, *bo*, *sitta* gibi fiillerle birinci sütun (Jag är här).' },
+      { p: 'Konum için şu edatlar kullanılır: *framför* (önünde), *bakom* (arkasında), *bredvid* (yanında), *mellan* (arasında), *under* (altında), *över* (üstünde, ama değmeden; değiyorsa *på*). Türkçede altında / altına diye ek değişir; İsveççede *under* aynı kalır, farkı fiil gösterir: Väskan ligger under bordet. (Çanta masanın altında.) Lägg väskan under bordet! (Çantayı masanın altına koy!)' },
+      {
+        ex: [
+          ['Kom *hit*!', 'Buraya gel!'],
+          ['Hur kommer jag *dit*?', 'Oraya nasıl giderim?'],
+          ['När kommer du *hem*?', 'Eve ne zaman geliyorsun?'],
+          ['Barnen leker *ute*.', 'Çocuklar dışarıda oynuyor.'],
+          ['Bilen står *bakom* huset.', 'Araba evin arkasında.'],
+        ],
+      },
+      { tip: 'Türkçe düşün: "-e" diyorsan (eve, buraya, dışarı) *hem*, *hit*, *ut*; "-de" diyorsan (evde, burada, dışarıda) *hemma*, *här*, *ute*. "Jag är hem" yanlış, *Jag är hemma* doğru.' },
     ],
   },
   {
     id: 'sayilar',
     chapter: 'Küçük kelimeler',
     icon: '🔢',
-    title: 'Sayılar ve saat',
-    sub: 'en, två, tre… ve halv tre, kvart över',
+    title: 'Sayılar',
+    sub: 'en, två, tre… ve första, andra',
     blocks: [
       {
         table: {
@@ -638,25 +742,48 @@ export const KITAP = [
         },
       },
       { p: '11–20: elva, tolv, tretton, fjorton, femton, sexton, sjutton, arton, nitton, tjugo. Onluklar: trettio, fyrtio, femtio, sextio, sjuttio, åttio, nittio. 100 hundra, 1000 tusen. Büyük sayılar Türkçedeki gibi sırayla söylenir ve bitişik yazılır: 25 *tjugofem* (yirmi beş).' },
-      { p: 'Saati sormak için: *Vad är klockan?* Cevap: Klockan är tre (Saat üç). Çeyrekler ve yarımlar şöyle söylenir:' },
+      { p: 'Sayarken *ett* denir: ett, två, tre. İsmin önünde ise "bir" isme uyar: en bil, ett hus. Yaş için *år* (yıl) kullanılır: Jag är trettio år. (Otuz yaşındayım.)' },
+      { p: 'Sıra sayıları için Türkçedeki *-inci* gibi tek bir ek yoktur. İlk ikisi düzensizdir: *första* (birinci), *andra* (ikinci). Sonra şöyle gider: tredje, fjärde, femte, sjätte, sjunde, åttonde, nionde, tionde. En-kelimeyle de ett-kelimeyle de aynı kalırlar. Tarihte de sıra sayısı kullanılır: den tredje maj (3 Mayıs).' },
+      {
+        ex: [
+          ['Jag har *två* barn.', 'İki çocuğum var.'],
+          ['Hur gammal är du? – Jag är *trettiofem*.', 'Kaç yaşındasın? – Otuz beş.'],
+          ['Min son går i *tredje* klass.', 'Oğlum üçüncü sınıfa gidiyor.'],
+          ['Det är *första* gången jag är i Sverige.', "İsveç'e ilk kez geliyorum."],
+        ],
+      },
+      { tip: '*andra* "ikinci" demektir ama "başka, diğer" de demektir: de andra (diğerleri). Hangisi olduğunu cümleden anlarsın. Saat için *Saat ve takvim* bölümüne bak.' },
+    ],
+  },
+  {
+    id: 'saat',
+    chapter: 'Küçük kelimeler',
+    icon: '🕐',
+    title: 'Saat ve takvim',
+    sub: 'halv tre, kvart i fyra, på måndag, för två år sedan',
+    blocks: [
+      { p: 'Saati sormanın iki yolu vardır: *Vad är klockan?* ya da *Hur mycket är klockan?* Cevap: Klockan är tre. "Saat üçte" için ek ya da edat gerekmez: Vi ses klockan tre. (Saat üçte görüşürüz.)' },
       {
         table: {
           head: ['Saat', 'İsveççe', 'Türkçe'],
           rows: [
-            ['3.10', 'tio över tre', 'üçü on geçiyor'],
-            ['3.15', '*kvart över* tre', 'üçü çeyrek geçiyor'],
+            ['3.10', 'tio *över* tre', 'üçü on geçiyor'],
+            ['3.15', 'kvart *över* tre', 'üçü çeyrek geçiyor'],
+            ['3.25', 'fem *i halv* fyra', 'üçü yirmi beş geçiyor'],
             ['3.30', '*halv* fyra', 'üç buçuk'],
-            ['3.45', '*kvart i* fyra', 'dörde çeyrek var'],
-            ['3.50', 'tio i fyra', 'dörde on var'],
+            ['3.45', 'kvart *i* fyra', 'dörde çeyrek var'],
           ],
         },
       },
+      { p: '*över* "geçiyor", *i* ise "var" demektir. Yarımdan beş dakika önce ve sonra *halv*\'e göre söylenir: fem i halv fyra (3.25), fem över halv fyra (3.35).' },
+      { p: 'Gün ve ay adları küçük harfle yazılır. Günlerle *på*, aylarla *i* kullanılır: på måndag (pazartesi), i juli (temmuzda). Geçmiş ve gelecek için: *förra veckan* (geçen hafta), *nästa vecka* (gelecek hafta), *om en vecka* (bir hafta sonra), *för två år sedan* (iki yıl önce).' },
       {
         ex: [
-          ['Vad är klockan?', 'Saat kaç?'],
-          ['Klockan är *halv tre*.', 'Saat iki buçuk.'],
-          ['Vi ses *kvart över* sju.', 'Yediyi çeyrek geçe görüşürüz.'],
-          ['Jag har *två* barn.', 'İki çocuğum var.'],
+          ['Hur mycket är klockan? – Kvart *i* fyra.', 'Saat kaç? – Dörde çeyrek var.'],
+          ['Jag slutar jobba *halv* fem.', 'Dört buçukta işten çıkıyorum.'],
+          ['Vi ses *på* måndag!', 'Pazartesi görüşürüz!'],
+          ['Bussen går *om* tio minuter.', 'Otobüs on dakika sonra kalkıyor.'],
+          ['Vi flyttade hit *för* två år *sedan*.', 'İki yıl önce buraya taşındık.'],
         ],
       },
       { tip: 'En sık yapılan hata: *halv tre* "üç buçuk" değil, "iki buçuk" demektir. İsveççede yarım saat, bir sonraki saate göre söylenir: halv tre = üçe yarım saat var.' },
