@@ -262,16 +262,16 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'Dikkat: -el ve -er ile biten en-kelimeler yalnızca *-n* alır: nyckel → nyckel*n*, syster → syster*n*. Son hecesi vurgusuz ve -el, -er ya da -en ile biten ett-kelimelerde ise kelimenin son e\'si düşer: vatten → vatt*net*, fönster → fönst*ret*, socker → sock*ret*.' },
-      { p: 'Araya sıfat girerse belirlilik iki kez gösterilir: önde *den* (ett-kelimede *det*), sonda yine ek. Sıfat ise *-a* alır: *den* stora bil*en*, *det* stora hus*et*.' },
+      { p: 'Dikkat: -el ya da -er ile biten en-kelimeler, son heceleri vurgusuzsa yalnızca *-n* alır: nyckel → nyckel*n*, syster → syster*n*. Son hecesi vurgusuz ve -el, -er ya da -en ile biten ett-kelimelerde ise kelimenin son e\'si düşer: vatten → vatt*net*, fönster → fönst*ret*, socker → sock*ret*.' },
+      { p: 'Araya sıfat girerse önüne *den* ya da *det* de gelir: den stora bil*en* (*Çifte belirlilik* bölümüne bak).' },
       {
         ex: [
           ['Var är toalett*en*?', 'Tuvalet nerede?'],
           ['Vi har en bil. Bil*en* är gammal.', 'Bir arabamız var. Araba eski.'],
-          ['Hur mycket kostar *den* röda jacka*n*?', 'Kırmızı mont ne kadar?'],
+          ['Kan du stänga fönst*ret*?', 'Pencereyi kapatabilir misin?'],
         ],
       },
-      { tip: 'Sıfat varsa iki parçayı da kullan: "stora bilen" ya da "den stora bil" değil, *den* stora bil*en*.' },
+      { tip: 'Türkçede bilinen şeyi bir ek yalnızca nesnede gösterir: kitab*ı* okudum. Öznede ek yoktur: Kitap güzel. İsveççede belirli hâl cümlenin her yerinde kullanılır, öznede de: "Bok är bra" değil, Bok*en* är bra (Kitap güzel).' },
     ],
   },
   {
@@ -294,7 +294,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'İpuçları: -a ile biten en-kelimeler genelde *-or* alır (skola → skolor). Birçok kısa en-kelime *-ar* alır (dag → dagar). Son hecesi vurgulu, yabancı kökenli kelimeler genelde *-er* alır (telefon → telefoner); bu gruptaki ünlüyle biten kelimeler yalnızca *-r* alır (sko → skor). Ünlüyle biten ett-kelimeler *-n* alır, ünsüzle bitenler genelde hiç ek almaz (barn → barn).' },
+      { p: 'İpuçları: -a ile biten en-kelimeler genelde *-or* alır (skola → skolor). Birçok kısa en-kelime *-ar* alır (dag → dagar). Son hecesi vurgulu, yabancı kökenli kelimeler genelde *-er* alır (telefon → telefoner); bu gruptaki ünlüyle biten kelimeler yalnızca *-r* alır (sko → skor). Ett-kelimelerden ünlüyle bitenler genelde *-n* alır, ünsüzle bitenler ise çoğu zaman hiç ek almaz (barn → barn).' },
       {
         ex: [
           ['Vi har två bil*ar*.', 'İki arabamız var.'],
@@ -325,16 +325,49 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'Kısaca: en-kelimeyle ek gelmez, ett-kelimeyle *-t*, çoğulda *-a* gelir. Belirli hâlde de sıfat hep *-a* alır: den stor*a* bilen. *liten* düzensizdir: çoğulda *små*, belirli hâlde *lilla* olur (den lilla bilen).' },
-      { p: 'Sıfat *är* fiilinden sonra gelse de uyum aynıdır: ett stor*t* hus → Huset är stor*t*.' },
+      { p: 'Kısaca: en-kelimeyle ek gelmez, ett-kelimeyle *-t*, çoğulda *-a* gelir. *liten* düzensizdir: ett-kelimeyle *litet*, çoğulda *små* olur.' },
+      { p: 'Bazı sıfatlarda -t eki *-tt* olur: ny → ny*tt*, röd → rö*tt*, vit → vi*tt*, god → go*tt*. *svart* gibi ünsüz + t ile bitenler değişmez: ett svart hus. *bra* (iyi) hiç değişmez: ett bra jobb, bra filmer.' },
+      { p: 'Sıfat *är* fiilinden sonra gelse de uyum aynıdır: ett stor*t* hus → Huset är stor*t*. Sıfat belirli hâldeki bir ismin önüne gelirse (den stora bilen) kural başkadır: *Çifte belirlilik* bölümüne bak.' },
       {
         ex: [
           ['Vi har ett stor*t* kök.', 'Büyük bir mutfağımız var.'],
           ['Barnen är trött*a*.', 'Çocuklar yorgun.'],
           ['Det är kall*t* idag.', 'Bugün hava soğuk.'],
+          ['Kaffet är go*tt*.', 'Kahve güzel.'],
         ],
       },
       { tip: '*är* fiilinden sonra da uyumu unutma: "Vi är trött" değil, "Vi är trött*a*". *Det är*\'den sonra sıfat tek başına geliyorsa (arkasında isim yoksa) -t alır: Det är dyr*t*! (Pahalı!)' },
+    ],
+  },
+  {
+    id: 'cifte',
+    chapter: 'İsimler ve sıfatlar',
+    icon: '✌️',
+    title: 'Çifte belirlilik',
+    sub: 'den stora bilen: önde den, sonda -en',
+    blocks: [
+      { p: 'Türkçede "büyük bir araba" ile "büyük araba" arasındaki farkı yalnızca *bir* gösterir. İsveççede bilinen bir şeyden söz ederken sıfat varsa iki işaret birden gerekir: önde *den*, sonda belirli hâl eki. Sıfat da hep *-a* alır.' },
+      {
+        table: {
+          head: ['', 'Sıfatsız', 'Sıfatla'],
+          rows: [
+            ['en-kelime', 'bil*en*', '*den* stor*a* bil*en*'],
+            ['ett-kelime', 'hus*et*', '*det* stor*a* hus*et*'],
+            ['Çoğul', 'bilar*na*', '*de* stor*a* bilar*na*'],
+          ],
+        },
+      },
+      { p: '*de* "dom" diye okunur. *liten* burada da düzensizdir: den *lilla* bilen, det *lilla* huset, de *små* barnen.' },
+      { p: 'Önde *min*, *din*, *vår* gibi bir iyelik ya da *Annas* gibi -s ekli bir isim varsa *den* gelmez, isim de ek almaz; sıfat yine *-a* alır: min stor*a* bil, Annas ny*a* jobb. Çünkü *min* ya da *Annas* hangi şeyden söz ettiğini zaten belli eder; ikinci bir işarete gerek kalmaz.' },
+      {
+        ex: [
+          ['Jag tar *den* röd*a* jacka*n*.', 'Kırmızı montu alıyorum.'],
+          ['Vi bor i *det* gul*a* hus*et*.', 'Sarı evde oturuyoruz.'],
+          ['*De* små barn*en* sover.', 'Küçük çocuklar uyuyor.'],
+          ['Det här är *min* ny*a* bil.', 'Bu benim yeni arabam.'],
+        ],
+      },
+      { tip: 'Sıfat varsa iki parçayı da kullan: "stora bilen" ya da "den stora bil" değil, *den* stora bil*en*. Ama iyelikten sonra ikisi de düşer: "min stora bilen" değil, *min* stora bil.' },
     ],
   },
   {
@@ -378,6 +411,110 @@ export const KITAP = [
         ],
       },
       { tip: 'Türkçedeki "-den" yüzünden *från* deme; karşılaştırmada hep *än* kullanılır: "billigare från" değil, "billigare *än*". İki işareti birden de koyma: "mer billigare" yanlış, yalnızca "billigare".' },
+    ],
+  },
+  {
+    id: 'genitif',
+    chapter: 'İsimler ve sıfatlar',
+    icon: '👜',
+    title: 'Sahiplik eki -s',
+    sub: "Annas bil: Anna'nın arabası",
+    blocks: [
+      { p: "Türkçede sahibi *-nin* ekiyle gösteririz, sahip olunan şey de ek alır: Anna*'nın* araba*sı*. İsveççede yalnızca sahibin sonuna *-s* gelir, ikinci isim hiç değişmez: Anna*s* bil." },
+      {
+        table: {
+          head: ['Sahip', 'İsveççe', 'Türkçe'],
+          rows: [
+            ['Erik', 'Erik*s* jobb', "Erik'in işi"],
+            ['pappa', 'pappa*s* bil', 'babamın arabası'],
+            ['barnen', 'barnen*s* rum', 'çocukların odası'],
+          ],
+        },
+      },
+      { p: "Kesme işareti konmaz: Türkçede Anna'nın yazarız, İsveççede yalnızca *Annas*. İsim belirli hâldeyse -s, belirli hâl ekinden sonra gelir: barn*en* → barnen*s*." },
+      { p: '-s\'den sonra gelen isim belirli hâl almaz, önüne *den* de gelmez: "Annas bilen" değil, *Annas bil*. Tıpkı *min bil* (arabam) gibi: *Annas* hangi arabadan söz ettiğini zaten belli eder, ikinci bir işarete gerek kalmaz.' },
+      {
+        ex: [
+          ['Det här är *Annas* bil.', "Bu, Anna'nın arabası."],
+          ['Stockholm är *Sveriges* huvudstad.', "Stockholm, İsveç'in başkentidir."],
+          ['Idag är det *mammas* födelsedag.', 'Bugün annemin doğum günü.'],
+          ['Vad är *dagens* rätt?', 'Günün yemeği ne?'],
+        ],
+      },
+      { tip: 'İki Türkçe alışkanlığı bırak: ikinci isme ek koyma ve kesme işareti kullanma. "Anna\'s bilen" değil, *Annas bil*.' },
+    ],
+  },
+  {
+    id: 'bilesik',
+    chapter: 'İsimler ve sıfatlar',
+    icon: '🧩',
+    title: 'Birleşik isimler',
+    sub: 'kaffekopp, arbetsdag: iki isim tek kelime olur',
+    blocks: [
+      { p: 'Türkçede iki isim yan yana gelir ve ikincisi ek alır: kahve fincan*ı*. İsveççede iki isim *bitişik* yazılır ve ek almaz: kaffe + kopp → *kaffekopp*. Türkçedeki gibi asıl şey sondaki kelimedir, öndeki onu açıklar. Ayrı yazılan *en kopp kaffe* ise "bir fincan kahve" demektir.' },
+      { p: 'Birleşik ismin en mi ett mi aldığını ve çoğulunu *son parça* belirler:' },
+      {
+        table: {
+          head: ['Parçalar', 'Birleşik isim', 'Türkçe'],
+          rows: [
+            ['ett barn + en vagn', '*en* barnvagn', 'bebek arabası'],
+            ['en telefon + ett nummer', '*ett* telefonnummer', 'telefon numarası'],
+          ],
+        },
+      },
+      { p: 'Bazen iki parça arasına bir *-s-* girer: kväll + mat → kväll*s*mat (akşam yemeği). Öndeki kelimenin sonundaki -e de bazen düşer: arbete + dag → arbet*s*dag (iş günü). Kesin bir kural yoktur, ama ilk parça kendisi birleşikse ya da *-ing*, *-het* ile bitiyorsa -s- çoğu zaman gelir: fotboll*s*match (futbol maçı), parkering*s*plats.' },
+      {
+        ex: [
+          ['Vad är ditt *telefonnummer*?', 'Telefon numaran ne?'],
+          ['Det var en lång *arbetsdag*.', 'Uzun bir iş günüydü.'],
+          ['Jag hittar ingen *parkeringsplats*.', 'Park yeri bulamıyorum.'],
+          ['Vi äter *kvällsmat* klockan sex.', 'Saat altıda akşam yemeği yiyoruz.'],
+        ],
+      },
+      { tip: 'Birleşik ismi ayırarak yazma, anlam değişebilir: *sjuksköterska* "hemşire" demektir, *sjuk sköterska* ise "hasta bir hemşire".' },
+    ],
+  },
+  {
+    id: 'turetme',
+    chapter: 'İsimler ve sıfatlar',
+    icon: '🛠️',
+    title: 'Kelime türetme',
+    sub: 'lärare, frihet… ve svensk mi, svenska mı?',
+    blocks: [
+      { p: 'Türkçede eklerle yeni kelimeler türetiriz: kahve*ci*, güzel*lik*. İsveççede de böyle ekler vardır:' },
+      {
+        table: {
+          head: ['Ek', 'Ne yapar?', 'Örnek'],
+          rows: [
+            ['*-are*', 'fiilden kişi', 'lära → *lärare* (öğretmen)'],
+            ['*-ning*', 'fiilden isim', 'betala → *betalning* (ödeme)'],
+            ['*-het*', 'sıfattan isim', 'fri → *frihet* (özgürlük)'],
+            ['*-lig*', 'isimden sıfat', 'dag → *daglig* (günlük)'],
+            ['*-isk*', 'isimden sıfat', 'typ → *typisk* (tipik)'],
+          ],
+        },
+      },
+      { p: 'Milliyet adlarına dikkat: Türkçede *Türk* hem kişidir hem sıfat (Türk kahvesi). İsveççede kişi *turk*, sıfat *turkisk* olur: turkisk mat (Türk yemeği). *svensk* ise hem kişi hem sıfattır. *svenska* hem dil (İsveççe) hem de İsveçli bir kadındır; *turkiska* da öyle.' },
+      {
+        table: {
+          head: ['', 'İsveç', 'Türkiye'],
+          rows: [
+            ['Kişi', 'en svensk', 'en turk'],
+            ['Kadın', 'en svenska', 'en turkiska'],
+            ['Sıfat', 'svensk', 'turkisk'],
+            ['Dil', 'svenska', 'turkiska'],
+          ],
+        },
+      },
+      {
+        ex: [
+          ['Min man är *svensk*.', 'Kocam İsveçli.'],
+          ['Jag talar *turkiska* och lite *svenska*.', 'Türkçe ve biraz İsveççe konuşuyorum.'],
+          ['Vill du ha *turkiskt* kaffe?', 'Türk kahvesi ister misin?'],
+          ['Min syster är *lärare*.', 'Kız kardeşim öğretmen.'],
+        ],
+      },
+      { tip: 'Dil ve milliyet adlarını küçük harfle yaz: *svenska*, *turkiska*, *en turk*. Ülke adları ise büyük harfle başlar: Sverige, Turkiet.' },
     ],
   },
   {

@@ -4,7 +4,8 @@ import { KITAP } from '../data/kitap.js';
 import { englishWords, allStrings } from './english.js';
 
 const IDS = [
-  'harfler', 'unlu', 'unsuz', 'sira', 'vara', 'soru', 'inte', 'enett', 'belirli', 'cogul', 'sifat', 'karsilastirma',
+  'harfler', 'unlu', 'unsuz', 'sira', 'vara', 'soru', 'inte',
+  'enett', 'belirli', 'cogul', 'sifat', 'cifte', 'karsilastirma', 'genitif', 'bilesik', 'turetme',
   'zamir', 'iyelik', 'edat', 'sayilar', 'simdiki', 'gecmis', 'perfekt', 'gelecek', 'emir', 'modal', 'baglac',
 ];
 const CHAPTERS = [
@@ -81,6 +82,13 @@ const COVERAGE = {
   unlu: ['tack', 'villa'],
   unsuz: ['sked', 'kille'],
   vara: ['finns', 'det är'],
+  cogul: ['genelde'],
+  belirli: ['vurgusuz'],
+  sifat: ['stort'],
+  cifte: ['den stora bilen', 'min stora bil'],
+  genitif: ['annas'],
+  bilesik: ['arbetsdag'],
+  turetme: ['svenska', 'turkisk'],
 };
 test('every section covers the points the spec names', () => {
   for (const [id, terms] of Object.entries(COVERAGE)) {
