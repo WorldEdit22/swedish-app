@@ -812,7 +812,7 @@ export const KITAP = [
         list: [
           '*1. grup* (tala): şimdiki zamanı *-ar* ile biter: jobba, titta, prata. En büyük gruptur; dile yeni giren fiiller de bu gruba girer.',
           '*2. grup* (köpa): şimdiki zamanı *-er*, geçmişi *-de* ya da *-te* ile biter: ringa, läsa.',
-          '*3. grup* (bo): tek heceli kısa fiiller: tro, må. (gå ve se gibi birkaçı düzensizdir.)',
+          '*3. grup* (bo): tek heceli kısa fiiller: tro, må. (Ama en sık kullanılan kısa fiillerin çoğu düzensizdir: gå, se, ta, ha, få.)',
           '*4. grup* (skriva): düzensiz fiiller. Çoğu geçmişte ek almaz, içindeki ünlü değişir; supinumu çoğu zaman *-it* ile biter: dricka, komma.',
         ],
       },
@@ -825,7 +825,7 @@ export const KITAP = [
           ['Jag har *skrivit* till läraren.', 'Öğretmene yazdım.'],
         ],
       },
-      { tip: 'Yeni bir fiili şimdiki ve geçmiş biçimiyle birlikte ezberle: köpa, köper, köpte. Şimdiki zamanı *-ar* ile biten fiil hep 1. gruptadır; *-er* ile biten ise 2. ya da 4. grupta olabilir, bunu geçmiş biçimi gösterir.' },
+      { tip: 'Yeni bir fiili şimdiki ve geçmiş biçimiyle birlikte ezberle: köpa, köper, köpte. Tek heceli olmayan bir fiilin şimdiki zamanı *-ar* ile bitiyorsa fiil 1. gruptadır; *-er* ile bitiyorsa 2. ya da 4. grupta olabilir, bunu geçmiş biçimi gösterir. 4. gruptaki fiilleri supinumuyla da ezberle: skriva, skrev, skrivit.' },
     ],
   },
   {
