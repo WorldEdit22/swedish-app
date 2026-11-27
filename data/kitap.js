@@ -431,7 +431,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: "Kesme işareti konmaz: Türkçede Anna'nın yazarız, İsveççede yalnızca *Annas*. İsim belirli hâldeyse -s, belirli hâl ekinden sonra gelir: barn*en* → barnen*s*." },
+      { p: "Kesme işareti konmaz: Türkçede Anna'nın yazarız, İsveççede yalnızca *Annas*. İsim belirli hâldeyse -s, belirli hâl ekinden sonra gelir: barn*en* → barnen*s*. Sahibin adı zaten -s, -x ya da -z ile bitiyorsa ek gelmez: Lars bil, Deniz bil." },
       { p: '-s\'den sonra gelen isim belirli hâl almaz, önüne *den* de gelmez: "Annas bilen" değil, *Annas bil*. Tıpkı *min bil* (arabam) gibi: *Annas* hangi arabadan söz ettiğini zaten belli eder, ikinci bir işarete gerek kalmaz.' },
       {
         ex: [
