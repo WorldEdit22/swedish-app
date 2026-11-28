@@ -1241,47 +1241,180 @@ export const KITAP = [
     ],
   },
   {
+    id: 'mastar',
+    chapter: 'Uzun cümleler',
+    icon: '🏊',
+    title: 'att + mastar',
+    sub: 'Det är roligt att simma; för att, utan att',
+    blocks: [
+      { p: 'Türkçede mastar *-mek* ekiyle yapılır: yüz*mek*. İsveççede mastar, fiilin sözlükteki biçimidir: simma, äta. Bir isim gibi kullanıldığında önüne *att* gelir; Türkçedeki -mek ve -meyi gibidir: Det är roligt *att* simma. (Yüzmek eğlenceli.)' },
+      { p: 'Yardımcı fiillerden sonra *att* gelmez: Jag *vill* simma. kan, vill, får, ska, måste ve brukar hep böyledir: *Yapabilmek ve istemek* bölümüne bak. *börja* (başlamak) ve *försöka* (denemek) ile de att çoğu zaman düşer: Det började regna. (Yağmur yağmaya başladı.)' },
+      { p: 'Bazı edatlar da *att* + mastar alır:' },
+      {
+        table: {
+          head: ['İsveççe', 'Türkçe'],
+          rows: [
+            ['*för att* + mastar', '-mek için'],
+            ['*utan att* + mastar', '-meden'],
+            ['*efter att ha* + supinum', '-dikten sonra'],
+          ],
+        },
+      },
+      { p: '"-meden önce" *innan* ile söylenir, ama innan\'dan sonra mastar değil, tam bir cümle gelir: innan du äter (sen yemeden önce). *Yan cümleler* bölümüne bak.' },
+      {
+        ex: [
+          ['Jag tycker om *att* laga mat.', 'Yemek yapmayı severim.'],
+          ['Jag går till affären *för att* köpa mjölk.', 'Süt almak için markete gidiyorum.'],
+          ['Hon gick *utan att* äta frukost.', 'Kahvaltı yapmadan çıktı.'],
+          ['*Efter att ha* ätit gick vi ut.', 'Yemek yedikten sonra dışarı çıktık.'],
+        ],
+      },
+      { tip: 'Türkçede "Gelmeni istiyorum" deriz. İsveççede işi yapan başka biriyse mastar kullanılmaz; *att* ve tam bir cümle gelir: Jag vill *att* du kommer. "Jag vill du komma" yanlıştır.' },
+    ],
+  },
+  {
+    id: 'ortac',
+    chapter: 'Uzun cümleler',
+    icon: '🚪',
+    title: 'Ortaçlar',
+    sub: 'spännande, leende; stängd, stängt, stängda',
+    blocks: [
+      { p: 'Ortaç, fiilden yapılan bir sıfattır. Türkçede *-en* ve *-miş* gibi eklerle yaparız: gülümse*yen* çocuk, boyan*mış* kapı. İsveççede de iki ortaç vardır.' },
+      { p: '*-ande / -ende* Türkçedeki -en / -an gibidir. Mastarı -a ile biten fiiller *-ande* alır: leva → *levande* (canlı, yaşayan), sova → *sovande* (uyuyan). Kısa fiiller *-ende* alır: le → *leende* (gülümseyen), gå → *gående* (yürüyen). Çok sık duyacağın biri de *spännande*\'dir (heyecanlı). Bu ortaç hiç değişmez: en spännande film, ett spännande jobb. Türkçedeki -en kadar sık kullanılmaz: "burada oturan adam" için *som* gerekir.' },
+      { p: 'Geçmiş ortaç bitmiş bir işin sonucunu anlatır, Türkçedeki kapalı, boyalı, yazılmış gibi. Sıfat gibi ismine uyar:' },
+      {
+        table: {
+          head: ['Mastar', 'en-kelime', 'ett-kelime', 'Çoğul'],
+          rows: [
+            ['måla', 'målad', 'målat', 'målade'],
+            ['stänga', 'stängd', 'stängt', 'stängda'],
+            ['köpa', 'köpt', 'köpt', 'köpta'],
+            ['skriva', 'skriven', 'skrivet', 'skrivna'],
+          ],
+        },
+      },
+      { p: 'Belirli hâlde de çoğul biçimi gelir: den stängda dörren. Ett-kelime biçimi çoğu zaman supinumla aynıdır (stängt, köpt), ama 4. grupta değildir: skrivet, supinumu skrivit. *bli* ile edilgen yapar: *Edilgen: -s ve bli* bölümüne bak.' },
+      {
+        ex: [
+          ['Det var en *spännande* film.', 'Heyecanlı bir filmdi.'],
+          ['Affären är *stängd* på söndagar.', 'Mağaza pazar günleri kapalı.'],
+          ['Alla affärer är *stängda* idag.', 'Bugün bütün mağazalar kapalı.'],
+          ['Boken är *skriven* på svenska.', 'Kitap İsveççe yazılmış.'],
+        ],
+      },
+      { tip: 'Geçmiş ortaçta uyumu unutma: "Fönstret är stängd" değil, Fönstret är *stängt*. -ande ortacı ise hiç değişmez: spännande böcker. Uyum için *Sıfat uyumu* bölümüne bak.' },
+    ],
+  },
+  {
+    id: 'som',
+    chapter: 'Uzun cümleler',
+    icon: '👈',
+    title: 'som: mannen som bor här',
+    sub: 'Türkçedeki -en ve -dik: burada oturan adam',
+    blocks: [
+      { p: 'Türkçede bir ismi anlatan cümle parçası ismin *önüne* gelir ve fiil ek alır: burada otur*an* adam, oku*duğum* kitap. İsveççede bu parça ismin *arkasına* gelir ve *som* ile başlar. Fiil ek almaz.' },
+      {
+        table: {
+          head: ['Türkçe', 'İsveççe'],
+          rows: [
+            ['burada otur*an* adam', 'mannen *som* bor här'],
+            ['oku*duğum* kitap', 'boken (*som*) jag läser'],
+            ['otur*duğumuz* şehir', 'staden *där* vi bor'],
+          ],
+        },
+      },
+      { p: '*som* hem -en hem -dik yerine geçer ve hiç değişmez. Parçanın öznesiyse hep söylenir: mannen *som* bor här. Değilse çoğu zaman atlanır: boken jag läser.' },
+      { p: 'Bir yerden söz ederken *som* yerine çoğu zaman *där* kullanılır: staden där vi bor. *vars* sahipliği gösterir: kvinnan *vars* son bor i Ankara (oğlu Ankara\'da oturan kadın). vars\'tan sonra isim belirli hâl almaz, tıpkı *Annas bil* gibi. vars daha çok yazıda görülür.' },
+      { p: 'som ile başlayan parça bir yan cümledir, bu yüzden *inte* fiilden önce gelir: en film som jag *inte* har sett. *inte\'nin yeri* bölümüne bak.' },
+      {
+        ex: [
+          ['Mannen *som* bor här heter Erik.', 'Burada oturan adamın adı Erik.'],
+          ['Har du sett jackan *som* låg här?', 'Burada duran montu gördün mü?'],
+          ['Filmen vi såg igår var jättebra.', 'Dün izlediğimiz film çok güzeldi.'],
+          ['Det här är huset *där* jag växte upp.', 'Bu, büyüdüğüm ev.'],
+        ],
+      },
+      { tip: 'Türkçe sırayı ters çevir: önce isim, sonra *som* ve cümlenin geri kalanı. "burada oturan adam" → mannen *som* bor här. Fiil -an ya da -duğum gibi bir ek almaz, normal zamanında kalır: bor, läser.' },
+    ],
+  },
+  {
     id: 'baglac',
     chapter: 'Uzun cümleler',
     icon: '🔗',
-    title: 'Bağlaçlar ve yan cümleler',
-    sub: 'och, men, för… ve att, som, när, om, eftersom',
+    title: 'Bağlaçlar',
+    sub: 'och, men, eller, för, så; både … och, varken … eller',
     blocks: [
-      { p: 'Bağlaçlar iki cümleyi birleştirir. İsveççede iki türü vardır. Aşağıdakiler iki ana cümleyi bağlar ve arkalarından normal sıra gelir: Jag är trött, *men* jag måste jobba.' },
+      { p: 'Bağlaçlar iki cümleyi birleştirir. Aşağıdakiler iki ana cümleyi bağlar. Bağlaç bir öğe sayılmaz, bu yüzden arkasından normal sıra gelir: Jag är trött, *men* jag måste jobba.' },
       {
         table: {
-          head: ['Ana cümleleri bağlar', 'Türkçe'],
+          head: ['Bağlaç', 'Türkçe'],
           rows: [
             ['och', 've'],
             ['men', 'ama'],
-            ['eller', 'ya da'],
+            ['eller', 'ya da, veya'],
+            ['utan', '… değil, …'],
             ['för', 'çünkü'],
             ['så', 'bu yüzden'],
           ],
         },
       },
-      { p: 'Öteki bağlaçlar bir yan cümle başlatır. Türkçede bu işi çoğu zaman ekler yapar (gel*ince*, gelir*se*); İsveççede ise yan cümlenin başına bir kelime gelir.' },
+      { p: '*utan* yalnızca olumsuz bir cümleden sonra gelir: Det är inte kaffe *utan* te. (Kahve değil, çay.)' },
+      { p: 'İki parçalı bağlaçlar da vardır:' },
       {
-        table: {
-          head: ['Yan cümle başlatır', 'Türkçe'],
-          rows: [
-            ['att', '-dığını'],
-            ['som', '-an, -en'],
-            ['när', '-ince, -dığında'],
-            ['om', '-se, eğer'],
-            ['eftersom', '-dığı için'],
-            ['därför att', 'çünkü'],
-          ],
-        },
+        list: [
+          '*både … och*: hem … hem',
+          '*antingen … eller*: ya … ya da. Vi tar *antingen* bussen *eller* tåget.',
+          '*varken … eller*: ne … ne. Türkçedeki gibi fiil olumludur, *inte* gelmez.',
+        ],
       },
       {
         ex: [
-          ['Mannen *som* bor här heter Erik.', 'Burada oturan adamın adı Erik.'],
-          ['Jag stannar hemma *eftersom* jag är sjuk.', 'Hasta olduğum için evde kalıyorum.'],
-          ['*Om* det regnar, stannar vi hemma.', 'Yağmur yağarsa evde kalırız.'],
+          ['Vill du ha kaffe *eller* te?', 'Kahve mi istersin, çay mı?'],
+          ['Han är inte svensk *utan* norsk.', 'İsveçli değil, Norveçli.'],
+          ['Det regnade, *så* vi stannade hemma.', 'Yağmur yağıyordu, o yüzden evde kaldık.'],
+          ['Hon talar *både* svenska *och* turkiska.', 'Hem İsveççe hem Türkçe konuşuyor.'],
+          ['Jag dricker *varken* kaffe *eller* te.', 'Ne kahve ne çay içerim.'],
         ],
       },
-      { tip: 'Yan cümle başa gelirse bütünüyle birinci öğe sayılır, bu yüzden ana cümlenin fiili hemen arkasından gelir: "När jag kommer hem, jag äter" değil, "När jag kommer hem, *äter* jag".' },
+      { tip: '*för* ve *eftersom* ikisi de "çünkü" demektir. *för* iki ana cümleyi bağlar ve cümleye başlayamaz. *eftersom* bir yan cümle başlatır ve başa da gelebilir: *Yan cümleler* bölümüne bak.' },
+    ],
+  },
+  {
+    id: 'yancumle',
+    chapter: 'Uzun cümleler',
+    icon: '🧷',
+    title: 'Yan cümleler',
+    sub: 'att, när, eftersom, medan…; När jag kom hem, åt jag',
+    blocks: [
+      { p: 'Yan cümle tek başına durmayan bir cümle parçasıdır. Türkçede bu işi çoğu zaman ekler yapar: gel*ince*, gel*diğini*, gel*diği için*. İsveççede yan cümlenin başına bir bağlaç gelir, fiil ise normal zamanında kalır:' },
+      {
+        table: {
+          head: ['Bağlaç', 'Türkçe'],
+          rows: [
+            ['att', '-diğini, -mesini'],
+            ['när', '-ince, -diğinde'],
+            ['om', '-se; … mi diye'],
+            ['eftersom, därför att', '-diği için'],
+            ['medan', '-ken'],
+            ['innan', '-meden önce'],
+            ['efter att', '-dikten sonra'],
+            ['fast, trots att', '-diği hâlde'],
+          ],
+        },
+      },
+      { p: '*om* için *Koşul: om* bölümüne bak. *därför att* genelde ana cümleden sonra gelir; *eftersom* başa da gelebilir.' },
+      { p: 'Yan cümlede sıra hep özne + fiildir ve *inte* fiilden önce gelir: …eftersom han *inte* har tid. *inte\'nin yeri* bölümüne bak.' },
+      { p: 'Yan cümle başa gelirse bütünüyle birinci öğe sayılır. Fiil yine ikinci sırada kalır; bu yüzden ana cümle fiille başlar, özne arkasından gelir. Ana cümle öndeyse sıra normaldir: Jag åt när jag kom hem.' },
+      {
+        ex: [
+          ['*När* jag kom hem, *åt* jag.', 'Eve geldiğimde yemek yedim.'],
+          ['Jag stannar hemma *eftersom* jag är sjuk.', 'Hasta olduğum için evde kalıyorum.'],
+          ['Barnen sov *medan* vi åt.', 'Biz yemek yerken çocuklar uyuyordu.'],
+          ['Ring mig *innan* du kommer.', 'Gelmeden önce beni ara.'],
+          ['Hon jobbade *trots att* hon var sjuk.', 'Hasta olduğu hâlde çalıştı.'],
+        ],
+      },
+      { tip: '*när* ile *om*\'u karıştırma. *när* olacağı belli bir şey içindir: *När* du kommer hem… (Eve gelince…) *om* belki olacak bir şey içindir: *Om* du kommer… (Gelirsen…)' },
     ],
   },
 ];

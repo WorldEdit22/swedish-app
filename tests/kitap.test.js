@@ -9,7 +9,7 @@ const IDS = [
   'zamir', 'iyelik', 'sig', 'belirsiz', 'edat', 'yer', 'sayilar', 'saat',
   'gruplar', 'simdiki', 'gecmis', 'perfekt', 'hade', 'gelecek', 'aliskanlik', 'partikel',
   'emir', 'modal', 'gerek', 'om', 'skulle', 'passiv',
-  'baglac',
+  'mastar', 'ortac', 'som', 'baglac', 'yancumle',
 ];
 const CHAPTERS = [
   'Sesler ve harfler', 'Cümle', 'İsimler ve sıfatlar', 'Küçük kelimeler', 'Fiiller ve zamanlar', 'Kipler ve edilgen',
@@ -106,6 +106,11 @@ const COVERAGE = {
   om: ['stannar vi'],
   skulle: ['skulle vilja'],
   passiv: ['öppnas', 'hoppas'],
+  mastar: ['för att'],
+  ortac: ['spännande', 'stängda'],
+  som: ['vars'],
+  baglac: ['varken'],
+  yancumle: ['eftersom', 'medan'],
 };
 test('every section covers the points the spec names', () => {
   for (const [id, terms] of Object.entries(COVERAGE)) {
