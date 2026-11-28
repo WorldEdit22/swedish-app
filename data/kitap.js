@@ -1095,34 +1095,149 @@ export const KITAP = [
     id: 'modal',
     chapter: 'Kipler ve edilgen',
     icon: '💪',
-    title: 'Yardımcı fiiller (kan, vill, måste…)',
-    sub: 'kan, vill, måste, får + mastar, att olmadan',
+    title: 'Yapabilmek ve istemek: kan, vill, får',
+    sub: 'Arkalarından att olmadan mastar gelir; geçmişte kunde, ville',
     blocks: [
-      { p: 'Türkçede "-ebilmek", "-meli" gibi anlamları ekler verir: gel*ebil*irim, gel*meli*yim. İsveççede bunlar ayrı fiillerdir. Arkalarından mastar gelir, arada *att* olmaz: Jag *kan komma*.' },
+      { p: 'Türkçede "-ebilmek" bir ektir: gel*ebil*irim. İsveççede bunun için ayrı bir fiil vardır: *kan*. *vill* (istemek) ve *får* (izni olmak) de böyledir. Arkalarından mastar gelir, arada *att* olmaz: Jag *kan komma*.' },
       {
         table: {
-          head: ['', 'Anlamı', 'Örnek'],
+          head: ['', 'Anlamı', 'Geçmiş', 'Örnek'],
           rows: [
-            ['*kan*', '-ebilmek, bilmek', 'kan komma'],
-            ['*vill*', 'istemek', 'vill äta'],
-            ['*måste*', 'zorunda olmak', 'måste gå'],
-            ['*får*', 'izni olmak', 'får parkera'],
-            ['*ska*', 'plan, -ecek', 'ska åka'],
-            ['*brukar*', 'genelde yapmak', 'brukar jobba'],
+            ['*kan*', '-ebilmek, bilmek', '*kunde*', 'kan simma'],
+            ['*vill*', 'istemek', '*ville*', 'vill äta'],
+            ['*får*', 'izni olmak', '*fick*', 'får parkera'],
           ],
         },
       },
-      { p: 'Bu fiiller de herkes için aynıdır: jag kan, du kan, vi kan. *inte* yardımcı fiilden sonra gelir: Jag kan *inte* komma.' },
-      { p: 'Dikkat: *får inte* "yasak" demektir: Man får inte röka här (Burada sigara içmek yasak). "Gerek yok" için *behöver inte* denir: Du behöver inte komma (Gelmene gerek yok).' },
+      { p: 'Bu fiiller herkes için aynıdır: jag kan, du kan, vi kan. *inte* yardımcı fiilden sonra gelir: Jag kan *inte* komma. Geçmişte de böyledir: Jag *kunde* inte komma. (Gelemedim.)' },
+      { p: 'Bir dil için *kan* "bilmek" anlamına gelir: Jag kan svenska. (İsveççe biliyorum.) *får* ile izin istenir: *Får* jag …? (… -ebilir miyim?) *får inte* ise "yasak" demektir: *Zorunluluk ve öğüt* bölümüne bak.' },
       {
         ex: [
           ['Jag *kan* inte komma idag.', 'Bugün gelemem.'],
           ['*Vill* du ha kaffe?', 'Kahve ister misin?'],
-          ['Jag *måste* gå nu.', 'Şimdi gitmem lazım.'],
           ['*Får* jag sitta här?', 'Buraya oturabilir miyim?'],
+          ['Jag *kunde* inte sova i natt.', 'Dün gece uyuyamadım.'],
+          ['Hon *ville* bli läkare.', 'Doktor olmak istiyordu.'],
         ],
       },
       { tip: 'Bir şey isterken *vill ha* de: "Jag vill kaffe" değil, "Jag *vill ha* kaffe". Bir eylem isterken mastar yeter: Jag vill *sova* (Uyumak istiyorum).' },
+    ],
+  },
+  {
+    id: 'gerek',
+    chapter: 'Kipler ve edilgen',
+    icon: '❗',
+    title: 'Zorunluluk ve öğüt',
+    sub: 'måste, behöver, borde, ska; får inte ve behöver inte',
+    blocks: [
+      { p: 'Türkçede zorunluluğu ekler ve kelimeler anlatır: git*meli*yim, gitmek *zorunda*yım, gitmem *lazım*. İsveççede bunun için yardımcı fiiller vardır. Herkes için aynıdırlar ve arkalarından *att* olmadan mastar gelir:' },
+      {
+        table: {
+          head: ['', 'Anlamı', 'Örnek'],
+          rows: [
+            ['*måste*', 'zorunda olmak, -meli', 'Jag måste jobba.'],
+            ['*behöver*', 'gerekmek, ihtiyacı olmak', 'Jag behöver vila.'],
+            ['*borde*', 'öğüt: -sen iyi olur', 'Du borde sova.'],
+            ['*ska*', 'başkasının isteği, kural', 'Du ska ta två tabletter.'],
+          ],
+        },
+      },
+      { p: '*behöver* bir isimle de kullanılır: Jag behöver hjälp. (Yardıma ihtiyacım var.) *ska* burada gelecek değildir; birinin isteğini ya da bir kuralı söyler: Vad *ska* jag göra? (Ne yapmalıyım?) Gelecek için *Gelecek: ska / kommer att* bölümüne bak.' },
+      { p: 'Olumsuzda dikkat et. Türkçede olduğu gibi iki ayrı anlam vardır:' },
+      {
+        list: [
+          '*får inte*: yasak, yapmamalısın. Man *får inte* röka här. (Burada sigara içmek yasak.)',
+          '*behöver inte*: gerek yok, zorunda değilsin. Du *behöver inte* komma. (Gelmene gerek yok.)',
+        ],
+      },
+      { p: '*måste inte* "yapmamalısın" demek değildir, "zorunda değilsin" demektir; onun yerine de çoğu zaman *behöver inte* söylenir.' },
+      {
+        ex: [
+          ['Jag *måste* gå nu.', 'Şimdi gitmem lazım.'],
+          ['Vi *behöver* köpa mjölk.', 'Süt almamız lazım.'],
+          ['Du *borde* gå till doktorn.', 'Doktora gitsen iyi olur.'],
+          ['Du *behöver inte* ta av dig skorna.', 'Ayakkabılarını çıkarmana gerek yok.'],
+        ],
+      },
+      { tip: '"Yapmamalısın" demek istiyorsan *får inte* kullan: Du *får inte* glömma! (Unutmamalısın!) *måste* ve *behöver* olumsuzda yalnızca "gerek yok" anlamına gelir.' },
+    ],
+  },
+  {
+    id: 'om',
+    chapter: 'Kipler ve edilgen',
+    icon: '☔',
+    title: 'Koşul: om',
+    sub: 'Om det regnar, stannar vi hemma',
+    blocks: [
+      { p: 'Türkçede koşulu bir ek gösterir: yağmur yağ*arsa*. İsveççede koşul cümlesinin başına *om* gelir: *om* det regnar (yağmur yağarsa). Türkçede *eğer* atlanabilir, çünkü işi ek yapar; İsveççede bu işi *om* yapar.' },
+      { p: 'Gelecekten söz etsen de *om*\'dan sonra genelde şimdiki zaman gelir: *Om* du kommer imorgon… (Yarın gelirsen…)' },
+      { p: '*om* cümlesi başa gelirse bütünüyle birinci öğe sayılır. Fiil yine ikinci sırada kalır; bu yüzden ana cümlenin fiili hemen arkasından gelir, özne de fiilin arkasına geçer: Om det regnar, *stannar vi* hemma. Ana cümle başta ise sıra normaldir: Vi stannar hemma om det regnar.' },
+      { p: '*om*\'un bir anlamı daha vardır: "… mi diye", "-ip -mediğini". Bu anlamda *veta* (bilmek), *fråga* (sormak) gibi fiillerden sonra gelir: Kan du fråga *om* de har bröd? (Ekmekleri var mı diye sorar mısın?)' },
+      {
+        ex: [
+          ['*Om* det regnar, *stannar vi* hemma.', 'Yağmur yağarsa evde kalırız.'],
+          ['*Om* du är trött, kan du sova här.', 'Yorgunsan burada uyuyabilirsin.'],
+          ['Ring mig *om* du behöver hjälp.', 'Yardıma ihtiyacın olursa beni ara.'],
+          ['Jag vet inte *om* han kommer.', 'Gelip gelmeyeceğini bilmiyorum.'],
+        ],
+      },
+      { tip: 'Ana cümlede sırayı unutma: "Om det regnar, vi stannar hemma" değil, "Om det regnar, *stannar vi* hemma". Yan cümleyle başladıysan ana cümle fiille başlar.' },
+    ],
+  },
+  {
+    id: 'skulle',
+    chapter: 'Kipler ve edilgen',
+    icon: '🌠',
+    title: 'skulle: -irdi ve keşke',
+    sub: 'Om jag hade tid, skulle jag…; Jag skulle vilja…',
+    blocks: [
+      { p: '*skulle*, *ska*\'nın geçmiş biçimidir. Herkes için aynıdır ve arkasından mastar gelir. Türkçede iki anlama karşılık gelir: *-irdi* (alırdım) ve geçmişteki bir plan için *-ecekti* (arayacaktım).' },
+      { p: 'Gerçek olmayan bir koşulda *om* cümlesi geçmiş zaman alır, ana cümle ise *skulle* + mastar: Om jag *hade* tid, *skulle* jag resa mer. (Vaktim olsa daha çok gezerdim.) Türkçedeki -se … -irdi kalıbına benzer.' },
+      { p: '"Keşke" için *om* ve *bara* kullanılır, yine geçmiş zamanla: Om jag *bara* hade mer tid! (Keşke daha çok vaktim olsa!)' },
+      { p: 'Kibar bir istek için *Jag skulle vilja* … (… isterdim) ve *Skulle du kunna* …? (… -ebilir misin?) kullanılır. İkisi de *Jag vill*\'den daha kibardır.' },
+      {
+        ex: [
+          ['Om jag *hade* mer pengar, *skulle* jag köpa ett hus.', 'Daha çok param olsa bir ev alırdım.'],
+          ['Om jag *bara* visste!', 'Keşke bilsem!'],
+          ['Jag *skulle vilja* ha en kaffe, tack.', 'Bir kahve alayım, lütfen.'],
+          ['*Skulle* du *kunna* hjälpa mig?', 'Bana yardım edebilir misin?'],
+          ['Jag *skulle* ringa dig, men jag glömde.', 'Seni arayacaktım ama unuttum.'],
+        ],
+      },
+      { tip: 'Öğüt vermenin kolay bir yolu: *Om jag var du*, skulle jag ringa honom. (Senin yerinde olsam onu arardım.) Gerçek olmayan bir koşulda *om* cümlesi geçmiş zamandadır: "Om jag är du" denmez.' },
+    ],
+  },
+  {
+    id: 'passiv',
+    chapter: 'Kipler ve edilgen',
+    icon: '🏗️',
+    title: 'Edilgen: -s ve bli',
+    sub: 'Affären öppnas klockan nio; hoppas, finnas',
+    blocks: [
+      { p: 'Türkçede edilgen bir ektir: aç*ıl*ır, sat*ıl*dı. İsveççede de çoğu zaman bir ek kullanılır: fiilin sonuna *-s* gelir. Şimdiki zamanda -r düşer ve yerine -s gelir; öteki biçimlerde -s sona eklenir:' },
+      {
+        table: {
+          head: ['', 'Etken', 'Edilgen'],
+          rows: [
+            ['Mastar', 'öppna', 'öppna*s*'],
+            ['Şimdiki', 'öppnar', 'öppna*s*'],
+            ['Geçmiş', 'öppnade', 'öppnade*s*'],
+            ['Supinum', 'öppnat', 'öppnat*s*'],
+          ],
+        },
+      },
+      { p: 'Şimdiki zamanı -er ile biten fiillerde yalnızca -s kalır: stänger → stäng*s*, säljer → sälj*s*. -s edilgeni yazıda, kurallarda ve tabelalarda çok kullanılır.' },
+      { p: 'İkinci yol *bli* + geçmiş ortaçtır: blev stulen (çalındı). Konuşmada ve tek bir olay için daha sık duyulur. Ortaç, sıfat gibi isme uyar: bilen blev såld, huset blev sål*t*. İşi yapanı söylemek için *av* kullanılır, Türkçedeki *tarafından* gibi.' },
+      { p: 'Bazı fiiller yalnızca -s ile kullanılır, ama anlamları edilgen değildir: *hoppas* (ummak), *finnas* (var olmak), *andas* (nefes almak). Şimdiki zamanda da -s ile biterler: Jag *hoppas* det. Det *finns* kaffe.' },
+      {
+        ex: [
+          ['Affären *öppnas* klockan nio.', 'Mağaza saat dokuzda açılır.'],
+          ['Min cykel *blev stulen* igår.', 'Bisikletim dün çalındı.'],
+          ['Huset *byggdes av* min farfar.', 'Bu ev dedem tarafından yapıldı.'],
+          ['Jag *hoppas* att du mår bra.', 'Umarım iyisindir.'],
+        ],
+      },
+      { tip: 'Türkçede "Bu İsveççe nasıl söylenir?" deriz. İsveççede böyle genel sorularda edilgen yerine çoğu zaman *man* (insan) kullanılır: Hur säger *man* det på svenska?' },
     ],
   },
   {
