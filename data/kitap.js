@@ -1188,11 +1188,11 @@ export const KITAP = [
     id: 'skulle',
     chapter: 'Kipler ve edilgen',
     icon: '🌠',
-    title: 'skulle: -irdi ve keşke',
+    title: 'skulle: -erdi ve keşke',
     sub: 'Om jag hade tid, skulle jag…; Jag skulle vilja…',
     blocks: [
-      { p: '*skulle*, *ska*\'nın geçmiş biçimidir. Herkes için aynıdır ve arkasından mastar gelir. Türkçede iki anlama karşılık gelir: *-irdi* (alırdım) ve geçmişteki bir plan için *-ecekti* (arayacaktım).' },
-      { p: 'Gerçek olmayan bir koşulda *om* cümlesi geçmiş zaman alır, ana cümle ise *skulle* + mastar: Om jag *hade* tid, *skulle* jag resa mer. (Vaktim olsa daha çok gezerdim.) Türkçedeki -se … -irdi kalıbına benzer.' },
+      { p: '*skulle*, *ska*\'nın geçmiş biçimidir. Herkes için aynıdır ve arkasından mastar gelir. Türkçede iki anlama karşılık gelir: koşuldaki *-erdi* (olsa alırdım) ve geçmişteki bir plan için *-ecekti* (arayacaktım). Geçmişteki alışkanlık için (her yaz giderdik) skulle değil, *brukade* kullanılır.' },
+      { p: 'Gerçek olmayan bir koşulda *om* cümlesi geçmiş zaman alır, ana cümle ise *skulle* + mastar: Om jag *hade* tid, *skulle* jag resa mer. (Vaktim olsa daha çok gezerdim.) Türkçedeki -se … -erdi kalıbına benzer.' },
       { p: '"Keşke" için *om* ve *bara* kullanılır, yine geçmiş zamanla: Om jag *bara* hade mer tid! (Keşke daha çok vaktim olsa!)' },
       { p: 'Kibar bir istek için *Jag skulle vilja* … (… isterdim) ve *Skulle du kunna* …? (… -ebilir misin?) kullanılır. İkisi de *Jag vill*\'den daha kibardır.' },
       {
