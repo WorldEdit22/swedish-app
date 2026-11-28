@@ -38,7 +38,7 @@ export const KITAP = [
         },
       },
       { p: 'İstisna: kelime sonundaki m genelde tek yazılır, n de birçok küçük kelimede. Bu yüzden *han*, *hon*, *vem*, *hem* tek ünsüze rağmen kısa okunur. Ek gelince çift harf ortaya çıkar: hem → hem*m*a, rum → rum*m*et.' },
-      { p: 'Ek, kökteki ünlünün uzunluğunu genelde değiştirmez: stor → stor*t*, läsa → läs*te*; ünlü iki ünsüze rağmen uzun kalır. Ama bazı sıfatlarda ett-kelimeyle gelen -t eki -tt olur ve ünlü kısalır (*Sıfat uyumu* bölümüne bak): röd → rö*tt*, vit → vi*tt*, ny → ny*tt*.' },
+      { p: 'Ek, kökteki ünlünün uzunluğunu genelde değiştirmez: stor → stor*t*, läsa → läs*te*; ünlü iki ünsüze rağmen uzun kalır. Ama bazı sıfatlarda ett-kelimeyle gelen -t eki -tt olur ve ünlü kısalır (*Sıfat uyumu* sayfasına bak): röd → rö*tt*, vit → vi*tt*, ny → ny*tt*.' },
       {
         ex: [
           ['*Tack* för maten!', 'Yemek için teşekkürler!'],
@@ -68,7 +68,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'Yumuşak ünlüler Türkçedeki ince ünlülere benzer. Türkçede de *kedi*\'deki k, *kaş*\'taki k\'den biraz incedir; İsveççede bu fark çok daha büyüktür.' },
+      { p: 'Türkçede de *kedi*\'deki k, *kaş*\'taki k\'den biraz incedir; İsveççede bu fark çok daha büyüktür. Kural sese değil, harfe bakar: *u* ü\'ye benzese de sert ünlüdür (kul, skulle).' },
       { p: 'Kural kelimenin (ya da vurgulu hecenin) başında geçerlidir. Kelime içinde k ve g genelde sert kalır (tycker, pojke), ek gelince de değişmez: dag → dag*en*, bok → bok*en*. Birkaç sık kelime de kurala uymaz, k sert okunur: *kille* (oğlan), *kex* (bisküvi), *keps* (kasket).' },
       { p: 'r, arkasından gelen *s*, *t*, *d* ya da *n* ile kaynaşır: dilin ucu geriye kıvrılır ve r ayrıca duyulmaz. rs neredeyse ş olur: kors (haç). rt, rd, rn de tek ses gibidir: kort (kart), bord (masa), barn (çocuk). Bu, iki kelime arasında da olur: har du, "ha:dü" gibi okunur.' },
       {
@@ -152,6 +152,7 @@ export const KITAP = [
     sub: 'Fiil başa geçer; vad, var, när, hur…',
     blocks: [
       { p: 'Türkçede soru için *mi* eki kullanılır: Geliyor musun? İsveççede soru eki yoktur. Evet/hayır sorusunda fiil en başa geçer: Du kommer → *Kommer* du?' },
+      { p: 'Cevapta *ja* "evet", *nej* "hayır" demektir. Olumsuz bir soruya olumlu cevap verirken *ja* yerine *jo* denir: Har du inte barn? – *Jo*, två. (Çocuğun yok mu? – Var, iki tane.)' },
       { p: 'Soru kelimesi varsa önce soru kelimesi, sonra fiil, sonra özne gelir: Var *bor* du? (Nerede oturuyorsun?)' },
       {
         table: {
@@ -233,7 +234,7 @@ export const KITAP = [
         },
       },
       { p: 'Hangi ismin hangisini aldığını gösteren bir kural yoktur. İyi haber: isimlerin yaklaşık dörtte üçü *en* alır. Emin değilsen *en* kullan; çoğu zaman doğru çıkar.' },
-      { p: 'Cins önemlidir, çünkü başka kelimeler de ona göre değişir: belirli hâl (bil*en*, hus*et*), sıfat (ett stor*t* hus) ve "benim" (min bil, mi*tt* hus). Bunları sonraki bölümlerde göreceksin.' },
+      { p: 'Cins önemlidir, çünkü başka kelimeler de ona göre değişir: belirli hâl (bil*en*, hus*et*), sıfat (ett stor*t* hus) ve "benim" (min bil, mi*tt* hus). Bunları sonraki sayfalarda göreceksin.' },
       {
         ex: [
           ['Jag vill ha *en* kopp kaffe.', 'Bir fincan kahve istiyorum.'],
@@ -263,7 +264,7 @@ export const KITAP = [
         },
       },
       { p: 'Dikkat: -el ya da -er ile biten en-kelimeler, son heceleri vurgusuzsa yalnızca *-n* alır: nyckel → nyckel*n*, syster → syster*n*. Son hecesi vurgusuz ve -el, -er ya da -en ile biten ett-kelimelerde ise kelimenin son e\'si düşer: vatten → vatt*net*, fönster → fönst*ret*, socker → sock*ret*.' },
-      { p: 'Araya sıfat girerse önüne *den* ya da *det* de gelir: den stora bil*en* (*Çifte belirlilik* bölümüne bak).' },
+      { p: 'Araya sıfat girerse önüne *den* ya da *det* de gelir: den stora bil*en* (*Çifte belirlilik* sayfasına bak).' },
       {
         ex: [
           ['Var är toalett*en*?', 'Tuvalet nerede?'],
@@ -327,7 +328,7 @@ export const KITAP = [
       },
       { p: 'Kısaca: en-kelimeyle ek gelmez, ett-kelimeyle *-t*, çoğulda *-a* gelir. *liten* düzensizdir: ett-kelimeyle *litet*, çoğulda *små* olur.' },
       { p: 'Bazı sıfatlarda -t eki *-tt* olur: ny → ny*tt*, röd → rö*tt*, vit → vi*tt*, god → go*tt*. *svart* gibi ünsüz + t ile bitenler değişmez: ett svart hus. *bra* (iyi) hiç değişmez: ett bra jobb, bra filmer.' },
-      { p: 'Sıfat *är* fiilinden sonra gelse de uyum aynıdır: ett stor*t* hus → Huset är stor*t*. Sıfat belirli hâldeki bir ismin önüne gelirse (den stora bilen) kural başkadır: *Çifte belirlilik* bölümüne bak.' },
+      { p: 'Sıfat *är* fiilinden sonra gelse de uyum aynıdır: ett stor*t* hus → Huset är stor*t*. Sıfat belirli hâldeki bir ismin önüne gelirse (den stora bilen) kural başkadır: *Çifte belirlilik* sayfasına bak.' },
       {
         ex: [
           ['Vi har ett stor*t* kök.', 'Büyük bir mutfağımız var.'],
@@ -420,7 +421,7 @@ export const KITAP = [
     title: 'Sahiplik eki -s',
     sub: "Annas bil: Anna'nın arabası",
     blocks: [
-      { p: "Türkçede sahibi *-nin* ekiyle gösteririz, sahip olunan şey de ek alır: Anna*'nın* araba*sı*. İsveççede yalnızca sahibin sonuna *-s* gelir, ikinci isim hiç değişmez: Anna*s* bil." },
+      { p: "Türkçede sahibi *-nin* ekiyle gösteririz, sahip olunan şey de ek alır: Anna*'nın* araba*sı*. İsveççede yalnızca sahibin sonuna *-s* gelir; ikinci isim Türkçedeki -sı gibi bir ek almaz: Anna*s* bil. Çoğulsa çoğul ekini yine alır: Annas bil*ar* (Anna'nın arabaları)." },
       {
         table: {
           head: ['Sahip', 'İsveççe', 'Türkçe'],
@@ -441,7 +442,7 @@ export const KITAP = [
           ['Vad är *dagens* rätt?', 'Günün yemeği ne?'],
         ],
       },
-      { tip: 'İki Türkçe alışkanlığı bırak: ikinci isme ek koyma ve kesme işareti kullanma. "Anna\'s bilen" değil, *Annas bil*.' },
+      { tip: 'İki Türkçe alışkanlığı bırak: ikinci isme iyelik eki koyma ve kesme işareti kullanma. "Anna\'s bilen" değil, *Annas bil*.' },
     ],
   },
   {
@@ -616,7 +617,7 @@ export const KITAP = [
           ['Jag gjorde det *själv*.', 'Kendim yaptım.'],
         ],
       },
-      { tip: '*han*, *hon* ve *de* için *sig* kullan, *honom*, *henne* ya da *dem* değil: Anna tittar på *sig* i spegeln (Anna aynada kendine bakıyor), ama Anna tittar på *henne* (başka bir kadına bakıyor). Öznenin kendi şeyleri için de *sin* kullanılır: *İyelik* bölümüne bak.' },
+      { tip: '*han*, *hon* ve *de* için *sig* kullan, *honom*, *henne* ya da *dem* değil: Anna tittar på *sig* i spegeln (Anna aynada kendine bakıyor), ama Anna tittar på *henne* (başka bir kadına bakıyor). Öznenin kendi şeyleri için de *sin* kullanılır: *İyelik (min/mitt/mina, sin)* sayfasına bak.' },
     ],
   },
   {
@@ -674,7 +675,7 @@ export const KITAP = [
         },
       },
       { p: '*i* mi, *på* mı? *i* bir şeyin içi için: i huset, i parken, i Sverige. *på* bir yüzeyin üstü ve birçok yer için: på bordet, på jobbet, på banken. Tam bir kuralı yoktur; ifadeyle birlikte ezberle.' },
-      { p: 'Gün ve ay adlarıyla da *på* ve *i* kullanılır: *Saat ve takvim* bölümüne bak.' },
+      { p: 'Gün ve ay adlarıyla da *på* ve *i* kullanılır: *Saat ve takvim* sayfasına bak.' },
       {
         ex: [
           ['Jag bor *i* Sverige.', "İsveç'te yaşıyorum."],
@@ -683,7 +684,7 @@ export const KITAP = [
           ['Jag är *hos* läkaren.', 'Doktordayım.'],
         ],
       },
-      { tip: "Hareket varsa *till* kullan: Jag är *i* Stockholm (Stockholm'dayım), ama Jag åker *till* Stockholm (Stockholm'a gidiyorum). Ev, burası ve orası için edat yerine ayrı kelimeler vardır: *Yer ve yön* bölümüne bak." },
+      { tip: "Hareket varsa *till* kullan: Jag är *i* Stockholm (Stockholm'dayım), ama Jag åker *till* Stockholm (Stockholm'a gidiyorum). Ev, burası ve orası için edat yerine ayrı kelimeler vardır: *Yer ve yön* sayfasına bak." },
     ],
   },
   {
@@ -752,7 +753,7 @@ export const KITAP = [
           ['Det är *första* gången jag är i Sverige.', "İsveç'e ilk kez geliyorum."],
         ],
       },
-      { tip: '*andra* "ikinci" demektir ama "başka, diğer" de demektir: de andra (diğerleri). Hangisi olduğunu cümleden anlarsın. Saat için *Saat ve takvim* bölümüne bak.' },
+      { tip: '*andra* "ikinci" demektir ama "başka, diğer" de demektir: de andra (diğerleri). Hangisi olduğunu cümleden anlarsın. Saat için *Saat ve takvim* sayfasına bak.' },
     ],
   },
   {
@@ -816,7 +817,7 @@ export const KITAP = [
           '*4. grup* (skriva): düzensiz fiiller. Çoğu geçmişte ek almaz, içindeki ünlü değişir; supinumu çoğu zaman *-it* ile biter: dricka, komma.',
         ],
       },
-      { p: 'Bu biçimlerin ne zaman kullanıldığını *Şimdiki zaman*, *Geçmiş zaman* ve *har + supinum* bölümleri anlatır.' },
+      { p: 'Bu biçimlerin ne zaman kullanıldığını *Şimdiki zaman: herkes için tek biçim*, *Geçmiş zaman* ve *har + supinum* sayfaları anlatır.' },
       {
         ex: [
           ['Jag *pratar* med mamma varje dag.', 'Annemle her gün konuşurum.'],
@@ -879,7 +880,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'Şimdiki zamanda -ar alan fiiller *-ade* alır. -er alanlarda Türkçedeki "aldı / attı" farkına benzer bir kural vardır: k, p, s, t seslerinden sonra *-te* (köpte, läste), ötekilerden sonra *-de* (ringde). Kısa fiiller *-dde* alır (bodde).' },
+      { p: 'Tek heceli olmayan bir fiilin şimdiki zamanı -ar ile bitiyorsa geçmişi *-ade* ile biter (jobbar → jobbade). -er alan düzenli fiillerde Türkçedeki "aldı / attı" farkına benzer bir kural vardır: k, p, s, t seslerinden sonra *-te* (köpte, läste), ötekilerden sonra *-de* (ringde). Düzenli kısa fiiller *-dde* alır (bor → bodde). Ama her kısa fiil düzenli değildir: tar → tog, ser → såg.' },
       { p: 'En çok kullanılan fiillerin çoğu düzensizdir; bunları tek tek ezberle:' },
       {
         table: {
@@ -946,7 +947,7 @@ export const KITAP = [
     sub: 'Jag hade ätit: Türkçedeki -mişti',
     blocks: [
       { p: 'Türkçede "yemiştim, gelmişti" deriz: geçmişteki bir andan da önce olmuş bir şeyi anlatırız. İsveççede bunun için *hade* + supinum kullanılır: Jag *hade ätit*. (Yemiştim.)' },
-      { p: "*hade*, *har*'ın geçmiş biçimidir ve herkes için aynıdır: jag hade, du hade, vi hade. Supinum hiç değişmez, yalnızca *har* yerine *hade* gelir. Supinum biçimleri için *har + supinum* bölümüne bak." },
+      { p: "*hade*, *har*'ın geçmiş biçimidir ve herkes için aynıdır: jag hade, du hade, vi hade. Supinum hiç değişmez, yalnızca *har* yerine *hade* gelir. Supinum biçimleri için *har + supinum* sayfasına bak." },
       {
         table: {
           head: ['Türkçe', 'İsveççe'],
@@ -958,7 +959,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'Çoğu zaman iki olay vardır: biri geçmişte olur, öteki ondan da önce olmuştur. Bu yüzden *när* (-dığında) ve *redan* (çoktan) ile sık kullanılır: När vi kom, *hade* filmen redan *börjat*. (Geldiğimizde film çoktan başlamıştı.)' },
+      { p: 'Çoğu zaman iki olay vardır: biri geçmişte olur, öteki ondan da önce olmuştur. Bu yüzden *när* (-diğinde) ve *redan* (çoktan) ile sık kullanılır: När vi kom, *hade* filmen redan *börjat*. (Geldiğimizde film çoktan başlamıştı.)' },
       { p: "Türkçede uzak geçmiş için de \"-mişti\" deriz: Buraya 2015'te gelmiştim. Arada ikinci bir geçmiş olay yoksa İsveççede düz geçmiş zaman kullanılır: Jag kom hit 2015." },
       { p: 'Arkasından supinum gelmezse *hade* "vardı" demektir: Jag hade en katt. (Bir kedim vardı.)' },
       {
@@ -1110,7 +1111,7 @@ export const KITAP = [
         },
       },
       { p: 'Bu fiiller herkes için aynıdır: jag kan, du kan, vi kan. *inte* yardımcı fiilden sonra gelir: Jag kan *inte* komma. Geçmişte de böyledir: Jag *kunde* inte komma. (Gelemedim.)' },
-      { p: 'Bir dil için *kan* "bilmek" anlamına gelir: Jag kan svenska. (İsveççe biliyorum.) *får* ile izin istenir: *Får* jag …? (… -ebilir miyim?) *får inte* ise "yasak" demektir: *Zorunluluk ve öğüt* bölümüne bak.' },
+      { p: 'Bir dil için *kan* "bilmek" anlamına gelir: Jag kan svenska. (İsveççe biliyorum.) *får* ile izin istenir: *Får* jag …? (… -ebilir miyim?) *får inte* ise "yasak" demektir: *Zorunluluk ve öğüt* sayfasına bak.' },
       {
         ex: [
           ['Jag *kan* inte komma idag.', 'Bugün gelemem.'],
@@ -1142,7 +1143,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: '*behöver* bir isimle de kullanılır: Jag behöver hjälp. (Yardıma ihtiyacım var.) *ska* burada gelecek değildir; birinin isteğini ya da bir kuralı söyler: Vad *ska* jag göra? (Ne yapmalıyım?) Gelecek için *Gelecek: ska / kommer att* bölümüne bak.' },
+      { p: '*behöver* bir isimle de kullanılır: Jag behöver hjälp. (Yardıma ihtiyacım var.) *ska* burada gelecek değildir; birinin isteğini ya da bir kuralı söyler: Vad *ska* jag göra? (Ne yapmalıyım?) Gelecek için *Gelecek: ska / kommer att* sayfasına bak.' },
       { p: 'Olumsuzda dikkat et. Türkçede olduğu gibi iki ayrı anlam vardır:' },
       {
         list: [
@@ -1248,7 +1249,7 @@ export const KITAP = [
     sub: 'Det är roligt att simma; för att, utan att',
     blocks: [
       { p: 'Türkçede mastar *-mek* ekiyle yapılır: yüz*mek*. İsveççede mastar, fiilin sözlükteki biçimidir: simma, äta. Bir isim gibi kullanıldığında önüne *att* gelir; Türkçedeki -mek ve -meyi gibidir: Det är roligt *att* simma. (Yüzmek eğlenceli.)' },
-      { p: 'Yardımcı fiillerden sonra *att* gelmez: Jag *vill* simma. kan, vill, får, ska, måste ve brukar hep böyledir: *Yapabilmek ve istemek* bölümüne bak. *börja* (başlamak) ve *försöka* (denemek) ile de att çoğu zaman düşer: Det började regna. (Yağmur yağmaya başladı.)' },
+      { p: 'Yardımcı fiillerden sonra *att* gelmez: Jag *vill* simma. kan, vill, får, ska, måste ve brukar hep böyledir. Ayrıntılar için *Yapabilmek ve istemek: kan, vill, får*, *Zorunluluk ve öğüt* (måste, ska) ve *Alışkanlıklar ve süren işler* (brukar) sayfalarına bak. *börja* (başlamak) ve *försöka* (denemek) ile de att çoğu zaman düşer: Det började regna. (Yağmur yağmaya başladı.)' },
       { p: 'Bazı edatlar da *att* + mastar alır:' },
       {
         table: {
@@ -1260,7 +1261,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: '"-meden önce" *innan* ile söylenir, ama innan\'dan sonra mastar değil, tam bir cümle gelir: innan du äter (sen yemeden önce). *Yan cümleler* bölümüne bak.' },
+      { p: '"-meden önce" *innan* ile söylenir, ama innan\'dan sonra mastar değil, tam bir cümle gelir: innan du äter (sen yemeden önce). *Yan cümleler* sayfasına bak.' },
       {
         ex: [
           ['Jag tycker om *att* laga mat.', 'Yemek yapmayı severim.'],
@@ -1293,7 +1294,7 @@ export const KITAP = [
           ],
         },
       },
-      { p: 'Belirli hâlde de çoğul biçimi gelir: den stängda dörren. Ett-kelime biçimi çoğu zaman supinumla aynıdır (stängt, köpt), ama 4. grupta değildir: skrivet, supinumu skrivit. *bli* ile edilgen yapar: *Edilgen: -s ve bli* bölümüne bak.' },
+      { p: 'Belirli hâlde de çoğul biçimi gelir: den stängda dörren. Ett-kelime biçimi çoğu zaman supinumla aynıdır (stängt, köpt), ama 4. grupta değildir: skrivet, supinumu skrivit. *bli* ile edilgen yapar: *Edilgen: -s ve bli* sayfasına bak.' },
       {
         ex: [
           ['Det var en *spännande* film.', 'Heyecanlı bir filmdi.'],
@@ -1302,7 +1303,7 @@ export const KITAP = [
           ['Boken är *skriven* på svenska.', 'Kitap İsveççe yazılmış.'],
         ],
       },
-      { tip: 'Geçmiş ortaçta uyumu unutma: "Fönstret är stängd" değil, Fönstret är *stängt*. -ande ortacı ise hiç değişmez: spännande böcker. Uyum için *Sıfat uyumu* bölümüne bak.' },
+      { tip: 'Geçmiş ortaçta uyumu unutma: "Fönstret är stängd" değil, Fönstret är *stängt*. -ande ortacı ise hiç değişmez: spännande böcker. Uyum için *Sıfat uyumu* sayfasına bak.' },
     ],
   },
   {
@@ -1325,7 +1326,7 @@ export const KITAP = [
       },
       { p: '*som* hem -en hem -dik yerine geçer ve hiç değişmez. Parçanın öznesiyse hep söylenir: mannen *som* bor här. Değilse çoğu zaman atlanır: boken jag läser.' },
       { p: 'Bir yerden söz ederken *som* yerine çoğu zaman *där* kullanılır: staden där vi bor. *vars* sahipliği gösterir: kvinnan *vars* son bor i Ankara (oğlu Ankara\'da oturan kadın). vars\'tan sonra isim belirli hâl almaz, tıpkı *Annas bil* gibi. vars daha çok yazıda görülür.' },
-      { p: 'som ile başlayan parça bir yan cümledir, bu yüzden *inte* fiilden önce gelir: en film som jag *inte* har sett. *inte\'nin yeri* bölümüne bak.' },
+      { p: 'som ile başlayan parça bir yan cümledir, bu yüzden *inte* fiilden önce gelir: en film som jag *inte* har sett. *inte\'nin yeri* sayfasına bak.' },
       {
         ex: [
           ['Mannen *som* bor här heter Erik.', 'Burada oturan adamın adı Erik.'],
@@ -1376,7 +1377,7 @@ export const KITAP = [
           ['Jag dricker *varken* kaffe *eller* te.', 'Ne kahve ne çay içerim.'],
         ],
       },
-      { tip: '*för* ve *eftersom* ikisi de "çünkü" demektir. *för* iki ana cümleyi bağlar ve cümleye başlayamaz. *eftersom* bir yan cümle başlatır ve başa da gelebilir: *Yan cümleler* bölümüne bak.' },
+      { tip: '*för* ve *eftersom* ikisi de "çünkü" demektir. *för* iki ana cümleyi bağlar ve cümleye başlayamaz. *eftersom* bir yan cümle başlatır ve başa da gelebilir: *Yan cümleler* sayfasına bak.' },
     ],
   },
   {
@@ -1402,8 +1403,8 @@ export const KITAP = [
           ],
         },
       },
-      { p: '*om* için *Koşul: om* bölümüne bak. *därför att* genelde ana cümleden sonra gelir; *eftersom* başa da gelebilir.' },
-      { p: 'Yan cümlede sıra hep özne + fiildir ve *inte* fiilden önce gelir: …eftersom han *inte* har tid. *inte\'nin yeri* bölümüne bak.' },
+      { p: '*om* için *Koşul: om* sayfasına bak. *därför att* genelde ana cümleden sonra gelir; *eftersom* başa da gelebilir.' },
+      { p: 'Yan cümlede sıra hep özne + fiildir ve *inte* fiilden önce gelir: …eftersom han *inte* har tid. *inte\'nin yeri* sayfasına bak.' },
       { p: 'Yan cümle başa gelirse bütünüyle birinci öğe sayılır. Fiil yine ikinci sırada kalır; bu yüzden ana cümle fiille başlar, özne arkasından gelir. Ana cümle öndeyse sıra normaldir: Jag åt när jag kom hem.' },
       {
         ex: [

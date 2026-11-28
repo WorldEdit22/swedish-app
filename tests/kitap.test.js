@@ -85,6 +85,7 @@ const COVERAGE = {
   unlu: ['tack', 'villa'],
   unsuz: ['sked', 'kille'],
   vara: ['finns', 'det är'],
+  soru: ['jo, två'],
   cogul: ['genelde'],
   belirli: ['vurgusuz'],
   sifat: ['stort'],
